@@ -2,20 +2,16 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/core/styles';
-import styles from './styles';
+import styles from '../styles';
 
-import Event from './Event';
+import ManageList from '../Manage';
 
-class Future extends React.Component {
+class Manage extends React.Component {
   render() {
     const { classes } = this.props;
-    const { FutureEvents } = this.props;
 
-    const futureEvents = FutureEvents.map((event, index) => (
-      <Event key={index} event={event} />
-    ));
     return (
-      <div className='container'>
+      <React.Fragment>
         <Typography
           className={classes.title}
           variant='h4'
@@ -23,12 +19,12 @@ class Future extends React.Component {
           color='textPrimary'
           gutterBottom
         >
-        Future events
+        Your Strategies
         </Typography>
-        {futureEvents}
-      </div>
+        <ManageList />
+      </React.Fragment>
     );
   }
 }
 
-export default withStyles(styles)(Future);
+export default withStyles(styles)(Manage);

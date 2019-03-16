@@ -2,12 +2,13 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 
-import Search from './Components/Search';
+import Strategizer from './Components/Strategizer';
 
 const App = () => (
-  <div className='eventsModule'>
+  <div className='strategizerModule'>
     <Switch>
-      <Route exact path='/events/' component={Search} />
+      <Route exact path='/strategizer/' component={Strategizer} />
+      <Route exact path='/strategizer/manage-strategies' component={Strategizer} />
     </Switch>
   </div>
 );

@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-export const eventMinimalInfo = gql`
-  fragment EventMinimalInfo on events_Event {
+export const strategyMinimalInfo = gql`
+  fragment StrategyMinimalInfo on strategizer_Event {
     name
     host {
       alias
@@ -11,8 +11,8 @@ export const eventMinimalInfo = gql`
   }
 `;
 
-export const eventFullInfo = gql`
-  fragment EventFullInfo on events_Event {
+export const strategyFullInfo = gql`
+  fragment StrategyFullInfo on strategizer_Event {
     id
     name
     host{

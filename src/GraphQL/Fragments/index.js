@@ -1,9 +1,9 @@
 import {
-  eventMinimalInfo,
-  eventFullInfo,
+  strategyMinimalInfo,
+  strategyFullInfo,
 } from './event';
 
 export {
-  eventMinimalInfo,
-  eventFullInfo,
+  strategyMinimalInfo,
+  strategyFullInfo,
 };

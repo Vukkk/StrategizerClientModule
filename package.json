@@ -1,8 +1,8 @@
 {
-  "name": "@superalgos/modulename-client",
+  "name": "@superalgos/strategizer-client",
   "version": "0.0.1",
-  "description": "Superalgos modulename client-side web app",
-  "author": "",
+  "description": "Superalgos Strategizer client-side web app module",
+  "author": "Barry Low <bearcanrun@gmail.com",
   "license": "",
   "main": "src/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Superalgos/ModulenameClientModule.git"
+    "url": "git+https://github.com/Superalgos/StrategizerClientModule.git"
   },
   "standard": {
     "parser": "babel-eslint"

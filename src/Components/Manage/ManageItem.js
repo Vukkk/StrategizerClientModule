@@ -9,39 +9,27 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-import { toLocalTime } from '../../utils';
-
-class Event extends React.Component {
+class ManageItem extends React.Component {
   render() {
     const { classes } = this.props;
     const {
-      id,
-      name,
-      startDatetime,
-      finishDatetime,
-      host,
-      description,
-    } = this.props.event;
+      name
+    } = this.props.strategy;
     return (
       <Paper className={classes.card}>
         <Grid container spacing={16}>
           <Grid item xs>
             <Typography gutterBottom variant='h5'> {name} </Typography>
-            <Typography gutterBottom>From : {toLocalTime(startDatetime)} </Typography>
-            <Typography gutterBottom>To : {toLocalTime(finishDatetime)} </Typography>
           </Grid>
           <Grid item xs>
             <Typography gutterBottom>
-              Hosted by: {host.alias} ({host.lastName} {host.firstName})
+              Financial Being Name: FB Name
             </Typography>
-            <Typography gutterBottom>Formula: </Typography>
-            <Typography gutterBottom>First prize: </Typography>
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction='column' spacing={16}>
               <Grid item xs>
                 <Typography gutterBottom variant='h5'> Description : </Typography>
-                <Typography gutterBottom> {description} </Typography>
               </Grid>
               <Grid item className={classes.buttonGrid}>
                 <Button
@@ -50,7 +38,7 @@ class Event extends React.Component {
                   color='primary'
                   size='small'
                   component={Link}
-                  to={`/events/show/${id}`}
+                  to={`/strategizer/show/${name}`}
                 >
                   Show
                 </Button>
@@ -63,4 +51,4 @@ class Event extends React.Component {
   }
 }
 
-export default withStyles(styles)(Event);
+export default withStyles(styles)(ManageItem);
