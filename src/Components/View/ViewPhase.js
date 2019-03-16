@@ -11,9 +11,9 @@ import styles from './styles';
 class ViewPhase extends React.Component {
   render() {
     const { classes, index, sectionName } = this.props;
-    const { name, situations } = this.props.phase;
+    const { name, code, situations } = this.props.phase;
 
-    console.log(this.props.situation);
+    console.log(this.props.phase);
     return (
       <ExpandItemWrapper sectionName={`Phase: ${name}`} style={classes.expansionSituation}>
         <Grid
@@ -26,7 +26,7 @@ class ViewPhase extends React.Component {
           <Grid item xs={12} >
             <List className={classes.root}>
               {situations.length > 0 &&
-                situations.map((situation, index) => <ViewSituation key={index} name={situation.name} situation={situation.code} index={index} />)
+                situations.map((situation, index) => <ViewSituation key={index} situation={situation} index={index} />)
               }
             </List>
           </Grid>

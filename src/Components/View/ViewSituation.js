@@ -10,10 +10,11 @@ import styles from './styles';
 
 class ViewSituation extends React.Component {
   render() {
-    const { classes, index, sectionName } = this.props;
+    console.log(this.props);
+    console.log(this.props.situation);
+    const { classes, index } = this.props;
     const { name, conditions } = this.props.situation;
 
-    console.log(this.props.situation);
     return (
       <ExpandItemWrapper sectionName={`Situation: ${name}`} style={classes.expansionSituation}>
         <Grid

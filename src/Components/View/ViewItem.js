@@ -6,8 +6,13 @@ import {
   Typography,
   Button,
 } from '@material-ui/core';
-import ExpandItemWrapper from './ExpandItemWrapper';
 import EntryPoint from './EntryPoint';
+import ExitPoint from './ExitPoint';
+import BuyPoint from './BuyPoint';
+import SellPoint from './SellPoint';
+import StopLoss from './StopLoss';
+import BuyOrder from './BuyOrder';
+import SellOrder from './SellOrder';
 
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
@@ -49,6 +54,12 @@ class ViewItem extends React.Component {
         >
           <Grid item xs={12} >
             { entryPoint.situations.length > 0 && <EntryPoint sectionName="Entry Point" situations={entryPoint.situations} /> }
+            { exitPoint.situations.length > 0 && <ExitPoint sectionName="Exit Point" situations={exitPoint.situations} /> }
+            { sellPoint.situations.length > 0 && <SellPoint sectionName="Sell Point" situations={sellPoint.situations} /> }
+            { buyPoint.situations.length > 0 && <BuyPoint sectionName="Buy Point" situations={buyPoint.situations} /> }
+            { stopLoss.phases.length > 0 && <StopLoss sectionName="Stop Loss" phases={stopLoss.phases} /> }
+            { buyOrder.phases.length > 0 && <BuyOrder sectionName="Buy Order" phases={buyOrder.phases} /> }
+            { sellOrder.phases.length > 0 && <SellOrder sectionName="Sell Order" phases={sellOrder.phases} /> }
           </Grid>
         </Grid>
       </Paper>

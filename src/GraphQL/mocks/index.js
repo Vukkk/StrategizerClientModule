@@ -40,19 +40,19 @@ export const Strategies = {
     },
     exitPoint: {
       situations: [{
-        name: "String",
+        name: "exitPoint Situation 1",
         conditions: [{
-          name: "String",
-          code: "String",
+          name: "exitPoint condition 1",
+          code: "exitPoint condition code",
         }],
       }],
     },
     sellPoint: {
       situations: [{
-        name: "String",
+        name: "sellPoint Situation 1",
         conditions: [{
-          name: "String",
-          code: "String",
+          name: "sellPoint condition 1",
+          code: "sellPoint condition code",
         }],
       }],
     },
