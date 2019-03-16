@@ -6,15 +6,14 @@ import styles from './styles';
 
 import ManageItem from './ManageItem';
 
-import Strategies from './mocks';
+import Strategies from '../../Graphql/mocks';
 
 class ManageList extends Component {
   render() {
     const { classes } = this.props;
     const data = Strategies.subStrategies;
-    console.log(data);
     const strategies = data.map((strategy, index) => (
-      <ManageItem key={index} strategy={strategy} />
+      <ManageItem key={index} index={index} strategy={strategy} />
     ));
     return (
       <div className='container'>

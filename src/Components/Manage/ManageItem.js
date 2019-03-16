@@ -11,13 +11,19 @@ import styles from './styles';
 
 class ManageItem extends React.Component {
   render() {
-    const { classes } = this.props;
+    const { classes, index } = this.props;
     const {
       name
     } = this.props.strategy;
     return (
       <Paper className={classes.card}>
-        <Grid container spacing={16}>
+        <Grid
+          container
+          spacing={16}
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+        >
           <Grid item xs>
             <Typography gutterBottom variant='h5'> {name} </Typography>
           </Grid>
@@ -26,24 +32,17 @@ class ManageItem extends React.Component {
               Financial Being Name: FB Name
             </Typography>
           </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction='column' spacing={16}>
-              <Grid item xs>
-                <Typography gutterBottom variant='h5'> Description : </Typography>
-              </Grid>
-              <Grid item className={classes.buttonGrid}>
-                <Button
-                  className={classes.buttonList}
-                  variant='outlined'
-                  color='primary'
-                  size='small'
-                  component={Link}
-                  to={`/strategizer/show/${name}`}
-                >
-                  Show
-                </Button>
-              </Grid>
-            </Grid>
+          <Grid item className={classes.buttonGrid}>
+            <Button
+              className={classes.buttonList}
+              variant='outlined'
+              color='primary'
+              size='small'
+              component={Link}
+              to={`/strategizer/view/${index}`}
+            >
+              View
+            </Button>
           </Grid>
         </Grid>
       </Paper>

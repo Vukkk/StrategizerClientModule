@@ -2,15 +2,41 @@ export const Strategies = {
   _id: "SOMEIDE12341234",
   fbId: "",
   subStrategies: [{
-    name: "String",
+    name: "Strategy 1",
     entryPoint: {
       situations: [{
-        name: "String",
+        name: "Situation 1",
         conditions: [{
-          name: "String",
-          code: "String",
-        }],
-      }],
+          name: "Condition 1",
+          code: "Condition that does something conditionally",
+        },
+        {
+          name: "Condition 2",
+          code: "Condition that does something conditionally",
+        },
+        {
+          name: "Condition 3",
+          code: "Condition that does something conditionally",
+        }
+      ],
+    },
+    {
+      name: "Situation 2",
+      conditions: [{
+        name: "Condition 1",
+        code: "Condition that does something conditionally",
+      },
+      {
+        name: "Condition 2",
+        code: "Condition that does something conditionally",
+      },
+      {
+        name: "Condition 3",
+        code: "Condition that does something conditionally",
+      }
+    ],
+    }
+  ],
     },
     exitPoint: {
       situations: [{
