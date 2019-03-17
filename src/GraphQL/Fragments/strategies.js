@@ -1,30 +1,173 @@
 import gql from 'graphql-tag';
 
 export const strategyMinimalInfo = gql`
-  fragment StrategyMinimalInfo on strategizer_Event {
+  fragment StrategyMinimalInfo on teams_TeamsByOwner {
+    id
     name
-    host {
-      alias
-      firstName
-      lastName
+    slug
+    fb {
+      id
+      name
+      slug
+      strategy {
+        id
+        fbId
+        subStrategies {
+          name
+          entryPoint {
+            situations {
+              name
+              conditions {
+                name
+                code
+              }
+            }
+          }
+          buyPoint {
+            situations {
+              name
+              conditions {
+                name
+                code
+              }
+            }
+          }
+          sellPoint {
+            situations {
+              name
+              conditions {
+                name
+                code
+              }
+            }
+          }
+          stopLoss {
+            phases {
+              name
+              code
+              situations {
+                name
+                conditions {
+                  name
+                  code
+                }
+              }
+            }
+          }
+          sellOrder {
+            phases {
+              name
+              code
+              situations {
+                name
+                conditions {
+                  name
+                  code
+                }
+              }
+            }
+          }
+          buyOrder {
+            phases {
+              name
+              code
+              situations {
+                name
+                conditions {
+                  name
+                  code
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 `;
 
 export const strategyFullInfo = gql`
-  fragment StrategyFullInfo on strategizer_Event {
+  fragment StrategyFullInfo on teams_TeamsByOwner {
     id
     name
-    host{
-      alias
-      firstName
-      lastName
-    }
-    formula{
+    slug
+    fb {
+      id
       name
-    }
-    plotter{
-      name
+      slug
+      strategy {
+        id
+        fbId
+        subStrategies {
+          name
+          entryPoint {
+            situations {
+              name
+              conditions {
+                name
+                code
+              }
+            }
+          }
+          buyPoint {
+            situations {
+              name
+              conditions {
+                name
+                code
+              }
+            }
+          }
+          sellPoint {
+            situations {
+              name
+              conditions {
+                name
+                code
+              }
+            }
+          }
+          stopLoss {
+            phases {
+              name
+              code
+              situations {
+                name
+                conditions {
+                  name
+                  code
+                }
+              }
+            }
+          }
+          sellOrder {
+            phases {
+              name
+              code
+              situations {
+                name
+                conditions {
+                  name
+                  code
+                }
+              }
+            }
+          }
+          buyOrder {
+            phases {
+              name
+              code
+              situations {
+                name
+                conditions {
+                  name
+                  code
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 `;

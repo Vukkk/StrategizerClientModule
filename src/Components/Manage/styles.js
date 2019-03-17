@@ -26,6 +26,18 @@ const styles = theme => ({
   title: {
     marginTop: 20,
   },
+  heading: {
+    fontSize: theme.typography.pxToRem(18),
+    flexBasis: '33.33%',
+    fontWeight: '600',
+    whiteSpace: 'nowrap',
+    display: 'inline-flex',
+    alignItems: 'center',
+    paddingRight: theme.typography.pxToRem(20)
+  },
+  avatar: {
+    margin: 10,
+  },
 });
 
 export default styles;

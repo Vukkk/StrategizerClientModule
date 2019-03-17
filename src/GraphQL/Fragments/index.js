@@ -1,7 +1,7 @@
 import {
   strategyMinimalInfo,
   strategyFullInfo,
-} from './event';
+} from './strategies';
 
 export {
   strategyMinimalInfo,

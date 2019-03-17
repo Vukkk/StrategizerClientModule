@@ -1,36 +1,68 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 
-import { Link } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography';
+import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 
-import styles from './styles';
-
-import Strategies from '../../Graphql/mocks';
-
-import BannerTopBar from '../BannerTopBar';
 import ViewItem from './ViewItem';
+import { Loading, Error } from '../Common';
+import { isDefined } from '../../utils';
+
+import { LIST_STRATEGIES } from '../../GraphQL/Strategies'
 
 class View extends React.Component {
   render() {
     const { classes } = this.props;
     const strategyIndex = this.props.match.params.slug;
-    const data = Strategies.subStrategies[strategyIndex];
-    console.log('View data: ', data);
+
     return (
-      <React.Fragment>
-        <BannerTopBar
-          size='small'
-          title=''
-          text=''
-          backgroundUrl='https://superalgos.org/img/photos/events.jpg'
-        />
-        <div className='container'>
-          <Link to='/strategizer' className={classes.backLink}>&larr; Back to all strategies</Link>
-          <ViewItem strategy={data} index={strategyIndex} />
-        </div>
-      </React.Fragment>
+      <Query
+        query={LIST_STRATEGIES}
+        fetchPolicy='network-only'
+        notifyOnNetworkStatusChange
+      >
+        {({ loading, error, data, refetch, networkStatus }) => {
+          if (isDefined(loading) && loading) {
+            console.log('ManageList Loading: ', loading);
+            return <Loading text="Strategies" />
+          }
+          if(isDefined(error)) {
+            console.log('ManageList Error: ', error);
+            return <Error text={`Error: ${error}`} />
+          }
+          console.log('ManageList Data: ', data);
+          let team0;
+          let fb0;
+          let strategy0;
+          let strategies;
+          if(data.teams_TeamsByOwner.length > 0){
+            team0 = data.teams_TeamsByOwner[0];
+            if(team0.fb.length > 0){
+              fb0 = team0.fb[0];
+              if(isDefined(fb0.strategy)){
+                strategy0 = fb0.strategy;
+                if(strategy0.subStrategies.length > 0){
+                  strategies = strategy0.subStrategies;
+                } else {
+                  return (<Error text="This strategy has no subStrategies" />)
+                }
+              } else {
+                return (<Error text="You have no strategies" />)
+              }
+            } else {
+              return (<Error text="You don't have any finanical beings. Please create one!" />)
+            }
+          } else {
+            return (<Error text="You don't have a team or any finanical beings. Please create one!" />)
+          }
+          console.log('strategies: ', strategies, strategyIndex);
+          let strategyData = strategies[strategyIndex];
+          return (
+            <ViewItem strategy={strategyData} index={strategyIndex} />
+          );
+        }}
+      </Query>
     );
   }
 }

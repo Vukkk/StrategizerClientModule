@@ -4,17 +4,15 @@ import { Link } from 'react-router-dom';
 import {
   Grid, Paper,
   Typography,
-  Button,
+  Button, Avatar
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
 class ManageItem extends React.Component {
   render() {
-    const { classes, index } = this.props;
-    const {
-      name
-    } = this.props.strategy;
+    const { classes, index, teamName, teamAvatar, fbName, fbAvatar } = this.props;
+    const { name } = this.props.strategy;
     return (
       <Paper className={classes.card}>
         <Grid
@@ -25,12 +23,49 @@ class ManageItem extends React.Component {
           alignItems="center"
         >
           <Grid item xs>
-            <Typography gutterBottom variant='h5'> {name} </Typography>
-          </Grid>
-          <Grid item xs>
-            <Typography gutterBottom>
-              Financial Being Name: FB Name
-            </Typography>
+            <Grid
+              container
+              spacing={16}
+              direction="row"
+              justify="flex-start"
+              alignItems="center"
+            >
+              <Grid item>
+                <Typography className={classes.heading}>{name} </Typography>
+              </Grid>
+              <Grid item>
+                <Grid
+                  container
+                  spacing={16}
+                  direction="row"
+                  justify="space-between"
+                  alignItems="center"
+                >
+                  <Grid item>
+                    <Avatar src={teamAvatar} className={classes.avatar} />
+                  </Grid>
+                  <Grid item>
+                    <Typography className={classes.heading}>{teamName}</Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Grid
+                  container
+                  spacing={16}
+                  direction="row"
+                  justify="space-between"
+                  alignItems="center"
+                >
+                  <Grid item>
+                    <Avatar src={fbAvatar} className={classes.avatar} />
+                  </Grid>
+                  <Grid item>
+                    <Typography className={classes.heading}>{fbName}</Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item className={classes.buttonGrid}>
             <Button

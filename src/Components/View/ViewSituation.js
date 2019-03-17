@@ -16,7 +16,11 @@ class ViewSituation extends React.Component {
     const { name, conditions } = this.props.situation;
 
     return (
-      <ExpandItemWrapper sectionName={`Situation: ${name}`} style={classes.expansionSituation}>
+      <ExpandItemWrapper
+        sectionName={`Situation: ${name}`}
+        style={classes.expansionSituation}
+        defaultExpanded={conditions.length > 3 ? false : true}
+      >
         <Grid
           item
           container

@@ -1,5 +1,5 @@
-import listStrategies from './listStrategies';
+import { LIST_STRATEGIES } from './listStrategies';
 
 export {
-  listStrategies
+  LIST_STRATEGIES
 };
