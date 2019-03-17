@@ -35,6 +35,15 @@ const styles = theme => ({
     alignItems: 'center',
     paddingRight: theme.typography.pxToRem(20)
   },
+  subheading: {
+    fontSize: theme.typography.pxToRem(18),
+    flexBasis: '33.33%',
+    fontWeight: '300',
+    whiteSpace: 'nowrap',
+    display: 'inline-flex',
+    alignItems: 'center',
+    paddingRight: theme.typography.pxToRem(20)
+  },
   avatar: {
     margin: 10,
   },

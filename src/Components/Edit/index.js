@@ -12,7 +12,7 @@ import { isDefined } from '../../utils';
 
 import { LIST_STRATEGIES } from '../../GraphQL/Strategies'
 
-class View extends React.Component {
+class Edit extends React.Component {
   render() {
     const { classes } = this.props;
     const strategyIndex = this.props.match.params.slug;
@@ -20,7 +20,7 @@ class View extends React.Component {
     return (
       <Query
         query={LIST_STRATEGIES}
-        fetchPolicy='network-only'
+        fetchPolicy='cache-and-network'
         notifyOnNetworkStatusChange
       >
         {({ loading, error, data, refetch, networkStatus }) => {
@@ -68,4 +68,4 @@ class View extends React.Component {
   }
 }
 
-export default withStyles(styles)(View);
+export default withStyles(styles)(Edit);

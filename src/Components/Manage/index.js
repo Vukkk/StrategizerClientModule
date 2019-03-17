@@ -7,7 +7,8 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
 import ManageItem from './ManageItem';
-import { Loading, Error } from '../Common';
+import ManageLoading from './ManageLoading';
+import ManageError from './ManageError';
 import { isDefined } from '../../utils';
 
 import { LIST_STRATEGIES } from '../../GraphQL/Strategies'
@@ -26,11 +27,11 @@ class ManageList extends Component {
           {({ loading, error, data, refetch, networkStatus }) => {
             if (isDefined(loading) && loading) {
               console.log('ManageList Loading: ', loading);
-              return <Loading text="Strategies" />
+              return <ManageLoading text="Strategies" classes={classes} />
             }
             if(isDefined(error)) {
               console.log('ManageList Error: ', error);
-              return <Error text={`Error: ${error}`} />
+              return <ManageError text={`${error}`}  classes={classes} />
             }
             console.log('ManageList Data: ', data);
             let team0;

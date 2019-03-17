@@ -14,6 +14,7 @@ import SellPoint from './SellPoint';
 import StopLoss from './StopLoss';
 import BuyOrder from './BuyOrder';
 import SellOrder from './SellOrder';
+import ViewWrapper from './ViewWrapper';
 
 import { isDefined } from '../../utils';
 
@@ -35,48 +36,37 @@ class ViewItem extends React.Component {
     } = this.props.strategy;
     console.log('ViewItem strategy:', entryPoint, exitPoint, sellPoint, buyPoint, stopLoss, buyOrder, sellOrder);
     return (
-      <React.Fragment>
-        <BannerTopBar
-          size='small'
-          title=''
-          text=''
-          backgroundUrl='https://superalgos.org/img/photos/events.jpg'
-        />
-        <div className='container'>
-          <Link to='/strategizer' className={classes.backLink}>&larr; Back to all strategies</Link>
-          <Paper className={classes.card}>
-            <Grid item
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
+      <ViewWrapper>
+        <Grid item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        >
+            <Typography
+              variant='h4'
+              align='center'
+              color='textPrimary'
+              gutterBottom
             >
-                <Typography
-                  variant='h4'
-                  align='center'
-                  color='textPrimary'
-                  gutterBottom
-                >
-                  Strategy: {name}
-                </Typography>
-            </Grid>
-            <Grid item
-              container
-              spacing={24}
-            >
-              <Grid item xs={12} >
-                { entryPoint.situations.length > 0 && <EntryPoint sectionName="Entry Point" situations={entryPoint.situations} /> }
-                { exitPoint.situations.length > 0 && <ExitPoint sectionName="Exit Point" situations={exitPoint.situations} /> }
-                { sellPoint.situations.length > 0 && <SellPoint sectionName="Sell Point" situations={sellPoint.situations} /> }
-                { buyPoint.situations.length > 0 && <BuyPoint sectionName="Buy Point" situations={buyPoint.situations} /> }
-                { stopLoss.phases.length > 0 && <StopLoss sectionName="Stop Loss" phases={stopLoss.phases} /> }
-                { buyOrder.phases.length > 0 && <BuyOrder sectionName="Buy Order" phases={buyOrder.phases} /> }
-                { sellOrder.phases.length > 0 && <SellOrder sectionName="Sell Order" phases={sellOrder.phases} /> }
-              </Grid>
-            </Grid>
-          </Paper>
-        </div>
-      </React.Fragment>
+              Strategy: {name}
+            </Typography>
+        </Grid>
+        <Grid item
+          container
+          spacing={24}
+        >
+          <Grid item xs={12} >
+            { entryPoint.situations.length > 0 && <EntryPoint sectionName="Entry Point" situations={entryPoint.situations} /> }
+            { exitPoint.situations.length > 0 && <ExitPoint sectionName="Exit Point" situations={exitPoint.situations} /> }
+            { sellPoint.situations.length > 0 && <SellPoint sectionName="Sell Point" situations={sellPoint.situations} /> }
+            { buyPoint.situations.length > 0 && <BuyPoint sectionName="Buy Point" situations={buyPoint.situations} /> }
+            { stopLoss.phases.length > 0 && <StopLoss sectionName="Stop Loss" phases={stopLoss.phases} /> }
+            { buyOrder.phases.length > 0 && <BuyOrder sectionName="Buy Order" phases={buyOrder.phases} /> }
+            { sellOrder.phases.length > 0 && <SellOrder sectionName="Sell Order" phases={sellOrder.phases} /> }
+          </Grid>
+        </Grid>
+      </ViewWrapper>
     );
   }
 }

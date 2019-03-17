@@ -45,7 +45,7 @@ class ManageItem extends React.Component {
                     <Avatar src={teamAvatar} className={classes.avatar} />
                   </Grid>
                   <Grid item>
-                    <Typography className={classes.heading}>{teamName}</Typography>
+                    <Typography className={classes.subheading}>{teamName}</Typography>
                   </Grid>
                 </Grid>
               </Grid>
@@ -61,23 +61,33 @@ class ManageItem extends React.Component {
                     <Avatar src={fbAvatar} className={classes.avatar} />
                   </Grid>
                   <Grid item>
-                    <Typography className={classes.heading}>{fbName}</Typography>
+                    <Typography className={classes.subheading}>{fbName}</Typography>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item className={classes.buttonGrid}>
-            <Button
-              className={classes.buttonList}
-              variant='outlined'
-              color='primary'
-              size='small'
-              component={Link}
-              to={`/strategizer/view/${index}`}
+          <Grid item>
+            <Grid
+              container
+              spacing={16}
+              direction="column"
+              justify="center"
+              alignItems="flex-end"
             >
-              View
-            </Button>
+              <Grid item>
+                <Button
+                  className={classes.buttonList}
+                  variant='outlined'
+                  color='primary'
+                  size='small'
+                  component={Link}
+                  to={`/strategizer/view/${index}`}
+                >
+                  View
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Paper>

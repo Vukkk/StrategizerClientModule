@@ -8,13 +8,15 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 export const Loading = ({ text }) => (
   <Grid container>
     <Grid item xs>
+      <CircularProgress color="secondary" />
+    </Grid>
+    <Grid item xs>
       <Typography
         variant='h6'
-        align='left'
+        align='center'
         color='textPrimary'
         gutterBottom
       >
-        <CircularProgress color="secondary" />
         Loading{ text ? ` ${text}...` : '...' }
       </Typography>
     </Grid>

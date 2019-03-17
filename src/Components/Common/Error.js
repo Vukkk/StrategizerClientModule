@@ -13,7 +13,7 @@ export const Error = ({ text }) => (
         color='textSecondary'
         gutterBottom
       >
-        text
+        {text}
       </Typography>
     </Grid>
   </Grid>
