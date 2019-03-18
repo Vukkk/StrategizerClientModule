@@ -25,14 +25,12 @@ class View extends React.Component {
       >
         {({ loading, error, data, refetch, networkStatus }) => {
           if (isDefined(loading) && loading) {
-            console.log('ManageList Loading: ', loading);
             return <ViewWrapper><Loading text="Strategies" /></ViewWrapper>
           }
           if(isDefined(error)) {
-            console.log('ManageList Error: ', error);
             return <ViewWrapper><Error text={`Error: ${error}`} /></ViewWrapper>
           }
-          console.log('ManageList Data: ', data);
+
           let team0;
           let fb0;
           let strategy0;
@@ -57,7 +55,7 @@ class View extends React.Component {
           } else {
             return (<Error text="You don't have a team or any finanical beings. Please create one!" />)
           }
-          console.log('strategies: ', strategies, strategyIndex);
+
           let strategyData = strategies[strategyIndex];
           return (
             <ViewItem strategy={strategyData} index={strategyIndex} />

@@ -13,7 +13,6 @@ class ViewPhase extends React.Component {
     const { classes, index, sectionName } = this.props;
     const { name, code, situations } = this.props.phase;
 
-    console.log(this.props.phase);
     return (
       <ExpandItemWrapper sectionName={`Phase: ${name}`} style={classes.expansionSituation}>
         <Grid

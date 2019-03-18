@@ -10,8 +10,6 @@ import styles from './styles';
 
 class ViewSituation extends React.Component {
   render() {
-    console.log(this.props);
-    console.log(this.props.situation);
     const { classes, index } = this.props;
     const { name, conditions } = this.props.situation;
 

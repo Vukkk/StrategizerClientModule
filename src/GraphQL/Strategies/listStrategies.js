@@ -16,7 +16,7 @@ export const LIST_STRATEGIES = gql`
         avatar
         strategy {
           id
-          fbId
+          fbSlug
           subStrategies {
             name
             entryPoint {

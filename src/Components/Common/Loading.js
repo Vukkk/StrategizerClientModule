@@ -6,7 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 export const Loading = ({ text }) => (
-  <Grid container>
+  <Grid
+    container
+    direction="row"
+    justify="center"
+    alignItems="center"
+  >
     <Grid item xs>
       <CircularProgress color="secondary" />
     </Grid>

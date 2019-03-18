@@ -5,12 +5,12 @@ import Typography from '@material-ui/core/Typography';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 
-import ViewItem from './ViewItem';
-import ViewWrapper from './ViewWrapper';
+import ViewItem from '../View/ViewItem';
+import ViewWrapper from '../View/ViewWrapper';
 import { Loading, Error } from '../Common';
 import { isDefined } from '../../utils';
 
-import { LIST_STRATEGIES } from '../../GraphQL/Strategies'
+import { GET_STRATEGY } from '../../GraphQL/Local'
 
 class Edit extends React.Component {
   render() {
@@ -19,7 +19,7 @@ class Edit extends React.Component {
 
     return (
       <Query
-        query={LIST_STRATEGIES}
+        query={GET_STRATEGY}
         fetchPolicy='cache-and-network'
         notifyOnNetworkStatusChange
       >

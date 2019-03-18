@@ -34,23 +34,37 @@ class ViewItem extends React.Component {
       buyOrder,
       sellOrder
     } = this.props.strategy;
-    console.log('ViewItem strategy:', entryPoint, exitPoint, sellPoint, buyPoint, stopLoss, buyOrder, sellOrder);
+
     return (
-      <ViewWrapper>
+      <ViewWrapper index={index}>
         <Grid item
         container
         direction="row"
-        justify="center"
+        justify="space-between"
         alignItems="center"
         >
+          <Grid item>
             <Typography
               variant='h4'
-              align='center'
+              align='left'
               color='textPrimary'
               gutterBottom
             >
               Strategy: {name}
             </Typography>
+          </Grid>
+          <Grid item>
+            <Button
+              className={classes.editButton}
+              variant='outlined'
+              color='primary'
+              size='small'
+              component={Link}
+              to={`/strategizer/edit/${index}`}
+            >
+              Edit
+            </Button>
+          </Grid>
         </Grid>
         <Grid item
           container

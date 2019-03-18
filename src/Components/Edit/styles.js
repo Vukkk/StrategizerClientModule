@@ -20,10 +20,6 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     float: 'right',
   },
-  editButton: {
-    margin: theme.spacing.unit,
-    float: 'right',
-  },
   buttonGrid: {
     marginTop: 0,
   },

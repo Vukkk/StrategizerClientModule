@@ -86,6 +86,16 @@ class ManageItem extends React.Component {
                 >
                   View
                 </Button>
+                <Button
+                  className={classes.buttonList}
+                  variant='outlined'
+                  color='primary'
+                  size='small'
+                  component={Link}
+                  to={`/strategizer/edit/${index}`}
+                >
+                  Edit
+                </Button>
               </Grid>
             </Grid>
           </Grid>
