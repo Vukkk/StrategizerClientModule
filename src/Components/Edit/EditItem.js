@@ -8,22 +8,22 @@ import {
 } from '@material-ui/core';
 import BannerTopBar from '../BannerTopBar';
 import EntryPoint from './EntryPoint';
-import ExitPoint from './ExitPoint';
-import BuyPoint from './BuyPoint';
-import SellPoint from './SellPoint';
-import StopLoss from './StopLoss';
-import BuyOrder from './BuyOrder';
-import SellOrder from './SellOrder';
-import ViewWrapper from './ViewWrapper';
+import ExitPoint from '../View/ExitPoint';
+import BuyPoint from '../View/BuyPoint';
+import SellPoint from '../View/SellPoint';
+import StopLoss from '../View/StopLoss';
+import BuyOrder from '../View/BuyOrder';
+import SellOrder from '../View/SellOrder';
+import EditWrapper from './EditWrapper';
 
 import { isDefined } from '../../utils';
 
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-class ViewItem extends React.Component {
+class EditItem extends React.Component {
   render() {
-    const { classes, index, fbSlug } = this.props;
+    const { classes, index } = this.props;
     const {
       name,
       entryPoint,
@@ -36,7 +36,7 @@ class ViewItem extends React.Component {
     } = this.props.strategy;
 
     return (
-      <ViewWrapper index={index}>
+      <EditWrapper index={index}>
         <Grid item
         container
         direction="row"
@@ -57,12 +57,12 @@ class ViewItem extends React.Component {
             <Button
               className={classes.editButton}
               variant='outlined'
-              color='primary'
+              color='secondary'
               size='small'
               component={Link}
-              to={`/strategizer/edit/${fbSlug}/${index}`}
+              to={`/strategizer/edit/${index}`}
             >
-              Edit
+              Save
             </Button>
           </Grid>
         </Grid>
@@ -80,9 +80,9 @@ class ViewItem extends React.Component {
             { sellOrder.phases.length > 0 && <SellOrder sectionName="Sell Order" phases={sellOrder.phases} /> }
           </Grid>
         </Grid>
-      </ViewWrapper>
+      </EditWrapper>
     );
   }
 }
 
-export default withStyles(styles)(ViewItem);
+export default withStyles(styles)(EditItem);

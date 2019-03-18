@@ -2,11 +2,17 @@ import GET_STRATEGY from './queries'
 
 export const strategyResolvers = {
   strategizer_Strategy: {
-    upsertStrategy: (strategy, _args, { cache }) => {
-      const { strategizer_StrategyByFb } = cache.readQuery({
+    strategizer_StrategyByFb: (strategies, _args, { cache }) => {
+      const { localStrategies } = cache.readQuery({
         query: GET_STRATEGY
       });
-      return strategizer_StrategyByFb.includes(strategy.fbSlug);
+      let data = localStrategies;
+      if(data === null || data === ''){
+        cache.writeData({ localStrategies: strategies });
+        data = strategies;
+      }
+
+      return data;
     },
   },
 };

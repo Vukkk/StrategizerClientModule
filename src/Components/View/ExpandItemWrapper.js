@@ -24,10 +24,10 @@ class ExpandItemWrapper extends Component {
   }
 
   render () {
-    const { classes, sectionName, children } = this.props
+    const { classes, sectionName, children, defaultExpanded } = this.props
     const clone = this.props.currentClone
     return (
-      <ExpansionPanel className={classes.root}>
+      <ExpansionPanel className={classes.root} defaultExpanded={defaultExpanded} >
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <div className={classes.heading}>
             <Typography className={classes.heading}>{sectionName}</Typography>

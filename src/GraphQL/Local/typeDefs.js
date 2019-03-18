@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 
-export const UPSERT_STRATEGIES = gql`
+export const LOCAL_STRATEGIES = gql`
   extend type strategizer_Strategy {
-    upsertStrategy: [strategizer_SubStrategy]
+    localStrategies: [strategizer_SubStrategy]
   }
 `;
 
-export default UPSERT_STRATEGIES;
+export default LOCAL_STRATEGIES;

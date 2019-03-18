@@ -11,7 +11,7 @@ import styles from './styles';
 
 class ManageItem extends React.Component {
   render() {
-    const { classes, index, teamName, teamAvatar, fbName, fbAvatar } = this.props;
+    const { classes, index, teamName, teamAvatar, fbName, fbAvatar, fbSlug } = this.props;
     const { name } = this.props.strategy;
     return (
       <Paper className={classes.card}>
@@ -82,7 +82,7 @@ class ManageItem extends React.Component {
                   color='primary'
                   size='small'
                   component={Link}
-                  to={`/strategizer/view/${index}`}
+                  to={`/strategizer/view/${fbSlug}/${index}`}
                 >
                   View
                 </Button>
@@ -92,7 +92,7 @@ class ManageItem extends React.Component {
                   color='primary'
                   size='small'
                   component={Link}
-                  to={`/strategizer/edit/${index}`}
+                  to={`/strategizer/edit/${fbSlug}/${index}`}
                 >
                   Edit
                 </Button>

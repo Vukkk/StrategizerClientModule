@@ -15,7 +15,8 @@ import { LIST_STRATEGIES } from '../../GraphQL/Strategies'
 class View extends React.Component {
   render() {
     const { classes } = this.props;
-    const strategyIndex = this.props.match.params.slug;
+    const strategyIndex = this.props.match.params.index;
+    const fbSlug = this.props.match.params.slug;
 
     return (
       <Query
@@ -35,12 +36,15 @@ class View extends React.Component {
           let fb0;
           let strategy0;
           let strategies;
+          console.log('LIST_STRATEGIES data:', data);
           if(data.teams_TeamsByOwner.length > 0){
             team0 = data.teams_TeamsByOwner[0];
+              console.log('team0 data:', team0);
             if(team0.fb.length > 0){
               fb0 = team0.fb[0];
               if(isDefined(fb0.strategy)){
                 strategy0 = fb0.strategy;
+                console.log('strategy0 data:', strategy0);
                 if(strategy0.subStrategies.length > 0){
                   strategies = strategy0.subStrategies;
                 } else {
@@ -57,8 +61,9 @@ class View extends React.Component {
           }
 
           let strategyData = strategies[strategyIndex];
+          console.log('strategyData: ', strategyData);
           return (
-            <ViewItem strategy={strategyData} index={strategyIndex} />
+            <ViewItem strategy={strategyData} index={strategyIndex} fbSlug={fbSlug} />
           );
         }}
       </Query>

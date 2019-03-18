@@ -34,6 +34,9 @@ const styles = theme => ({
   },
   expansionSituation: {
     backgroundColor: 'rgba(0,0,0,.03)',
+  },
+  addButton:{
+    marginTop: `${theme.spacing.unit * 3}px`
   }
 });
 

@@ -5,62 +5,48 @@ import Typography from '@material-ui/core/Typography';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 
-import ViewItem from '../View/ViewItem';
-import ViewWrapper from '../View/ViewWrapper';
+import EditItem from './EditItem';
+import EditWrapper from './EditWrapper';
 import { Loading, Error } from '../Common';
 import { isDefined } from '../../utils';
 
-import { GET_STRATEGY } from '../../GraphQL/Local'
+import { GET_STRATEGY } from '../../GraphQL/Strategies';
 
 class Edit extends React.Component {
   render() {
     const { classes } = this.props;
-    const strategyIndex = this.props.match.params.slug;
+    const fbSlug = this.props.match.params.slug;
+    const strategyIndex = this.props.match.params.index;
 
     return (
       <Query
         query={GET_STRATEGY}
+        variables={{fbSlug: fbSlug}}
         fetchPolicy='cache-and-network'
         notifyOnNetworkStatusChange
       >
         {({ loading, error, data, refetch, networkStatus }) => {
           if (isDefined(loading) && loading) {
             console.log('ManageList Loading: ', loading);
-            return <ViewWrapper><Loading text="Strategies" /></ViewWrapper>
+            return <EditWrapper><Loading text="Strategies" /></EditWrapper>
           }
           if(isDefined(error)) {
             console.log('ManageList Error: ', error);
-            return <ViewWrapper><Error text={`Error: ${error}`} /></ViewWrapper>
+            return <EditWrapper><Error text={`Error: ${error}`} /></EditWrapper>
           }
           console.log('ManageList Data: ', data);
-          let team0;
-          let fb0;
-          let strategy0;
           let strategies;
-          if(data.teams_TeamsByOwner.length > 0){
-            team0 = data.teams_TeamsByOwner[0];
-            if(team0.fb.length > 0){
-              fb0 = team0.fb[0];
-              if(isDefined(fb0.strategy)){
-                strategy0 = fb0.strategy;
-                if(strategy0.subStrategies.length > 0){
-                  strategies = strategy0.subStrategies;
-                } else {
-                  return (<Error text="This strategy has no subStrategies" />)
-                }
-              } else {
-                return (<Error text="You have no strategies" />)
-              }
-            } else {
-              return (<Error text="You don't have any finanical beings. Please create one!" />)
-            }
+
+          if(isDefined(data.strategizer_StrategyByFb.subStrategies) && data.strategizer_StrategyByFb.subStrategies.length > 0){
+            strategies = data.strategizer_StrategyByFb.subStrategies;
           } else {
-            return (<Error text="You don't have a team or any finanical beings. Please create one!" />)
+            return (<Error text="There is no strategy here!" />)
           }
+
           console.log('strategies: ', strategies, strategyIndex);
           let strategyData = strategies[strategyIndex];
           return (
-            <ViewItem strategy={strategyData} index={strategyIndex} />
+            <EditItem strategy={strategyData} index={strategyIndex} />
           );
         }}
       </Query>

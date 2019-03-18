@@ -1,79 +1,79 @@
 import gql from 'graphql-tag';
 
-export const GET_STRATEGY = gql`
+export const GET_STRATEGIES = gql`
   query strategizer_StrategyByFb($fbSlug: String!) {
     strategizer_StrategyByFb(fbSlug: $fbSlug) {
-      upsertStrategy @client {
+      localStrategies @client {
         name
-        entryPoint {
-          situations {
+        entryPoint @type(name: "strategizer_EntryPoint"){
+          situations @type(name: "strategizer_Situation"){
             name
-            conditions {
+            conditions @type(name: "strategizer_Condition"){
               name
               code
             }
           }
         }
-        exitPoint {
-          situations {
+        exitPoint @type(name: "strategizer_ExitPoint"){
+          situations @type(name: "strategizer_Situation"){
             name
-            conditions {
+            conditions @type(name: "strategizer_Condition"){
               name
               code
             }
           }
         }
-        buyPoint {
-          situations {
+        buyPoint @type(name: "strategizer_BuyPoint"){
+          situations @type(name: "strategizer_Situation"){
             name
-            conditions {
+            conditions @type(name: "strategizer_Condition"){
               name
               code
             }
           }
         }
-        sellPoint {
-          situations {
+        sellPoint @type(name: "strategizer_SellPoint"){
+          situations @type(name: "strategizer_Situation"){
             name
-            conditions {
+            conditions @type(name: "strategizer_Condition"){
               name
               code
             }
           }
         }
-        stopLoss {
-          phases {
+        stopLoss @type(name: "strategizer_StopLoss"){
+          phases @type(name: "strategizer_Phase"){
             name
             code
-            situations {
+            situations @type(name: "strategizer_Situation"){
               name
-              conditions {
+              conditions @type(name: "strategizer_Condition"){
                 name
                 code
               }
             }
           }
         }
-        sellOrder {
-          phases {
+        sellOrder @type(name: "strategizer_SellOrder"){
+          phases @type(name: "strategizer_Phase"){
             name
             code
-            situations {
+            situations @type(name: "strategizer_Situation"){
               name
-              conditions {
+              conditions @type(name: "strategizer_Condition"){
                 name
                 code
               }
             }
           }
         }
-        buyOrder {
-          phases {
+        buyOrder @type(name: "strategizer_BuyOrder"){
+          phases @type(name: "strategizer_Phase"){
             name
             code
-            situations {
+            situations @type(name: "strategizer_Situation"){
               name
-              conditions {
+              conditions @type(name: "strategizer_Condition"){
                 name
                 code
               }
@@ -164,4 +164,4 @@ export const GET_STRATEGY = gql`
   }
 `;
 
-export default GET_STRATEGY;
+export default GET_STRATEGIES;

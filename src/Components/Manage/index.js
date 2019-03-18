@@ -70,6 +70,7 @@ class ManageList extends Component {
                   teamAvatar={team0.profile.avatar}
                   fbName={fb0.name}
                   fbAvatar={fb0.avatar}
+                  fbSlug={fb0.slug}
                 />
               );
             });

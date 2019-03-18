@@ -6,8 +6,9 @@ import ViewStrategy from './Components/View';
 import EditStrategy from './Components/Edit';
 
 import {
-  UPSERT_STRATEGIES,
+  LOCAL_STRATEGIES,
   strategyResolvers,
+  localStrategiesCache
 } from './GraphQL/Local';
 
 const App = () => (
@@ -15,15 +16,16 @@ const App = () => (
     <Switch>
       <Route exact path='/strategizer/' component={Strategizer} />
       <Route exact path='/strategizer/manage-strategies' component={Strategizer} />
-      <Route path='/strategizer/view/:slug' component={ViewStrategy} />
-      <Route path='/strategizer/edit/:slug' component={EditStrategy} />
+      <Route path='/strategizer/view/:slug/:index' component={ViewStrategy} />
+      <Route path='/strategizer/edit/:slug/:index' component={EditStrategy} />
     </Switch>
   </div>
 );
 
 export {
-  UPSERT_STRATEGIES,
-  strategyResolvers
+  LOCAL_STRATEGIES,
+  strategyResolvers,
+  localStrategiesCache
 }
 
 export default App;

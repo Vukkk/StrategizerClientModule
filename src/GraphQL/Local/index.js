@@ -1,9 +1,11 @@
-import { UPSERT_STRATEGIES } from './typeDefs';
+import { LOCAL_STRATEGIES } from './typeDefs';
 import { strategyResolvers } from './resolvers';
-import { GET_STRATEGY } from './queries';
+import { GET_STRATEGIES } from './queries';
+import { localStrategiesCache } from './cache';
 
 export {
-  UPSERT_STRATEGIES,
+  LOCAL_STRATEGIES,
   strategyResolvers,
-  GET_STRATEGY
+  GET_STRATEGIES,
+  localStrategiesCache
 }
