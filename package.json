@@ -22,6 +22,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react-hooks": "^1.5.1",
     "react-hot-loader": "^4.3.11"
   },
   "dependencies": {
@@ -30,9 +31,10 @@
     "apollo-client": "^2.5.1",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
-    "react": "^16.5.2",
-    "react-apollo": "^2.2.4",
-    "react-dom": "^16.6.0",
+    "react": "^16.8.4",
+    "react-apollo": "^2.5.2",
+    "react-apollo-hooks": "^0.4.3",
+    "react-dom": "^16.8.4",
     "react-router-dom": "^4.3.1"
   }
 }

@@ -4,6 +4,9 @@ module.exports = {
     'airbnb-base',
     'plugin:react/recommended',
   ],
+  plugins: [
+    'react-hooks'
+  ],
   rules: {
     'max-len': ['error', 140, 2],
     'no-underscore-dangle': 'off',

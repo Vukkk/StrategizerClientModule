@@ -26,12 +26,14 @@ export default function Edit (props) {
     >
       {({ loading, error, data, refetch, networkStatus }) => {
         if (isDefined(loading) && loading) {
+          console.log('ManageList Loading: ', loading);
           return <EditWrapper classes={classes}><Loading text="Strategies" /></EditWrapper>
         }
         if(isDefined(error)) {
-          return <EditWrapper classes={classes}><Error text={`${error}`} /></EditWrapper>
+          console.log('ManageList Error: ', error);
+          return <EditWrapper classes={classes}><Error text={`Error: ${error}`} /></EditWrapper>
         }
-        console.log('Edit Data: ', data);
+        console.log('ManageList Data: ', data);
         let strategies;
 
         if(isDefined(data.strategizer_StrategyByFb.subStrategies) && data.strategizer_StrategyByFb.subStrategies.length > 0){
