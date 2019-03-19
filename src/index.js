@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Strategizer from './Components/Strategizer';
 import ViewStrategy from './Components/View';
-import { EditStrategy } from './Components/Edit';
+import EditStrategy from './Components/Edit';
 
 import {
   LOCAL_STRATEGIES,

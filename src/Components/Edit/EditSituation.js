@@ -11,17 +11,11 @@ import styles from './styles';
 import { isDefined } from '../../utils';
 
 export class EditSituation extends React.Component {
-  constructor(props){
-    super(props);
-
-    this.addCondition = this.addCondition.bind(this);
-  }
-
   render() {
-    const { classes, index, point, phsIndex, sitIndex, updatePoint } = this.props;
-    const { change } = this.state;
+    console.log('EditSituation: ', this.props);
+    const { classes, index, point, phsIndex, sitIndex, updatePoint, changed, submitSave } = this.props;
     const { name, conditions } = this.props.situation;
-    const phaseIndex = isDefined(phsIndex) ? phsIndex: null;
+    let phaseIndex = isDefined(phsIndex) ? phsIndex : null;
     return (
       <ExpandItemWrapper
         sectionName={`Situation: ${name}`}
@@ -32,28 +26,10 @@ export class EditSituation extends React.Component {
           item
           container
           direction="row"
-          justify="flex-end"
-          alignItems="center"
-        >
-          <Grid item xs={12} >
-            <Button
-              className={classes.addButton}
-              color="primary"
-              variant="contained"
-              fullWidth={false}
-              onClick={e => updatePoint(e, point, 'addCondition', phaseIndex, sitIndex, null)}
-            >
-              + Save Changes
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          container
-          direction="row"
           justify="center"
           alignItems="center"
         >
+
           <Grid item xs={12} >
             <List className={classes.root}>
               {conditions.length > 0 &&
@@ -68,28 +44,47 @@ export class EditSituation extends React.Component {
                     sitIndex={sitIndex}
                     updatePoint={updatePoint}
                     classes={classes}
+                    changed={changed}
                   />
                 ))
               }
-              <Button
-                className={classes.addButton}
-                color="secondary"
-                variant="contained"
-                fullWidth={true}
-                onClick={e => updatePoint(e, point, 'addCondition', phaseIndex, sitIndex, null)}
-              >
-                + Add Condition
-              </Button>
+
             </List>
+            <Grid
+              item
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+            >
+              <Grid item>
+                <Button
+                  className={classes.addButton}
+                  color="secondary"
+                  variant="contained"
+                  fullWidth={true}
+                  onClick={e => updatePoint(e, point, 'addCondition', phaseIndex, sitIndex, null)}
+                >
+                  + Add Condition
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  className={classes.addButton}
+                  color="primary"
+                  variant={changed ? "contained" : "outlined"}
+                  fullWidth={false}
+                  disabled={changed ? false : true}
+                  onClick={e => submitSave(e)}
+                >
+                  + Save Changes
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </ExpandItemWrapper>
     );
-  }
-
-  addCondition(data, sitIndex, currentIndex){
-    const newIndex = currentIndex + 1;
-    updatePoint()
   }
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 
 import Typography from '@material-ui/core/Typography';
 import styles from './styles';
@@ -11,43 +11,78 @@ import { Loading, Error } from '../Common';
 import { isDefined } from '../../utils';
 
 import { GET_STRATEGY } from '../../GraphQL/Strategies';
+import { SAVE_STRATEGY } from '../../GraphQL/Strategies';
 
-export default function Edit (props) {
-  const { classes } = props;
-  const fbSlug = props.match.params.slug;
-  const strategyIndex = props.match.params.index;
+export class Edit extends React.Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <Query
-      query={GET_STRATEGY}
-      variables={{fbSlug: fbSlug}}
-      fetchPolicy='cache-and-network'
-      notifyOnNetworkStatusChange
-    >
-      {({ loading, error, data, refetch, networkStatus }) => {
-        if (isDefined(loading) && loading) {
-          return <EditWrapper classes={classes}><Loading text="Strategies" /></EditWrapper>
-        }
-        if(isDefined(error)) {
-          return <EditWrapper classes={classes}><Error text={`${error}`} /></EditWrapper>
-        }
-        console.log('Edit Data: ', data);
-        let strategies;
+    this.handleSaveStrategy=this.handleSaveStrategy.bind(this);
+  }
 
-        if(isDefined(data.strategizer_StrategyByFb.subStrategies) && data.strategizer_StrategyByFb.subStrategies.length > 0){
-          strategies = data.strategizer_StrategyByFb.subStrategies;
-        } else {
-          return (<Error text="There is no strategy here!" />)
-        }
+  render() {
+    const { classes } = this.props;
+    const fbSlug = this.props.match.params.slug;
+    const strategyIndex = this.props.match.params.index;
 
-        console.log('strategies: ', strategies, strategyIndex);
-        let strategyData = strategies[strategyIndex];
-        return (
-          <EditItem strategy={strategyData} index={strategyIndex} classes={classes} />
-        );
-      }}
-    </Query>
-  );
+    return (
+      <Query
+        query={GET_STRATEGY}
+        variables={{fbSlug: fbSlug}}
+        fetchPolicy='cache-and-network'
+        notifyOnNetworkStatusChange
+      >
+        {({ loading, error, data, refetch, networkStatus }) => {
+          if (isDefined(loading) && loading) {
+            return <EditWrapper classes={classes}><Loading text="Strategies" /></EditWrapper>
+          }
+          if(isDefined(error)) {
+            return <EditWrapper classes={classes}><Error text={`${error}`} /></EditWrapper>
+          }
+          console.log('Edit Data: ', data);
+          let id;
+          let strategies;
+
+          if(isDefined(data.strategizer_StrategyByFb.subStrategies) && data.strategizer_StrategyByFb.subStrategies.length > 0){
+            id =  data.strategizer_StrategyByFb.id;
+            strategies = data.strategizer_StrategyByFb.subStrategies;
+          } else {
+            return (<Error text="There is no strategy here!" />)
+          }
+
+          console.log('strategies: ', strategies, strategyIndex);
+          let strategyData = strategies[strategyIndex];
+          return (
+            <Mutation
+              mutation={SAVE_STRATEGY}
+              refetchQueries={[
+                {
+                  query: GET_STRATEGY
+                }
+              ]}
+            >
+              {(saveStrategy, { loading, error, data }) => {
+                return( <EditItem id={id} strategy={strategyData} index={strategyIndex} classes={classes} handleSaveStrategy={this.handleSaveStrategy} saveStrategy={saveStrategy} /> )
+              }}
+            </Mutation>
+          );
+        }}
+      </Query>
+    );
+  }
+
+  async handleSaveStrategy (saveStrategy, strategy, id) {
+    console.log('handleSaveStrategy: ', saveStrategy, strategy, id)
+
+    let saved = await saveStrategy({
+      variables: {
+        id,
+        strategy
+      }
+    });
+
+    return saved;
+  }
 }
 
-export const EditStrategy = withStyles(styles)(Edit);
+export default withStyles(styles)(Edit);

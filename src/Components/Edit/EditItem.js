@@ -25,9 +25,10 @@ class EditItem extends React.Component {
   constructor (props) {
     super(props)
 
-    this.updatePoint = this.updatePoint.bind(this)
+    this.updatePoint = this.updatePoint.bind(this);
+    this.submitSave = this.submitSave.bind(this);
 
-    const strategy = props.strategy
+    const strategy = props.strategy;
 
     this.state = {
       index: props.index,
@@ -39,12 +40,13 @@ class EditItem extends React.Component {
       stopLoss: strategy.stopLoss,
       buyOrder: strategy.buyOrder,
       sellOrder: strategy.sellOrder,
-      changed: false
+      changed: false,
+      saved: false
     }
   }
 
   render() {
-    const { classes, index } = this.props;
+    const { classes, index, handleSaveStrategy, saveStrategy, id } = this.props;
     const {
       name,
       entryPoint,
@@ -81,6 +83,7 @@ class EditItem extends React.Component {
               color='secondary'
               size='large'
               disabled={!this.state.changed}
+              onClick={e => this.submitSave(e)}
             >
               Save
             </Button>
@@ -94,11 +97,14 @@ class EditItem extends React.Component {
             { entryPoint.situations.length > 0 &&
               <EntryPoint
                 sectionName="Entry Point"
+                point="entryPoint"
                 situations={entryPoint.situations}
                 updatePoint={this.updatePoint}
+                changed={this.state.changed}
+                submitSave={this.submitSave}
               />
             }
-            { exitPoint.situations.length > 0 && <ExitPoint sectionName="Exit Point" situations={exitPoint.situations} /> }
+            { exitPoint.situations.length > 0 && <ExitPoint sectionName="Exit Point" point="exitPoint" situations={exitPoint.situations} /> }
             { sellPoint.situations.length > 0 && <SellPoint sectionName="Sell Point" situations={sellPoint.situations} /> }
             { buyPoint.situations.length > 0 && <BuyPoint sectionName="Buy Point" situations={buyPoint.situations} /> }
             { stopLoss.phases.length > 0 && <StopLoss sectionName="Stop Loss" phases={stopLoss.phases} /> }
@@ -113,7 +119,7 @@ class EditItem extends React.Component {
   updatePoint (e, point, type, phsIndex, sitIndex, conIndex, element) {
     let currState = this.state;
     let currPoint = currState[point];
-    console.log('currPoint: ', currPoint);
+    console.log('updatePoint: ', e, point, type, phsIndex, sitIndex, conIndex, element);
 
     switch (type) {
       case 'addPhase':
@@ -130,7 +136,7 @@ class EditItem extends React.Component {
         });
         this.setState({
           [point]: currPoint,
-          ...currState
+          changed: true
         });
         break;
       case 'addSituation':
@@ -153,8 +159,7 @@ class EditItem extends React.Component {
         }
         this.setState({
           [point]: currPoint,
-          changed: true,
-          ...currState
+          changed: true
         });
         break;
       case 'addCondition':
@@ -171,35 +176,60 @@ class EditItem extends React.Component {
         }
         this.setState({
           [point]: currPoint,
-          changed: true,
-          ...currState
+          changed: true
         });
         break;
       case 'updatePhase':
-        this.setState({currState});
-        break;
-      case 'updateSituation':
-        this.setState({currState});
-        break;
-      case 'updateCondition':
         if(isDefined(currPoint.phases)){
           if(element === 'name'){
-            currPoint.phases[phsIndex].situations[sitIndex].conditions[conIndex].name = e.target.value;
+            currPoint.phases[phsIndex].name = e;
           } else {
-            currPoint.phases[phsIndex].situations[sitIndex].conditions[conIndex].code = e.target.value;
+            currPoint.phases[phsIndex].code = e;
           }
           console.log('updateCondition w Phase: ', currPoint);
         } else {
           if(element === 'name'){
-            currPoint.phases[phsIndex].situations[sitIndex].conditions[conIndex].name = e.target.value;
+            currPoint.phases[phsIndex].situations[sitIndex].conditions[conIndex].name = e;
           } else {
-            currPoint.phases[phsIndex].situations[sitIndex].conditions[conIndex].code = e.target.value;
+            currPoint.phases[phsIndex].situations[sitIndex].conditions[conIndex].code = e;
           }
           console.log('updateCondition w Phase: ', currPoint);
         }
         this.setState({
           [point]: currPoint,
-          ...currState
+          changed: true
+        });
+        break;
+      case 'updateSituation':
+        if(isDefined(currPoint.phases)){
+          currPoint.phases[phsIndex].situations[sitIndex].name = e;
+        } else {
+          currPoint.situations[sitIndex].name = e.target.value;
+        }
+        this.setState({
+          [point]: currPoint,
+          changed: true
+        });
+        break;
+      case 'updateCondition':
+        if(isDefined(currPoint.phases) && currPoint.phases !== null){
+          if(element === 'name'){
+            currPoint.phases[phsIndex].situations[sitIndex].conditions[conIndex].name = e
+          } else {
+            currPoint.phases[phsIndex].situations[sitIndex].conditions[conIndex].code = e;
+          }
+          console.log('updateCondition w Phase: ', currPoint);
+        } else {
+          if(element === 'name'){
+            currPoint.situations[sitIndex].conditions[conIndex].name = e;
+          } else {
+            currPoint.situations[sitIndex].conditions[conIndex].code = e;
+          }
+          console.log('updateCondition w Phase: ', currPoint);
+        }
+        this.setState({
+          [point]: currPoint,
+          changed: true
         });
         break;
       default:
@@ -207,6 +237,45 @@ class EditItem extends React.Component {
     }
     console.log('Post updatePoint: ', e, point, type, phsIndex, sitIndex, conIndex, this.state);
   }
+
+  async submitSave(e){
+    e.preventDefault();
+
+    const { handleSaveStrategy, saveStrategy, id } = this.props;
+    const {
+      index,
+      name,
+      entryPoint,
+      exitPoint,
+      sellPoint,
+      buyPoint,
+      stopLoss,
+      buyOrder,
+      sellOrder
+    } = this.state;
+
+    const stratIndex = index;
+
+    const strategy = {
+      subStrategies: {
+        name,
+        entryPoint,
+        exitPoint,
+        sellPoint,
+        buyPoint,
+        stopLoss,
+        buyOrder,
+        sellOrder
+      }
+    };
+
+    let saved = await handleSaveStrategy(saveStrategy, strategy, id);
+
+    console.log('submitSave: ', await saved);
+
+    this.setState({ saved: true, changed: false });
+  }
+
 }
 
 export default withStyles(styles)(EditItem);

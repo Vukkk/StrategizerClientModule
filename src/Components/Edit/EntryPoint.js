@@ -12,7 +12,7 @@ import { isDefined } from '../../utils';
 
 class EntryPoint extends React.Component {
   render() {
-    const { classes, index, sectionName, phsIndex, situations, updatePoint } = this.props;
+    const { classes, index, sectionName, phsIndex, situations, updatePoint, changed, submitSave } = this.props;
 
     return (
       <ExpandItemWrapper sectionName="Entry Point">
@@ -43,6 +43,8 @@ class EntryPoint extends React.Component {
                   phsIndex={isDefined(phsIndex) ? phsIndex : null}
                   sitIndex={sitIndex}
                   updatePoint={updatePoint}
+                  changed={changed}
+                  submitSave={submitSave}
                 />
               ))
             }

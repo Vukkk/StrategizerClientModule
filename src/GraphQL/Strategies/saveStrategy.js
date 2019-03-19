@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
-export const GET_STRATEGY = gql`
-  query strategizer_StrategyByFb($fbSlug: String!) {
-    strategizer_StrategyByFb(fbSlug: $fbSlug) {
+export const SAVE_STRATEGY = gql`
+  mutation strategizer_EditStrategy($id: ID!, $strategy: strategizer_StrategyInput!) {
+    strategizer_EditStrategy(id: $id, strategy: $strategy) {
       id
       fbSlug
       subStrategies {
@@ -87,4 +87,4 @@ export const GET_STRATEGY = gql`
   }
 `;
 
-export default GET_STRATEGY;
+export default SAVE_STRATEGY;
