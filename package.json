@@ -1,6 +1,6 @@
 {
   "name": "@superalgos/strategizer-client",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Superalgos Strategizer client-side web app module",
   "author": "Barry Low <bearcanrun@gmail.com",
   "license": "",
