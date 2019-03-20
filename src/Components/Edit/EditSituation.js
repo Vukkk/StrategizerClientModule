@@ -15,7 +15,7 @@ export class EditSituation extends React.Component {
   constructor(props) {
     super(props);
 
-    this.delayedCallback = debounce(this.debouncedUpdatePoint, 500);
+    this.delayedNameChange = debounce(this.debouncedUpdatePoint, 500);
   }
 
   debouncedUpdatePoint(event) {
@@ -24,9 +24,9 @@ export class EditSituation extends React.Component {
     updatePoint(event.target.value, point, 'updateSituation', phsIndex, sitIndex, null, 'name');
   }
 
-  handleNameChange (event) {
+  handleNameChange (event) { // not currently implemented — test for debouncing text input
     event.persist()
-    this.delayedCallback(event)
+    this.delayedNameChange(event)
   }
 
   render() {
@@ -47,16 +47,16 @@ export class EditSituation extends React.Component {
           justify="center"
           alignItems="center"
         >
-        <Grid item xs={10}>
-          <TextField
-            id={`situation-${slugify(name)}-name-${sitIndex}`}
-            label="Update Situation Name"
-            value={name}
-            onChange={e => updatePoint(e.target.value, point, 'updateSituation', phsIndex, sitIndex, null, 'name')}
-            margin="normal"
-            variante="outlined"
-          />
-        </Grid>
+          <Grid item xs={12} >
+            <TextField
+              id={`situation-${slugify(name)}-name-${sitIndex}`}
+              label="Update Situation Name"
+              value={name}
+              onChange={e => updatePoint(e.target.value, point, 'updateSituation', phsIndex, sitIndex, null, 'name')}
+              margin="normal"
+              variant="filled"
+            />
+          </Grid>
           <Grid item xs={12} >
             <List className={classes.root}>
               {conditions.length > 0 &&

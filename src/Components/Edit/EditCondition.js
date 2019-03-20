@@ -11,14 +11,15 @@ export const EditCondition = ({ classes, name, condition, point, phsIndex, sitIn
         <FormGroup>
           <TextField
             id={`${slugify(name)}-name-${index}`}
-            label="Name"
+            label="Update Condition Name"
             value={name}
             onChange={e => updatePoint(e.target.value, point, 'updateCondition', phsIndex, sitIndex, index, 'name')}
             margin="normal"
+            variant="filled"
           />
           <TextField
             id={`${slugify(name)}-condition-${index}`}
-            label="Condition"
+            label="Update Condition"
             value={condition}
             onChange={e => updatePoint(e.target.value, point, 'updateCondition', phsIndex, sitIndex, index, 'code')}
             margin="normal"

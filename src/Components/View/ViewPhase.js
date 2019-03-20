@@ -21,7 +21,18 @@ class ViewPhase extends React.Component {
           direction="row"
           justify="center"
           alignItems="center"
+          spacing={24}
         >
+          <Grid item>
+            <Typography
+              variant='h6'
+              align='left'
+              color='textSecondary'
+              gutterBottom
+            >
+              Code: {code}
+            </Typography>
+          </Grid>
           <Grid item xs={12} >
             <List className={classes.root}>
               {situations.length > 0 &&

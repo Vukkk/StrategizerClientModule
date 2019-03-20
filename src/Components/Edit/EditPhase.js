@@ -28,14 +28,15 @@ class EditPhase extends React.Component {
             <FormGroup>
               <TextField
                 id={`phase-${slugify(name)}-name-${phsIndex}`}
-                label="Phase Name"
+                label="Update Phase Name"
                 value={name}
                 onChange={e => updatePoint(e.target.value, point, 'updatePhase', phsIndex, null, null, 'name')}
                 margin="normal"
+                variant="filled"
               />
               <TextField
                 id={`phase-${slugify(name)}-code-${phsIndex}`}
-                label="Phase code"
+                label="Update Phase code"
                 value={code}
                 onChange={e => updatePoint(e.target.value, point, 'updatePhase', phsIndex, null, null, 'code')}
                 margin="normal"
