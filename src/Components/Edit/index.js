@@ -22,6 +22,7 @@ export class Edit extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const teamSlug = this.props.match.params.team;
     const fbSlug = this.props.match.params.slug;
     const strategyIndex = this.props.match.params.index;
 
@@ -41,10 +42,12 @@ export class Edit extends React.Component {
           }
           console.log('Edit Data: ', data);
           let id;
+          let allStrategies;
           let strategies;
 
           if(isDefined(data.strategizer_StrategyByFb.subStrategies) && data.strategizer_StrategyByFb.subStrategies.length > 0){
             id =  data.strategizer_StrategyByFb.id;
+            allStrategies = data.strategizer_StrategyByFb;
             strategies = data.strategizer_StrategyByFb.subStrategies;
           } else {
             return (<Error text="There is no strategy here!" />)
@@ -57,12 +60,25 @@ export class Edit extends React.Component {
               mutation={SAVE_STRATEGY}
               refetchQueries={[
                 {
-                  query: GET_STRATEGY
+                  query: GET_STRATEGY,
+                  variables: { fbSlug: fbSlug }
                 }
               ]}
             >
               {(saveStrategy, { loading, error, data }) => {
-                return( <EditItem id={id} strategies={strategies} strategy={strategyData} index={strategyIndex} classes={classes} handleSaveStrategy={this.handleSaveStrategy} saveStrategy={saveStrategy} /> )
+                return(
+                  <EditItem
+                    id={id}
+                    teamSlug={teamSlug}
+                    fbSlug={fbSlug}
+                    strategies={allStrategies}
+                    strategy={strategyData}
+                    index={strategyIndex}
+                    classes={classes}
+                    handleSaveStrategy={this.handleSaveStrategy}
+                    saveStrategy={saveStrategy}
+                  />
+                )
               }}
             </Mutation>
           );
@@ -71,13 +87,15 @@ export class Edit extends React.Component {
     );
   }
 
-  async handleSaveStrategy (saveStrategy, strategy, id) {
-    console.log('handleSaveStrategy: ', saveStrategy, strategy, id)
+  async handleSaveStrategy (saveStrategy, subStrategies, id) {
+    console.log('handleSaveStrategy: ', saveStrategy, subStrategies, id)
 
     let saved = await saveStrategy({
       variables: {
         id,
-        strategy
+        strategy:{
+          subStrategies: subStrategies
+        }
       }
     });
 

@@ -12,7 +12,7 @@ import { isDefined } from '../../utils';
 
 class EditPoint extends React.Component {
   render() {
-    const { classes, index, sectionName, phsIndex, situations, updatePoint, changed, submitSave } = this.props;
+    const { classes, index, sectionName, point, phsIndex, situations, updatePoint, changed, submitSave } = this.props;
 
     return (
       <ExpandItemWrapper sectionName={sectionName} >
@@ -38,7 +38,7 @@ class EditPoint extends React.Component {
               situations.map((situation, sitIndex) => (
                 <EditSituation
                   key={sitIndex}
-                  point='entryPoint'
+                  point={point}
                   situation={situation}
                   phsIndex={isDefined(phsIndex) ? phsIndex : null}
                   sitIndex={sitIndex}

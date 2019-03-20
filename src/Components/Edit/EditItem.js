@@ -41,7 +41,7 @@ class EditItem extends React.Component {
   }
 
   render() {
-    const { classes, index, handleSaveStrategy, saveStrategy, id, strategies } = this.props;
+    const { classes, index, teamSlug, fbSlug, handleSaveStrategy, saveStrategy, id, strategies } = this.props;
     const {
       name,
       entryPoint,
@@ -68,7 +68,7 @@ class EditItem extends React.Component {
               color='textPrimary'
               gutterBottom
             >
-              Strategy: {name}
+              Editing Strategy: {name} ({teamSlug}/{fbSlug})
             </Typography>
           </Grid>
           <Grid item>
@@ -168,20 +168,14 @@ class EditItem extends React.Component {
   updatePoint (e, point, type, phsIndex, sitIndex, conIndex, element) {
     let currState = this.state;
     let currPoint = currState[point];
-    console.log('updatePoint: ', e, point, type, phsIndex, sitIndex, conIndex, element);
+    console.log('updatePoint: ', e, point, type, phsIndex, sitIndex, conIndex, element, currPoint);
 
     switch (type) {
       case 'addPhase':
         currPoint.phases.push({
           name: 'New Phase',
           code: 'Code for new phase',
-          situations: {
-            name: 'New Situation',
-            conditions: {
-              name: 'New Condition',
-              code: 'Code for new Condition'
-            }
-          }
+          situations: []
         });
         this.setState({
           [point]: currPoint,
@@ -190,20 +184,15 @@ class EditItem extends React.Component {
         break;
       case 'addSituation':
         if(isDefined(currPoint.phases)){
+          console.log('addSituation Phase: ', phsIndex, currPoint.phases[phsIndex]);
           currPoint.phases[phsIndex].situations.push({
             name: 'New Situation',
-            conditions: {
-              name: 'New Condition',
-              code: 'Code for new Condition'
-            }
+            conditions: []
           });
         } else {
           currPoint.situations.push({
             name: 'New Situation',
-            conditions: [{
-              name: 'New Condition',
-              code: 'Code for new Condition'
-            }]
+            conditions: []
           });
         }
         this.setState({
@@ -315,10 +304,10 @@ class EditItem extends React.Component {
       buyOrder,
       sellOrder
     };
-
+    console.log('submitSave: ', id, strategies, stratIndex, strategy);
     strategies.subStrategies[stratIndex]=strategy;
 
-    let saved = await handleSaveStrategy(saveStrategy, strategies, id);
+    let saved = await handleSaveStrategy(saveStrategy, strategies.subStrategies, id);
 
     console.log('submitSave: ', await saved);
 

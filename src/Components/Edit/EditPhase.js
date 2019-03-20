@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Grid, Typography, List, FormGroup, TextField } from '@material-ui/core';
+import { Grid, Typography, List, FormGroup, TextField, Button } from '@material-ui/core';
 import { ExpandItemWrapper } from '../Common';
 import EditSituation from './EditSituation';
 
@@ -12,7 +12,7 @@ import { slugify } from '../../utils';
 
 class EditPhase extends React.Component {
   render() {
-    const { classes, index, sectionName, point, phsIndex, sitIndex, updatePoint, changed, submitSave } = this.props;
+    const { classes, point, phsIndex, sitIndex, updatePoint, changed, submitSave } = this.props;
     const { name, code, situations } = this.props.phase;
     console.log('EditPhase: ', this.props.phase);
     return (
@@ -27,14 +27,14 @@ class EditPhase extends React.Component {
           <Grid item xs={10}>
             <FormGroup>
               <TextField
-                id={`phase-${slugify(name)}-name-${index}`}
+                id={`phase-${slugify(name)}-name-${phsIndex}`}
                 label="Phase Name"
                 value={name}
                 onChange={e => updatePoint(e.target.value, point, 'updatePhase', phsIndex, null, null, 'name')}
                 margin="normal"
               />
               <TextField
-                id={`phase-${slugify(name)}-code-${index}`}
+                id={`phase-${slugify(name)}-code-${phsIndex}`}
                 label="Phase code"
                 value={code}
                 onChange={e => updatePoint(e.target.value, point, 'updatePhase', phsIndex, null, null, 'code')}
@@ -50,13 +50,14 @@ class EditPhase extends React.Component {
                   <EditSituation
                     key={sitIndex}
                     situation={situation}
-                    name={condition.name}
+                    name={situation.name}
                     point={point}
-                    phsIndex={phaseIndex}
+                    phsIndex={phsIndex}
                     sitIndex={sitIndex}
                     updatePoint={updatePoint}
                     classes={classes}
                     changed={changed}
+                    submitSave={submitSave}
                   />
                 ))
               }
@@ -74,7 +75,7 @@ class EditPhase extends React.Component {
                   color="secondary"
                   variant="contained"
                   fullWidth={true}
-                  onClick={e => updatePoint(e, point, 'addSituation', phaseIndex, null, null)}
+                  onClick={e => updatePoint(e, point, 'addSituation', phsIndex, null, null)}
                 >
                   + Add Situation
                 </Button>

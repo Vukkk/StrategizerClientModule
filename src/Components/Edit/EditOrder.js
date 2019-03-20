@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Button } from '@material-ui/core';
 import { ExpandItemWrapper } from '../Common';
 import EditPhase from './EditPhase';
 
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-class BuyOrder extends React.Component {
+class EditOrder extends React.Component {
   render() {
-    const { classes, index, sectionName, phases } = this.props;
+    const { classes, index, sectionName, point, phases, phsIndex, updatePoint, changed, submitSave } = this.props;
 
     return (
-      <ExpandItemWrapper sectionName="Buy Order">
+      <ExpandItemWrapper sectionName={sectionName}>
         <Grid
           item
           container
@@ -37,6 +37,7 @@ class BuyOrder extends React.Component {
                 <EditPhase
                   key={phsIndex}
                   phase={phase}
+                  point={point}
                   phsIndex={phsIndex}
                   updatePoint={updatePoint}
                   changed={changed}
@@ -57,7 +58,7 @@ class BuyOrder extends React.Component {
                   color="secondary"
                   variant="contained"
                   fullWidth={true}
-                  onClick={e => updatePoint(e, point, 'addPhase', phaseIndex, null, null)}
+                  onClick={e => updatePoint(e, point, 'addPhase', phsIndex, null, null)}
                 >
                   + Add Phase
                 </Button>
@@ -82,4 +83,4 @@ class BuyOrder extends React.Component {
   }
 }
 
-export default withStyles(styles)(BuyOrder);
+export default withStyles(styles)(EditOrder);

@@ -7,13 +7,6 @@ import {
   Button,
 } from '@material-ui/core';
 import BannerTopBar from '../BannerTopBar';
-import EntryPoint from './EntryPoint';
-import ExitPoint from './ExitPoint';
-import BuyPoint from './BuyPoint';
-import SellPoint from './SellPoint';
-import StopLoss from './StopLoss';
-import BuyOrder from './BuyOrder';
-import SellOrder from './SellOrder';
 import ViewPoint from './ViewPoint';
 import ViewOrder from './ViewOrder';
 import ViewWrapper from './ViewWrapper';
@@ -25,7 +18,7 @@ import styles from './styles';
 
 class ViewItem extends React.Component {
   render() {
-    const { classes, index, fbSlug } = this.props;
+    const { classes, index, teamSlug, fbSlug } = this.props;
     const {
       name,
       entryPoint,
@@ -52,7 +45,7 @@ class ViewItem extends React.Component {
               color='textPrimary'
               gutterBottom
             >
-              Strategy: {name}
+              Strategy: {name} ({teamSlug}/{fbSlug})
             </Typography>
           </Grid>
           <Grid item>
@@ -62,7 +55,7 @@ class ViewItem extends React.Component {
               color='primary'
               size='small'
               component={Link}
-              to={`/strategizer/edit/${fbSlug}/${index}`}
+              to={`/strategizer/edit/${teamSlug}/${fbSlug}/${index}`}
             >
               Edit
             </Button>

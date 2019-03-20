@@ -1,16 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import debounce from 'lodash/debounce';
 
-import { Button, Grid, Typography, List } from '@material-ui/core';
+import { Button, Grid, Typography, List, FormGroup, TextField } from '@material-ui/core';
 import { ExpandItemWrapper } from '../Common';
 import EditCondition from './EditCondition';
 
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-import { isDefined } from '../../utils';
+import { isDefined, slugify } from '../../utils';
 
 export class EditSituation extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.delayedCallback = debounce(this.debouncedUpdatePoint, 500);
+  }
+
+  debouncedUpdatePoint(event) {
+    //This will ensure that the event is not pooled
+    const { point, phsIndex, sitIndex, updatePoint } = this.props;
+    updatePoint(event.target.value, point, 'updateSituation', phsIndex, sitIndex, null, 'name');
+  }
+
+  handleNameChange (event) {
+    event.persist()
+    this.delayedCallback(event)
+  }
+
   render() {
     console.log('EditSituation: ', this.props);
     const { classes, point, phsIndex, sitIndex, updatePoint, changed, submitSave } = this.props;
@@ -29,7 +47,16 @@ export class EditSituation extends React.Component {
           justify="center"
           alignItems="center"
         >
-
+        <Grid item xs={10}>
+          <TextField
+            id={`situation-${slugify(name)}-name-${sitIndex}`}
+            label="Update Situation Name"
+            value={name}
+            onChange={e => updatePoint(e.target.value, point, 'updateSituation', phsIndex, sitIndex, null, 'name')}
+            margin="normal"
+            variante="outlined"
+          />
+        </Grid>
           <Grid item xs={12} >
             <List className={classes.root}>
               {conditions.length > 0 &&

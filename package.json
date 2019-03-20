@@ -31,6 +31,7 @@
     "apollo-client": "^2.5.1",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
+    "lodash": "^4.17.11",
     "react": "^16.8.4",
     "react-apollo": "^2.5.2",
     "react-apollo-hooks": "^0.4.3",

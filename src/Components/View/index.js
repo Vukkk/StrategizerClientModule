@@ -16,6 +16,7 @@ class View extends React.Component {
   render() {
     const { classes } = this.props;
     const strategyIndex = this.props.match.params.index;
+    const teamSlug = this.props.match.params.team;
     const fbSlug = this.props.match.params.slug;
 
     return (
@@ -63,7 +64,7 @@ class View extends React.Component {
           let strategyData = strategies[strategyIndex];
           console.log('strategyData: ', strategyData);
           return (
-            <ViewItem strategy={strategyData} index={strategyIndex} fbSlug={fbSlug} />
+            <ViewItem strategy={strategyData} index={strategyIndex} teamSlug={teamSlug} fbSlug={fbSlug} />
           );
         }}
       </Query>
