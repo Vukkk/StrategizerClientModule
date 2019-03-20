@@ -13,7 +13,7 @@ import { isDefined } from '../../utils';
 import { GET_STRATEGY } from '../../GraphQL/Strategies';
 import { SAVE_STRATEGY } from '../../GraphQL/Strategies';
 
-export class Edit extends React.Component {
+class Edit extends React.Component {
   constructor(props) {
     super(props);
 

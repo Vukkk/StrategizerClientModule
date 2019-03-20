@@ -11,7 +11,7 @@ import styles from './styles';
 
 import { isDefined, slugify } from '../../utils';
 
-export class EditSituation extends React.Component {
+class EditSituation extends React.Component {
   constructor(props) {
     super(props);
 

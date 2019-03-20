@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Query } from 'react-apollo';
 
 import { Typography } from '@material-ui/core';
@@ -13,7 +13,7 @@ import { isDefined } from '../../utils';
 
 import { LIST_STRATEGIES } from '../../GraphQL/Strategies'
 
-class ManageList extends Component {
+class ManageList extends React.Component {
   render() {
     const { classes } = this.props;
 
