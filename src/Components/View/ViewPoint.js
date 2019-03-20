@@ -8,12 +8,12 @@ import ViewSituation from './ViewSituation';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-class SellPoint extends React.Component {
+class ViewPoint extends React.Component {
   render() {
     const { classes, index, sectionName, situations } = this.props;
     console.log(situations);
     return (
-      <ExpandItemWrapper sectionName="Sell Point">
+      <ExpandItemWrapper sectionName={sectionName}>
         <Grid
           item
           container
@@ -35,6 +35,16 @@ class SellPoint extends React.Component {
             {situations.length > 0 &&
               situations.map((situation, index) => <ViewSituation key={index} situation={situation} index={index} />)
             }
+            {situations.length === 0 &&
+              <Typography
+                variant='subtitle1'
+                align='left'
+                color='textPrimary'
+                gutterBottom
+              >
+                No phases have been created for this section.
+              </Typography>
+            }
           </Grid>
         </Grid>
       </ExpandItemWrapper>
@@ -42,4 +52,4 @@ class SellPoint extends React.Component {
   }
 }
 
-export default withStyles(styles)(SellPoint);
+export default withStyles(styles)(ViewPoint);

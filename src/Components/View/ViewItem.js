@@ -14,6 +14,8 @@ import SellPoint from './SellPoint';
 import StopLoss from './StopLoss';
 import BuyOrder from './BuyOrder';
 import SellOrder from './SellOrder';
+import ViewPoint from './ViewPoint';
+import ViewOrder from './ViewOrder';
 import ViewWrapper from './ViewWrapper';
 
 import { isDefined } from '../../utils';
@@ -71,13 +73,13 @@ class ViewItem extends React.Component {
           spacing={24}
         >
           <Grid item xs={12} >
-            { entryPoint.situations.length > 0 && <EntryPoint sectionName="Entry Point" situations={entryPoint.situations} /> }
-            { exitPoint.situations.length > 0 && <ExitPoint sectionName="Exit Point" situations={exitPoint.situations} /> }
-            { sellPoint.situations.length > 0 && <SellPoint sectionName="Sell Point" situations={sellPoint.situations} /> }
-            { buyPoint.situations.length > 0 && <BuyPoint sectionName="Buy Point" situations={buyPoint.situations} /> }
-            { stopLoss.phases.length > 0 && <StopLoss sectionName="Stop Loss" phases={stopLoss.phases} /> }
-            { buyOrder.phases.length > 0 && <BuyOrder sectionName="Buy Order" phases={buyOrder.phases} /> }
-            { sellOrder.phases.length > 0 && <SellOrder sectionName="Sell Order" phases={sellOrder.phases} /> }
+            { entryPoint.situations.length >= 0 && <ViewPoint sectionName="Entry Point" situations={entryPoint.situations} /> }
+            { exitPoint.situations.length >= 0 && <ViewPoint sectionName="Exit Point" situations={exitPoint.situations} /> }
+            { sellPoint.situations.length >= 0 && <ViewPoint sectionName="Sell Point" situations={sellPoint.situations} /> }
+            { buyPoint.situations.length >= 0 && <ViewPoint sectionName="Buy Point" situations={buyPoint.situations} /> }
+            { stopLoss.phases.length >= 0 && <ViewOrder sectionName="Stop Loss" phases={stopLoss.phases} /> }
+            { buyOrder.phases.length >= 0 && <ViewOrder sectionName="Buy Order" phases={buyOrder.phases} /> }
+            { sellOrder.phases.length >= 0 && <ViewOrder sectionName="Sell Order" phases={sellOrder.phases} /> }
           </Grid>
         </Grid>
       </ViewWrapper>

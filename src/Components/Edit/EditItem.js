@@ -7,13 +7,8 @@ import {
   Button,
 } from '@material-ui/core';
 import BannerTopBar from '../BannerTopBar';
-import EntryPoint from './EntryPoint';
-import ExitPoint from '../View/ExitPoint';
-import BuyPoint from '../View/BuyPoint';
-import SellPoint from '../View/SellPoint';
-import StopLoss from '../View/StopLoss';
-import BuyOrder from '../View/BuyOrder';
-import SellOrder from '../View/SellOrder';
+import EditPoint from './EditPoint';
+import EditOrder from './EditOrder';
 import EditWrapper from './EditWrapper';
 
 import { isDefined } from '../../utils';
@@ -46,7 +41,7 @@ class EditItem extends React.Component {
   }
 
   render() {
-    const { classes, index, handleSaveStrategy, saveStrategy, id } = this.props;
+    const { classes, index, handleSaveStrategy, saveStrategy, id, strategies } = this.props;
     const {
       name,
       entryPoint,
@@ -95,7 +90,7 @@ class EditItem extends React.Component {
         >
           <Grid item xs={12} >
             { entryPoint.situations.length > 0 &&
-              <EntryPoint
+              <EditPoint
                 sectionName="Entry Point"
                 point="entryPoint"
                 situations={entryPoint.situations}
@@ -104,12 +99,66 @@ class EditItem extends React.Component {
                 submitSave={this.submitSave}
               />
             }
-            { exitPoint.situations.length > 0 && <ExitPoint sectionName="Exit Point" point="exitPoint" situations={exitPoint.situations} /> }
-            { sellPoint.situations.length > 0 && <SellPoint sectionName="Sell Point" situations={sellPoint.situations} /> }
-            { buyPoint.situations.length > 0 && <BuyPoint sectionName="Buy Point" situations={buyPoint.situations} /> }
-            { stopLoss.phases.length > 0 && <StopLoss sectionName="Stop Loss" phases={stopLoss.phases} /> }
-            { buyOrder.phases.length > 0 && <BuyOrder sectionName="Buy Order" phases={buyOrder.phases} /> }
-            { sellOrder.phases.length > 0 && <SellOrder sectionName="Sell Order" phases={sellOrder.phases} /> }
+            { exitPoint.situations.length > 0 &&
+              <EditPoint
+                sectionName="Exit Point"
+                point="exitPoint"
+                situations={exitPoint.situations}
+                updatePoint={this.updatePoint}
+                changed={this.state.changed}
+                submitSave={this.submitSave}
+              />
+            }
+            { sellPoint.situations.length > 0 &&
+              <EditPoint
+                sectionName="Sell Point"
+                point="sellPoint"
+                situations={sellPoint.situations}
+                updatePoint={this.updatePoint}
+                changed={this.state.changed}
+                submitSave={this.submitSave}
+              />
+            }
+            { buyPoint.situations.length > 0 &&
+              <EditPoint
+                sectionName="Buy Point"
+                point="buyPoint"
+                situations={buyPoint.situations}
+                updatePoint={this.updatePoint}
+                changed={this.state.changed}
+                submitSave={this.submitSave}
+              />
+            }
+            { stopLoss.phases.length > 0 &&
+              <EditOrder
+                sectionName="Stop Loss"
+                point="stopLoss"
+                phases={stopLoss.phases}
+                updatePoint={this.updatePoint}
+                changed={this.state.changed}
+                submitSave={this.submitSave}
+              />
+            }
+            { buyOrder.phases.length > 0 &&
+              <EditOrder
+                sectionName="Buy Order"
+                point="buyOrder"
+                phases={buyOrder.phases}
+                updatePoint={this.updatePoint}
+                changed={this.state.changed}
+                submitSave={this.submitSave}
+              />
+            }
+            { sellOrder.phases.length > 0 &&
+              <EditOrder
+                sectionName="Sell Order"
+                point="sellOrder"
+                phases={sellOrder.phases}
+                updatePoint={this.updatePoint}
+                changed={this.state.changed}
+                submitSave={this.submitSave}
+              />
+            }
           </Grid>
         </Grid>
       </EditWrapper>
@@ -241,7 +290,7 @@ class EditItem extends React.Component {
   async submitSave(e){
     e.preventDefault();
 
-    const { handleSaveStrategy, saveStrategy, id } = this.props;
+    const { handleSaveStrategy, saveStrategy, id, strategies } = this.props;
     const {
       index,
       name,
@@ -257,19 +306,19 @@ class EditItem extends React.Component {
     const stratIndex = index;
 
     const strategy = {
-      subStrategies: {
-        name,
-        entryPoint,
-        exitPoint,
-        sellPoint,
-        buyPoint,
-        stopLoss,
-        buyOrder,
-        sellOrder
-      }
+      name,
+      entryPoint,
+      exitPoint,
+      sellPoint,
+      buyPoint,
+      stopLoss,
+      buyOrder,
+      sellOrder
     };
 
-    let saved = await handleSaveStrategy(saveStrategy, strategy, id);
+    strategies.subStrategies[stratIndex]=strategy;
+
+    let saved = await handleSaveStrategy(saveStrategy, strategies, id);
 
     console.log('submitSave: ', await saved);
 

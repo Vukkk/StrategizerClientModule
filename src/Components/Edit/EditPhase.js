@@ -1,45 +1,57 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Button, Grid, Typography, List } from '@material-ui/core';
+import { Grid, Typography, List, FormGroup, TextField } from '@material-ui/core';
 import { ExpandItemWrapper } from '../Common';
-import EditCondition from './EditCondition';
+import EditSituation from './EditSituation';
 
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-import { isDefined } from '../../utils';
+import { slugify } from '../../utils';
 
-export class EditSituation extends React.Component {
+class EditPhase extends React.Component {
   render() {
-    console.log('EditSituation: ', this.props);
-    const { classes, point, phsIndex, sitIndex, updatePoint, changed, submitSave } = this.props;
-    const { name, conditions } = this.props.situation;
-    let phaseIndex = isDefined(phsIndex) ? phsIndex : null;
+    const { classes, index, sectionName, point, phsIndex, sitIndex, updatePoint, changed, submitSave } = this.props;
+    const { name, code, situations } = this.props.phase;
+    console.log('EditPhase: ', this.props.phase);
     return (
-      <ExpandItemWrapper
-        sectionName={`Situation: ${name}`}
-        style={classes.expansionSituation}
-        defaultExpanded={conditions.length > 3 ? false : true}
-      >
+      <ExpandItemWrapper sectionName={`Phase: ${name}`} style={classes.expansionSituation}>
         <Grid
-          item
           container
           direction="row"
           justify="center"
           alignItems="center"
         >
-
+        <Grid item container xs={12} direction="row" justify="space-between" alignItems="center">
+          <Grid item xs={10}>
+            <FormGroup>
+              <TextField
+                id={`phase-${slugify(name)}-name-${index}`}
+                label="Phase Name"
+                value={name}
+                onChange={e => updatePoint(e.target.value, point, 'updatePhase', phsIndex, null, null, 'name')}
+                margin="normal"
+              />
+              <TextField
+                id={`phase-${slugify(name)}-code-${index}`}
+                label="Phase code"
+                value={code}
+                onChange={e => updatePoint(e.target.value, point, 'updatePhase', phsIndex, null, null, 'code')}
+                margin="normal"
+              />
+            </FormGroup>
+          </Grid>
+        </Grid>
           <Grid item xs={12} >
             <List className={classes.root}>
-              {conditions.length > 0 &&
-                conditions.map((condition, condIndex) => (
-                  <EditCondition
-                    key={condIndex}
+              {situations.length > 0 &&
+                situations.map((situation, sitIndex) => (
+                  <EditSituation
+                    key={sitIndex}
+                    situation={situation}
                     name={condition.name}
-                    condition={condition.code}
                     point={point}
-                    index={condIndex}
                     phsIndex={phaseIndex}
                     sitIndex={sitIndex}
                     updatePoint={updatePoint}
@@ -48,7 +60,6 @@ export class EditSituation extends React.Component {
                   />
                 ))
               }
-
             </List>
             <Grid
               item
@@ -63,9 +74,9 @@ export class EditSituation extends React.Component {
                   color="secondary"
                   variant="contained"
                   fullWidth={true}
-                  onClick={e => updatePoint(e, point, 'addCondition', phaseIndex, sitIndex, null)}
+                  onClick={e => updatePoint(e, point, 'addSituation', phaseIndex, null, null)}
                 >
-                  + Add Condition
+                  + Add Situation
                 </Button>
               </Grid>
               <Grid item>
@@ -88,4 +99,4 @@ export class EditSituation extends React.Component {
   }
 }
 
-export default withStyles(styles)(EditSituation);
+export default withStyles(styles)(EditPhase);

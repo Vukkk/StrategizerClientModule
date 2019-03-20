@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 
 import { Grid, Typography } from '@material-ui/core';
 import ExpandItemWrapper from './ExpandItemWrapper';
-import ViewSituation from './ViewSituation';
+import ViewPhase from './ViewPhase';
 
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-class BuyPoint extends React.Component {
+class StopLoss extends React.Component {
   render() {
-    const { classes, index, sectionName, situations } = this.props;
-    console.log(situations);
+    const { classes, index, sectionName, phases } = this.props;
+
     return (
-      <ExpandItemWrapper sectionName="Buy Point">
+      <ExpandItemWrapper sectionName={sectionName}>
         <Grid
           item
           container
@@ -28,12 +28,22 @@ class BuyPoint extends React.Component {
               color='textPrimary'
               gutterBottom
             >
-              Situations
+              Phases
             </Typography>
           </Grid>
           <Grid item xs={12} >
-            {situations.length > 0 &&
-              situations.map((situation, index) => <ViewSituation key={index} situation={situation} index={index} />)
+            {phases.length > 0 &&
+              phases.map((phase, index) => <ViewPhase key={index} phase={phase} index={index} />)
+            }
+            {phases.length === 0 &&
+              <Typography
+                variant='subtitle1'
+                align='left'
+                color='textPrimary'
+                gutterBottom
+              >
+                No phases have been created for this section.
+              </Typography>
             }
           </Grid>
         </Grid>
@@ -42,4 +52,4 @@ class BuyPoint extends React.Component {
   }
 }
 
-export default withStyles(styles)(BuyPoint);
+export default withStyles(styles)(StopLoss);

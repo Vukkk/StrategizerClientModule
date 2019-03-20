@@ -62,7 +62,7 @@ export class Edit extends React.Component {
               ]}
             >
               {(saveStrategy, { loading, error, data }) => {
-                return( <EditItem id={id} strategy={strategyData} index={strategyIndex} classes={classes} handleSaveStrategy={this.handleSaveStrategy} saveStrategy={saveStrategy} /> )
+                return( <EditItem id={id} strategies={strategies} strategy={strategyData} index={strategyIndex} classes={classes} handleSaveStrategy={this.handleSaveStrategy} saveStrategy={saveStrategy} /> )
               }}
             </Mutation>
           );

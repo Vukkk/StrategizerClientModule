@@ -67,6 +67,7 @@ class ManageList extends Component {
                   index={index}
                   strategy={strategy}
                   teamName={team0.name}
+                  teamSlug={team0.slug}
                   teamAvatar={team0.profile.avatar}
                   fbName={fb0.name}
                   fbAvatar={fb0.avatar}

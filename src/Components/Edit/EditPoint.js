@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Grid, Typography, Button } from '@material-ui/core';
-import ExpandItemWrapper from '../View/ExpandItemWrapper';
+import { ExpandItemWrapper } from '../Common';
 import EditSituation from './EditSituation';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -10,12 +10,12 @@ import styles from './styles';
 
 import { isDefined } from '../../utils';
 
-class EntryPoint extends React.Component {
+class EditPoint extends React.Component {
   render() {
     const { classes, index, sectionName, phsIndex, situations, updatePoint, changed, submitSave } = this.props;
 
     return (
-      <ExpandItemWrapper sectionName="Entry Point">
+      <ExpandItemWrapper sectionName={sectionName} >
         <Grid
           item
           container
@@ -64,4 +64,4 @@ class EntryPoint extends React.Component {
   }
 }
 
-export default withStyles(styles)(EntryPoint);
+export default withStyles(styles)(EditPoint);
