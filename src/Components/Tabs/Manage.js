@@ -12,15 +12,6 @@ class Manage extends React.Component {
 
     return (
       <React.Fragment>
-        <Typography
-          className={classes.title}
-          variant='h4'
-          align='center'
-          color='textPrimary'
-          gutterBottom
-        >
-        Your Strategies
-        </Typography>
         <ManageList />
       </React.Fragment>
     );
