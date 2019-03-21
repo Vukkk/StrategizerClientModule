@@ -11,9 +11,9 @@ class Manage extends React.Component {
     const { classes } = this.props;
 
     return (
-      <React.Fragment>
+      <div className='container'>
         <ManageList />
-      </React.Fragment>
+      </div>
     );
   }
 }
