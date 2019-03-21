@@ -136,6 +136,10 @@ class ManageList extends React.Component {
                   </Paper>
                 )
               })
+            } else{
+              return (
+                <ManageError text={`You don't have any Strategies.`}  classes={classes} />
+              )
             }
           }}
         </Query>
