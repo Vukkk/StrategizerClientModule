@@ -10,8 +10,7 @@ import EditWrapper from './EditWrapper';
 import { Loading, Error } from '../Common';
 import { isDefined } from '../../utils';
 
-import { GET_STRATEGY } from '../../GraphQL/Strategies';
-import { SAVE_STRATEGY } from '../../GraphQL/Strategies';
+import { GET_STRATEGY, SAVE_STRATEGY } from '../../GraphQL/Strategies';
 
 class Edit extends React.Component {
   constructor(props) {
