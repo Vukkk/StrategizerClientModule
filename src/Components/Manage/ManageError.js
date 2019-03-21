@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Loading, Error } from '../Common';
 
-export const ManageError = ({ classes, text }) => (
+export const ManageError = ({ classes, text, children}) => (
   <Paper className={classes.card}>
     <Grid
       container
@@ -15,7 +15,7 @@ export const ManageError = ({ classes, text }) => (
       alignItems="center"
     >
       <Grid item xs>
-        <Error text={text} />
+        <Error text={text} children={children} />
       </Grid>
     </Grid>
   </Paper>

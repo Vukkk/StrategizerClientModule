@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import {
   Grid, Paper,
   Typography,
-  Button, Avatar
+  Button, Avatar, Card, CardContent
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
@@ -15,10 +15,10 @@ class ManageItem extends React.Component {
     const { name } = this.props.strategy;
 
     return (
-      <Paper className={classes.card}>
+      <Paper className={classes.substrategycard}>
         <Grid
           container
-          spacing={16}
+          spacing={0}
           direction="row"
           justify="space-between"
           alignItems="center"
@@ -33,38 +33,6 @@ class ManageItem extends React.Component {
             >
               <Grid item>
                 <Typography className={classes.heading}>{name} </Typography>
-              </Grid>
-              <Grid item>
-                <Grid
-                  container
-                  spacing={16}
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item>
-                    <Avatar src={teamAvatar} className={classes.avatar} />
-                  </Grid>
-                  <Grid item>
-                    <Typography className={classes.subheading}>{teamName}</Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item>
-                <Grid
-                  container
-                  spacing={16}
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item>
-                    <Avatar src={fbAvatar} className={classes.avatar} />
-                  </Grid>
-                  <Grid item>
-                    <Typography className={classes.subheading}>{fbName}</Typography>
-                  </Grid>
-                </Grid>
               </Grid>
             </Grid>
           </Grid>

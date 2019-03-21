@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
 
-import { Typography } from '@material-ui/core';
+import { Typography, Paper, Grid, Avatar, List, ListItem} from '@material-ui/core';
 
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
@@ -9,7 +10,7 @@ import styles from './styles';
 import ManageItem from './ManageItem';
 import ManageLoading from './ManageLoading';
 import ManageError from './ManageError';
-import { isDefined } from '../../utils';
+import { isDefined, isNull } from '../../utils';
 
 import { LIST_STRATEGIES } from '../../GraphQL/Strategies'
 
@@ -26,55 +27,116 @@ class ManageList extends React.Component {
         >
           {({ loading, error, data, refetch, networkStatus }) => {
             if (isDefined(loading) && loading) {
-              console.log('ManageList Loading: ', loading);
               return <ManageLoading text="Strategies" classes={classes} />
             }
             if(isDefined(error)) {
-              console.log('ManageList Error: ', error);
               return <ManageError text={`${error}`}  classes={classes} />
             }
-            console.log('ManageList Data: ', data);
-            let team0;
-            let fb0;
-            let strategy0;
-            let strategies;
-            if(data.teams_TeamsByOwner.length > 0){
-              team0 = data.teams_TeamsByOwner[0];
-              if(team0.fb.length > 0){
-                fb0 = team0.fb[0];
-                if(isDefined(fb0.strategy)){
-                  strategy0 = fb0.strategy;
-                  if(strategy0.subStrategies.length > 0){
-                    strategies = strategy0.subStrategies;
-                  } else {
-                    return (<Error text="This strategy has no subStrategies" />)
-                  }
-                } else {
-                  return (<Error text="You have no strategies" />)
-                }
-              } else {
-                return (<Error text="You don't have any finanical beings. Please create one!" />)
-              }
-            } else {
-              return (<Error text="You don't have a team or any finanical beings. Please create one!" />)
-            }
-            console.log('strategies: ', strategies);
-            return strategies.map((strategy, index) => {
-              console.log('strategy: ', strategy, index);
+            if(!isDefined(data.teams_TeamsByOwner) || isNull(data.teams_TeamsByOwner)){
               return (
-                <ManageItem
-                  key={index}
-                  index={index}
-                  strategy={strategy}
-                  teamName={team0.name}
-                  teamSlug={team0.slug}
-                  teamAvatar={team0.profile.avatar}
-                  fbName={fb0.name}
-                  fbAvatar={fb0.avatar}
-                  fbSlug={fb0.slug}
-                />
-              );
-            });
+                <ManageError text={`You don't have any teams.`}  classes={classes} >
+                  <Link to='/teams/manage-teams' className={classes.backLink}>Create A Team &rarr;</Link>
+                </ManageError>
+              )
+            }
+            const teams = data.teams_TeamsByOwner;
+            let fbs;
+            let substrategies;
+            if(teams.length > 0){
+              return teams.map((team, index) => {
+                fbs = team.fb;
+                return (
+                  <Paper className={classes.card} key={`team-${index}`}>
+                    <Grid
+                      container
+                      spacing={16}
+                      direction="column"
+                      justify="center"
+                      alignItems="center"
+                    >
+                      <Grid item>
+                        <Grid
+                          container
+                          spacing={16}
+                          direction="row"
+                          justify="center"
+                          alignItems="center"
+                        >
+                          <Grid item>
+                            <Avatar src={team.profile.avatar} className={classes.teamAvatar} />
+                          </Grid>
+                          <Grid item>
+                            <Typography variant='h4'>{team.name}</Typography>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Grid
+                          container
+                          spacing={16}
+                          direction="column"
+                          justify="center"
+                          alignItems="center"
+                        >
+                          {fbs.length > 0 && fbs.map((fb, index) => {
+                            substrategies = fb.strategy.subStrategies;
+                            return (
+                              <Paper className={classes.card} key={`team-${index}`}>
+                                <Grid item container xs={12} key={`fb-${index}`}>
+                                  <List>
+                                    <ListItem>
+                                      <Grid
+                                        item
+                                        container
+                                        spacing={16}
+                                        direction="row"
+                                        justify="center"
+                                        alignItems="center"
+                                        key={`fb-${fb.slug}-meta`}
+                                      >
+
+                                        <Grid item>
+                                          <Avatar src={fb.avatar} className={classes.avatar} />
+                                        </Grid>
+                                        <Grid item>
+                                          <Typography className={classes.subheading}>{fb.name} FB Substrategies</Typography>
+                                        </Grid>
+                                      </Grid>
+                                    </ListItem>
+                                    {substrategies.length > 0 && substrategies.map((strategy, index) => {
+                                      return (
+                                        <ListItem key={`strategy-${index}`}>
+                                          <ManageItem
+                                            index={index}
+                                            strategy={strategy}
+                                            teamSlug={team.slug}
+                                            fbSlug={fb.slug}
+                                          />
+                                        </ListItem>
+                                      )
+                                    })}
+                                    {(isNull(substrategies)
+                                      || substrategies.length == 0)
+                                      && <Error text="This strategy has no subStrategies" />}
+                                  </List>
+                                </Grid>
+                              </Paper>
+                            )
+                          })}
+                          {(!isDefined(fbs) || isNull(fbs) || fbs.length == 0)
+                            && (
+                              <ManageError text={`You don't have any Financial Beings.`}  classes={classes} >
+                                <Link to='/teams/manage-teams' className={classes.backLink}>Create A Financial Being &rarr;</Link>
+                              </ManageError>
+                            )
+                          }
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                )
+              })
+            }
           }}
         </Query>
       </div>
