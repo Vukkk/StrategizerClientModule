@@ -1,7 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Grid, Typography, List, FormGroup, TextField, Button } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+  List,
+  FormGroup,
+  TextField,
+  Button
+} from '@material-ui/core';
 import { ExpandItemWrapper } from '../Common';
 import EditSituation from './EditSituation';
 
@@ -89,6 +96,16 @@ class EditPhase extends React.Component {
                   fullWidth={false}
                   disabled={changed ? false : true}
                   onClick={e => submitSave(e)}
+                >
+                  + Save Changes
+                </Button>
+                <Button
+                  className={classes.addButton}
+                  color="primary"
+                  variant={changed ? "contained" : "outlined"}
+                  fullWidth={false}
+                  disabled={changed ? false : true}
+                  onClick={e => updatePoint(e, point, 'deletePhase', phsIndex, null, null)}
                 >
                   + Save Changes
                 </Button>
