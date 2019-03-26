@@ -288,8 +288,8 @@ class Layout extends React.Component {
         break;
       case 'updateStrategy':
         if(isDefined(currStrategy)){
-          if(element === 'actif'){
-            currStrategy.actif = e;
+          if(element === 'active'){
+            currStrategy.active = e;
           } else {
             currStrategy.name = e;
           }

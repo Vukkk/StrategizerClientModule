@@ -19,7 +19,7 @@ export const LIST_STRATEGIES = gql`
           fbSlug
           subStrategies {
             name
-            actif
+            active
             entryPoint {
               situations {
                 name

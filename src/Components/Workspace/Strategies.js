@@ -63,8 +63,8 @@ export class Strategies extends React.Component {
               />
               <ListItemSecondaryAction>
                 <Switch
-                  onChange={e => updatePoint(!strategyItem.actif, index, null, 'updateStrategy', null, null, null, 'actif')}
-                  checked={strategyItem.actif}
+                  onChange={e => updatePoint(!strategyItem.active, index, null, 'updateStrategy', null, null, null, 'active')}
+                  checked={strategyItem.active}
                 />
               </ListItemSecondaryAction>
             </ListItem>

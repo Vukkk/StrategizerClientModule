@@ -7,7 +7,7 @@ export const SAVE_STRATEGY = gql`
       fbSlug
       subStrategies {
         name
-        actif
+        active
         entryPoint {
           situations {
             name
