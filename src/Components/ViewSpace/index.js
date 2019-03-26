@@ -18,8 +18,8 @@ export class ViewEdit extends React.Component {
       <Grid
         container
         direction="column"
-        justify="stretch"
-        alignItems="center"
+        justify="flex-start"
+        alignItems="stretch"
       >
         <Grid item>
           View Items

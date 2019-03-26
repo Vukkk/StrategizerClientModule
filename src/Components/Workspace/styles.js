@@ -72,8 +72,11 @@ const styles = theme => ({
   strategyList: {
     padding: theme.spacing.unit * 1
   },
+  teamsListWrapper:{
+    padding: theme.spacing.unit * 5,
+  },
   teamsList:{
-    padding: theme.spacing.unit * 5
+    border: '1px solid #CCC',
   }
 });
 

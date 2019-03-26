@@ -26,11 +26,15 @@ const styles = theme => ({
     }
   },
   primary:{
-    color: '#999',
-    fontSize: 8,
+    color: '#888',
+    fontSize: 12,
     '&:hover':{
-      color: '#ddd'
+      color: '#666'
     }
+  },
+  teamTitle:{
+    fontSize: 13,
+    textTransform: 'uppercase'
   },
   nested: {
     paddingLeft: theme.spacing.unit * 3,
@@ -42,6 +46,12 @@ const styles = theme => ({
   },
   strategyItem: {
     width: '100%'
+  },
+  titleItem: {
+    width: '100%',
+    '&:hover':{
+      backgroundColor: '#FFF'
+    }
   },
 });
 
@@ -60,7 +70,16 @@ export class Teams extends React.Component {
     console.log(this.state);
     return (
       <React.Fragment>
+        <ListItem className={classes.titleItem} classes={{root: classes.root}}>
+          <ListItemText
+            primary={`Strategy Source:`}
+            classes={{primary: classes.teamTitle}}
+          />
+        </ListItem>
         <ListItem button onClick={this.handleViewTeams} className={classes.strategyItem} classes={{root: classes.root}}>
+          <ListItemAvatar>
+            <Avatar src={team.profile.avatar} className={classes.strategyAvatar} />
+          </ListItemAvatar>
           <ListItemText
             primary={`Team: ${team.name}`}
             classes={{primary: classes.primary}}

@@ -59,9 +59,6 @@ class Layout extends React.Component {
       defaultPoint = defaultStrategy.entryPoint;
       defaultSituation = defaultPoint.situations[0];
       defaultCondition = defaultSituation.conditions[0];
-      // console.log(simFbs);
-      // const strategies = simFbs[0].strategy.subStrategies;
-      // const strategy = strategies[0];
     }
 
     this.state = {
@@ -72,22 +69,9 @@ class Layout extends React.Component {
       phase: defaultPhase,
       situation: defaultSituation,
       condition: defaultCondition,
-      /*
-      fb: simFbs[0].slug,
-
-      strategy: strategy,
-      index: 0,
-      name: strategy.name,
-      entryPoint: strategy.entryPoint,
-      exitPoint: strategy.exitPoint,
-      sellPoint: strategy.sellPoint,
-      buyPoint: strategy.buyPoint,
-      stopLoss: strategy.stopLoss,
-      buyOrder: strategy.buyOrder,
-      sellOrder: strategy.sellOrder,
-      */
       changed: false,
-      saved: false
+      saved: false,
+      view: 'Introduction'
     }
   }
 
@@ -177,30 +161,25 @@ class Layout extends React.Component {
                   updatePoint={this.updatePoint}
                 />
               </List>
-              <List className={classes.teamsList}>
-                <Teams
-                  teams={listStrategies.teams_TeamsByOwner}
-                  team={this.state.team}
-                  setTeam={this.setTeam}
-                />
-                <FBs
-                  fbs={simFbs}
-                  fb={this.state.fb}
-                  setFB={this.setFB}
-                />
-              </List>
+              <div className={classes.teamsListWrapper}>
+                <List className={classes.teamsList} disablePadding >
+                  <Teams
+                    teams={listStrategies.teams_TeamsByOwner}
+                    team={this.state.team}
+                    setTeam={this.setTeam}
+                  />
+                  <FBs
+                    fbs={simFbs}
+                    fb={this.state.fb}
+                    setFB={this.setFB}
+                  />
+                </List>
+              </div>
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={6} md={8}>
-          <Grid
-            container
-            direction="column"
-            justify="flex-start"
-            alignItems="center"
-          >
-            <ViewEdit />
-          </Grid>
+          <ViewEdit view={this.state.view} />
         </Grid>
       </Grid>
     )

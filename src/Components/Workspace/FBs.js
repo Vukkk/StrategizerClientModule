@@ -20,15 +20,16 @@ import Selected from '@material-ui/icons/Check';
 
 const styles = theme => ({
   root: {
-    backgroundColor: '#666',
+    backgroundColor: '#FFF',
     '&:hover':{
-      backgroundColor: '#000'
+      backgroundColor: '#DDD'
     }
   },
   primary:{
-    color: '#FFF',
+    color: '#888',
+    fontSize: 12,
     '&:hover':{
-      color: '#ddd'
+      color: '#666'
     }
   },
   nested: {
@@ -60,6 +61,9 @@ export class FBs extends React.Component {
     return (
       <React.Fragment>
         <ListItem button onClick={this.handleViewFbs} classes={{root: classes.root}}>
+          <ListItemAvatar>
+            <Avatar src={fb.avatar} className={classes.strategyAvatar} />
+          </ListItemAvatar>
           <ListItemText
             primary={`FB: ${fb.name}`}
             classes={{primary: classes.primary}}

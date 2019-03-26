@@ -26,6 +26,9 @@ const styles = theme => ({
   },
   primary:{
     color: '#fff',
+    backgroundColor: 'none',
+    fontWeight: '700',
+    textTransform: 'uppercase',
     '&:hover':{
       color: '#eee'
     }
