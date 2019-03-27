@@ -19,9 +19,13 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import NavigateNext from '@material-ui/icons/NavigateNext';
 import Edit from '@material-ui/icons/Edit';
 
+import SituationPoints from './SituationPoints'
+
 class Point extends React.Component {
   constructor (props) {
     super(props);
+
+    this.handleOpenPoint = this.handleOpenPoint.bind(this);
 
     this.state = {
       openPoint: false,
@@ -42,63 +46,45 @@ class Point extends React.Component {
       setSituation,
       updatePoint,
       openPoint,
-      handleViewPoint
+      handleViewPoint,
+      selected,
+      hasPhase
     } = this.props;
-    console.log('Point :', entryName, openPoint, pointIndex, points, point, phase, situation);
+    console.log('Point :', entryName, openPoint, pointIndex, points, point, phase, situation, selected, hasPhase);
     console.log('Point Situations:', points[pointIndex]);
-    let situations = points[pointIndex];
-    return (
-      <React.Fragment>
-        <ListItem
-          button
-          key={`point-${index}`}
-          onClick={e => handleViewPoint(e, pointIndex)}
-          className={classes.strategyItem}
+    let phases;
+    let situations;
+    if(hasPhase){
+      return (
+
+      );
+    } else {
+      return (
+        <SituationPoints
+          index={index}
+          entryName={entryName}
+          pointIndex={pointIndex}
+          points={points}
+          point={point}
+          phase={index}
+          situation={index}
+          setPoint={index}
+          setPhase={index}
+          setSituation={index}
+          updatePoint={index}
+          openPoint={index}
+          handleOpenPoint={this.handleOpenPoint}
+          selected={index}
         >
-          <ListItemText
-            primary={entryName}
-          />
-          {openPoint === pointIndex ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={openPoint === pointIndex} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            {situations.length > 0 && situations.map((situationItem, index) => {
-              console.log('situationItem', situationItem);
-              return (
-                <ListItem
-                  button
-                  className={classes.nested}
-                  key={`situation-${index}`}
-                  onClick={e => setSituation(situationItem)}
-                  dense
-                >
-                  <ListItemText
-                    primary={situationItem.name}
-                  />
-                  <ListItemSecondaryAction>
-                    <IconButton aria-label="Edit">
-                      <Edit />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                  {situation.name === situationItem.name ? <NavigateNext nativeColor="#9ccc65" /> : null}
-                </ListItem>
-              )
-            })}
-            {situations.length === 0 &&
-              <Typography
-                variant='subtitle1'
-                align='left'
-                color='textPrimary'
-                gutterBottom
-              >
-                No situations have been created for this section.
-              </Typography>
-            }
-          </List>
-        </Collapse>
-      </React.Fragment>
-    );
+      );
+    }
+
+
   }
+
+  handleOpenPoint = () => {
+    this.setState(state => ({ openTeams: !state.openTeams }));
+  };
 }
 
 export default withStyles(styles)(Point);

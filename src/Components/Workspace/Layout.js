@@ -36,13 +36,15 @@ class Layout extends React.Component {
     let defaultFB = null;
     let defaultStrategy = null;
     let defaultPoint = null;
+    let defaultPointIndex = null;
+    let defaultPhaseIndex = null;
+    let defaultSituationIndex = null;
     let defaultPhase = null;
     let defaultSituation = null;
     let defaultCondition = null;
 
 
     if(!props.listStrategies.loading && isDefined(props.listStrategies.teams_TeamsByOwner)){
-      console.log('layout constructor', props.listStrategies);
       const teams = props.listStrategies.teams_TeamsByOwner;
       const fbs = teams[0].fb;
 
@@ -57,6 +59,9 @@ class Layout extends React.Component {
       defaultFB = simFbs[0];
       defaultStrategy = defaultFB.strategy.subStrategies[0];
       defaultPoint = defaultStrategy.entryPoint;
+      defaultPointIndex = 'entryPoint';
+      defaultPhaseIndex = 0;
+      defaultSituationIndex = 0;
       defaultSituation = defaultPoint.situations[0];
       defaultCondition = defaultSituation.conditions[0];
     }
@@ -66,7 +71,10 @@ class Layout extends React.Component {
       fb: defaultFB,
       strategy: defaultStrategy,
       point: defaultPoint,
+      pointIndex: defaultPointIndex,
       phase: defaultPhase,
+      phaseIndex: defaultPhaseIndex,
+      situationIndex: defaultSituationIndex,
       situation: defaultSituation,
       condition: defaultCondition,
       changed: false,
@@ -76,7 +84,6 @@ class Layout extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('Layout componentDidUpdate: ', prevProps, this.props)
   // Typical usage (don't forget to compare props):
   if (prevProps.listStrategies.loading && !this.props.listStrategies.loading) {
     const teams = props.listStrategies.teams_TeamsByOwner;
@@ -89,20 +96,26 @@ class Layout extends React.Component {
       }
     })
 
-    defaultTeam = props.listStrategies.teams_TeamsByOwner[0];
-    defaultFB = simFbs[0];
-    defaultStrategy = defaultFB.strategy.subStrategies[0];
-    defaultPoint = defaultStrategy.entryPoint;
-    defaultPhase = null;
-    defaultSituation = defaultPoint.situations[0];
-    defaultCondition = defaultSituation.condition[0];
+    let defaultTeam = props.listStrategies.teams_TeamsByOwner[0];
+    let defaultFB = simFbs[0];
+    let defaultStrategy = defaultFB.strategy.subStrategies[0];
+    let defaultPoint = defaultStrategy.entryPoint;
+    let defaultPointIndex = 'entryPoint';
+    let defaultPhaseIndex= 0;
+    let defaultSituationIndex = 0;
+    let defaultPhase = null;
+    let defaultSituation = defaultPoint.situations[0];
+    let defaultCondition = defaultSituation.condition[0];
 
     this.setState({
       team: defaultTeam,
       fb: defaultFB,
       strategy: defaultStrategy,
       point: defaultPoint,
+      pointIndex: defaultPointIndex,
       phase: defaultPhase,
+      phaseIndex: defaultPhaseIndex,
+      situationIndex: defaultSituationIndex,
       situation: defaultSituation,
       condition: defaultCondition
     });
@@ -111,7 +124,7 @@ class Layout extends React.Component {
 
   render () {
     const { classes, listStrategies, saveStrategy, createStrategy } = this.props;
-    console.log(this.state);
+    console.log('Layout state: ', this.state);
     const teams = listStrategies.teams_TeamsByOwner;
     const fbs = teams[0].fb;
 
@@ -129,8 +142,8 @@ class Layout extends React.Component {
       <Grid item
       container
       direction="row"
-      justify="space-between"
-      alignItems="center"
+      justify="flex-start"
+      alignItems="stretch"
       >
         <Grid item xs={12} md={4}>
           <Grid
@@ -139,7 +152,7 @@ class Layout extends React.Component {
             justify="flex-start"
             alignItems="center"
           >
-            <Grid item xs={12}>
+            <Grid item xs={12} className={classes.strategyList}>
               <List className={classes.strategyList}>
                 <Strategies
                   strategies={strategies}
@@ -153,7 +166,10 @@ class Layout extends React.Component {
                 <OrderPoint
                   points={points}
                   point={this.state.point}
+                  pointIndex={this.state.pointIndex}
                   phase={this.state.phase}
+                  phaseIndex={this.state.phaseIndex}
+                  situationIndex={this.state.situationIndex}
                   situation={this.state.situation}
                   setPoint={this.setPoint}
                   setPhase={this.setPhase}
@@ -185,30 +201,31 @@ class Layout extends React.Component {
     )
   }
 
-  setTeam = (team) => {
+  setTeam (team) {
     this.setState(state => ({ team: team }));
   };
-  setFB = (fb) => {
+  setFB (fb) {
     this.setState(state => ({ fb: fb }));
   };
 
-  setStrategy = (strategy) => {
+  setStrategy (strategy) {
     this.setState(state => ({ strategy: strategy }));
   };
 
-  setPoint = (point) => {
+  setPoint (point) {
     this.setState(state => ({ point: point }));
   };
 
-  setPhase = (phase) => {
-    this.setState(state => ({ phase: phase }));
+  setPhase (phase, index) {
+    console.log('setPhase: ', phase, index);
+    this.setState(state => ({ phase: phase, phaseIndex: index }));
   };
 
-  setSituation = (situation) => {
-    this.setState(state => ({ situation: situation }));
+  setSituation (situation, index) {
+    this.setState(state => ({ situation: situation, situationIndex: index }));
   };
 
-  setCondition = (condition) => {
+  setCondition (condition) {
     this.setState(state => ({ condition: condition }));
   };
 

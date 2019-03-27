@@ -21,17 +21,21 @@ const styles = theme => ({
   root: {
     backgroundColor: '#888',
     '&:hover':{
-      backgroundColor: '#666'
-    }
+      backgroundColor: '#444'
+    },
+    cursor:'pointer'
+  },
+  itemTitleRoot: {
+    backgroundColor: 'none'
+  },
+  itemFirstTier:{
+    backgroundColor: '#CCC'
   },
   primary:{
     color: '#fff',
     backgroundColor: 'none',
     fontWeight: '700',
-    textTransform: 'uppercase',
-    '&:hover':{
-      color: '#eee'
-    }
+    textTransform: 'uppercase'
   },
   nested: {
     paddingLeft: theme.spacing.unit * 3,
@@ -44,11 +48,11 @@ export class Strategies extends React.Component {
     console.log('strategies: ', strategies, strategy);
     return (
       <React.Fragment>
-        <ListItem className={classes.root}>
+        <ListItem className={classes.root} dense>
           <ListItemText
             primary="Strategies"
             primaryTypographyProps={{variant:'subtitle1'}}
-            classes={{root: classes.root, primary: classes.primary}}
+            classes={{root: classes.itemTitleRoot, primary: classes.primary}}
             onClick={e => setView(e, 'Strategies')}
           />
         </ListItem>
@@ -57,6 +61,7 @@ export class Strategies extends React.Component {
             <ListItem
               button
               className={classes.nested}
+              classes={{root: classes.itemFirstTier}}
               key={`strategy-${index}`}
               onClick={e => setStrategy(strategyItem)}
               selected={strategy.name === strategyItem.name ? true : false}
