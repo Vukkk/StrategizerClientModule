@@ -44,7 +44,7 @@ export const PhasePoints = ({
       <React.Fragment>
         <ListItem
           button
-          key={`point-${index}`}
+          key={`point-phase-${pointIndex}`}
           onClick={e => handleOpenPoint(e, pointIndex)}
           className={classes.strategyItem}
           classes={{root: classes.itemTopTier, selected: classes.itemTopTierSelected}}
@@ -56,7 +56,7 @@ export const PhasePoints = ({
           {openPoint === pointIndex ? null : <ExpandMore />}
         </ListItem>
         <Collapse in={openPoint === pointIndex} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
+          <List component="div" disablePadding key={`point-phase-collapse-item-${pointIndex}`}>
             {phases.length > 0 && phases.map((phaseItem, pIndex) => {
               let situations = phaseItem.situations;
               return (

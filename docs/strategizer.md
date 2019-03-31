@@ -35,17 +35,18 @@ _Current general flow for how a new user utilizes Strategizer_
 
 User needs to understand:
 
-1. Financial Beings:
+1. Financial Beings (initially available):
 	- Sensor vs Indicator vs Trader
-	- Sensors (initial avail):
+	- Sensors:
 		- Poloniex Market: USDT-BTC (AAMasters/AACharly)
-	- Indicators (initial avail):
+	- Indicators:
 		- Simulator (Forked template from AAMasters/AAJason-Indicator-Bot )
 		- LRC (AA Vikings/AAGauss)
 		- Candles (AAMasters/AAOlivia)
 		- Percentage Bandwidth (AAMasters/AAChris)
 		- Bollinger Bands (AAMasters/AAChris)
 		- Bollinger Sub-channels (AAMasters/AAPaula)
-	- 
+	- Traders
+		
 	
 		

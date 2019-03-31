@@ -4,16 +4,15 @@ import ReactMarkdown from 'react-markdown';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 
+
 import {
-  Paper,
+  Card,
   Grid
 } from '@material-ui/core';
 
-import ViewRoutes from './ViewRoutes';
-
-export class ViewSpace extends React.Component {
+export class Introduction extends React.Component {
   render () {
-    const { classes, view } = this.props;
+    const { classes, content } = this.props;
     return (
       <Grid
         container
@@ -21,10 +20,12 @@ export class ViewSpace extends React.Component {
         justify="flex-start"
         alignItems="stretch"
       >
-        <ViewRoutes view={view} />
+        <Grid item>
+          <ReactMarkdown source={content} />
+        </Grid>
       </Grid>
     )
   }
 }
 
-export default withStyles(styles)(ViewSpace);
+export default withStyles(styles)(Introduction);

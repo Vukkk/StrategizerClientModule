@@ -14,7 +14,7 @@ import Teams from './Teams';
 import FBs from './FBs';
 import Strategies from './Strategies';
 import OrderPoint from './OrderPoint';
-import ViewEdit from '../ViewSpace';
+import ViewSpace from '../ViewSpace';
 
 import { isDefined } from '../../utils';
 
@@ -198,7 +198,16 @@ class Layout extends React.Component {
           </Grid>
         </Grid>
         <Grid item xs={6} md={8}>
-          <ViewEdit view={this.state.view} />
+          <ViewSpace
+            view={this.state.view}
+            strategy={this.state.strategy}
+            pointIndex={this.state.pointIndex}
+            phase={this.state.phase}
+            phaseIndex={this.state.phaseIndex}
+            situationIndex={this.state.situationIndex}
+            situation={this.state.situation}
+            updatePoint={this.updatePoint}
+          />
         </Grid>
       </Grid>
     )
@@ -207,7 +216,7 @@ class Layout extends React.Component {
   setTeam (team) {
     this.setState(state => ({ team: team }));
   };
-  
+
   setFB (fb) {
     this.setState(state => ({ fb: fb }));
   };
