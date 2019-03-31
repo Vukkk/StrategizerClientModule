@@ -63,7 +63,7 @@ export class Strategies extends React.Component {
               className={classes.nested}
               classes={{root: classes.itemFirstTier}}
               key={`strategy-${index}`}
-              onClick={e => setStrategy(strategyItem)}
+              onClick={e => setStrategy(strategyItem, 'Substrategies')}
               selected={strategy.name === strategyItem.name ? true : false}
             >
               <ListItemText

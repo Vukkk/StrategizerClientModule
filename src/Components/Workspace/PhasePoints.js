@@ -58,7 +58,6 @@ export const PhasePoints = ({
         <Collapse in={openPoint === pointIndex} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {phases.length > 0 && phases.map((phaseItem, pIndex) => {
-              console.log('phaseItem', phaseItem, phaseIndex, openPhase);
               let situations = phaseItem.situations;
               return (
                 <React.Fragment>
@@ -82,7 +81,6 @@ export const PhasePoints = ({
                   <Collapse key={`phase-collapse-${pIndex}`} in={openPhase === pIndex} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                       {situations.length > 0 && situations.map((situationItem, index) => {
-                        console.log('phase situationItem', situationItem, situationIndex, index);
                         return (
                           <ListItem
                             button

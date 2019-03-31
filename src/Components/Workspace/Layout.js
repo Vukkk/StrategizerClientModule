@@ -175,6 +175,7 @@ class Layout extends React.Component {
                   setPhase={this.setPhase}
                   setSituation={this.setSituation}
                   updatePoint={this.updatePoint}
+                  setView={this.setView}
                 />
               </List>
               <div className={classes.teamsListWrapper}>
@@ -183,11 +184,13 @@ class Layout extends React.Component {
                     teams={listStrategies.teams_TeamsByOwner}
                     team={this.state.team}
                     setTeam={this.setTeam}
+                    setView={this.setView}
                   />
                   <FBs
                     fbs={simFbs}
                     fb={this.state.fb}
                     setFB={this.setFB}
+                    setView={this.setView}
                   />
                 </List>
               </div>
@@ -204,29 +207,34 @@ class Layout extends React.Component {
   setTeam (team) {
     this.setState(state => ({ team: team }));
   };
+  
   setFB (fb) {
     this.setState(state => ({ fb: fb }));
   };
 
-  setStrategy (strategy) {
-    this.setState(state => ({ strategy: strategy }));
+  setStrategy (strategy, view) {
+    this.setState(state => ({ strategy: strategy, view: view  }));
   };
 
-  setPoint (point) {
-    this.setState(state => ({ point: point }));
+  setPoint (point, view) {
+    this.setState(state => ({ point: point, view: view }));
   };
 
-  setPhase (phase, index) {
+  setPhase (phase, index, view) {
     console.log('setPhase: ', phase, index);
-    this.setState(state => ({ phase: phase, phaseIndex: index }));
+    this.setState(state => ({ phase: phase, phaseIndex: index, view: view }));
   };
 
-  setSituation (situation, index) {
-    this.setState(state => ({ situation: situation, situationIndex: index }));
+  setSituation (situation, index, view) {
+    this.setState(state => ({ situation: situation, situationIndex: index, view: view }));
   };
 
-  setCondition (condition) {
-    this.setState(state => ({ condition: condition }));
+  setCondition (condition, view) {
+    this.setState(state => ({ condition: condition, view: view }));
+  };
+
+  setView (e, view) {
+    this.setState({ view: view });
   };
 
   updatePoint (e, point, type, strIndex, phsIndex, sitIndex, conIndex, element) {
@@ -366,12 +374,6 @@ class Layout extends React.Component {
         throw new Error();
     }
     console.log('Post updatePoint: ', e, point, type, phsIndex, sitIndex, conIndex, this.state);
-  }
-
-  setView (e, view) {
-    this.setState({
-      view: view,
-    });
   }
 
   async submitSave(e){

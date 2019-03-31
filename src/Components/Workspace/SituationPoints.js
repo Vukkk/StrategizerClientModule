@@ -52,7 +52,6 @@ export const SituationPoints = ({
         <Collapse in={openPoint === pointIndex} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {situations.length > 0 && situations.map((situationItem, index) => {
-              console.log('situationItem', situationItem);
               return (
                 <ListItem
                   button
