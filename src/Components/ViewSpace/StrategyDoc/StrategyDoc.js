@@ -34,7 +34,7 @@ export class StrategyDoc extends React.Component {
       >
         <Grid item>
           {!this.state.edit ?
-            <StrategyView strategy={strategy} toggleEdit={this.toggleEdit} />
+            <StrategyView strategy={strategy} stratIndex={stratIndex} updatePoint={updatePoint} toggleEdit={this.toggleEdit} />
             :
             <StrategyForm strategy={strategy} stratIndex={stratIndex} updatePoint={updatePoint} toggleEdit={this.toggleEdit} />}
         </Grid>

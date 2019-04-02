@@ -69,16 +69,17 @@ export class OrderPoint extends React.Component {
       setPoint,
       setPhase,
       setSituation,
-      updatePoint
+      updatePoint,
+      strategyName
     } = this.props;
-    console.log('OrderPoint :', points, situation, point, pointIndex, phase, phaseIndex);
+
     return (
       <React.Fragment>
         <Grid item>
           <List className={classes.strategyList}>
             <ListItem className={classes.root} dense>
               <ListItemText
-                primary="Strategy Events"
+                primary={`Strategy Events: ${strategyName}`}
                 primaryTypographyProps={{variant:'subtitle1'}}
                 classes={{root: classes.itemTitleRoot, primary: classes.primary}}
                 onClick={e => setView(e, 'Strategies')}
@@ -98,7 +99,7 @@ export class OrderPoint extends React.Component {
               selected={this.state.openPoint === 'entryPoint'}
             />
             <SituationPoints
-              entryName="TriggerVoid"
+              entryName="Rejected"
               pointIndex="exitPoint"
               points={points}
               point={point}

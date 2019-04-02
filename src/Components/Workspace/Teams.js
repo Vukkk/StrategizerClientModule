@@ -94,7 +94,7 @@ export class Teams extends React.Component {
                   button
                   className={classes.nested}
                   key={`team-${index}`}
-                  onClick={e => setTeam(teamItem)}
+                  onClick={e => setTeam(teamItem, index)}
                   dense
                 >
                   <ListItemAvatar>

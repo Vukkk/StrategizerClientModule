@@ -27,7 +27,7 @@ export class StrategyDoc extends React.Component {
     }
   }
   render () {
-    const { classes, content, strategy, updatePoint, toggleEdit } = this.props;
+    const { classes, content, strategy, stratIndex, updatePoint, toggleEdit } = this.props;
     console.log('DocOnly:', this.props);
     return (
       <Card>
@@ -47,7 +47,7 @@ export class StrategyDoc extends React.Component {
                 variant="outlined"
                 size="small"
                 aria-label="Delete Strategy"
-                onClick={e => updatePoint(this.state.name, this.props.stratIndex,'updateStrategy', null, null, null, null, 'name')}
+                onClick={e => updatePoint(null, null,'deleteStrategy', stratIndex, null, null, null, null)}
               >
                 <DeleteIcon /> Delete Strategy
               </Button>

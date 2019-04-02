@@ -79,7 +79,7 @@ export class FBs extends React.Component {
                   button
                   className={classes.nested}
                   key={`fb-${index}`}
-                  onClick={e => setFB(fbItem)}
+                  onClick={e => setFB(fbItem, index)}
                   dense
                 >
                   <ListItemAvatar>

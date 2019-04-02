@@ -19,6 +19,7 @@ export class StrategyDoc extends React.Component {
     super(props);
 
     this.handleChangeInput = this.handleChangeInput.bind(this);
+    this.handleSaveInput = this.handleSaveInput.bind(this);
 
     this.state={
       name: props.strategy.name,
@@ -73,7 +74,7 @@ export class StrategyDoc extends React.Component {
                   variant="outlined"
                   aria-label="Delete Strategy"
                   color={this.state.changed ? "primary" : "secondary" }
-                  onClick={e => updatePoint(this.state.name, this.props.stratIndex,'updateStrategy', null, null, null, null, 'name')}
+                  onClick={this.handleSaveInput}
                 >
                   Save
                 </Button>
@@ -87,8 +88,13 @@ export class StrategyDoc extends React.Component {
   handleChangeInput(e) {
     e.preventDefault();
     e.persist();
-    console.log('handleChangeName:', e.target.id, e.target.value)
     this.setState({[e.target.id]: e.target.value, changed: true })
+  }
+  handleSaveInput(e) {
+    e.preventDefault();
+    this.props.updatePoint(this.state.name, this.props.stratIndex,'updateStrategy', null, null, null, null, 'name')
+    this.setState({changed: false })
+    this.props.toggleEdit(e);
   }
 }
 

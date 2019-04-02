@@ -55,7 +55,7 @@ export const PhasePoints = ({
           />
           {openPoint === pointIndex ? null : <ExpandMore />}
         </ListItem>
-        <Collapse in={openPoint === pointIndex} timeout="auto" unmountOnExit>
+        <Collapse in={openPoint === pointIndex} key={`point-phase-collapse-${pointIndex}`} timeout="auto" unmountOnExit>
           <List component="div" disablePadding key={`point-phase-collapse-item-${pointIndex}`}>
             {phases.length > 0 && phases.map((phaseItem, pIndex) => {
               let situations = phaseItem.situations;

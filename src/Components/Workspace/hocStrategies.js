@@ -11,7 +11,7 @@ import BannerTopBar from '../BannerTopBar';
 
 import { isDefined, isNull } from '../../utils';
 
-import { LIST_STRATEGIES, CREATE_STRATEGY, SAVE_STRATEGY } from '../../GraphQL/Strategies'
+import { LIST_STRATEGIES, SAVE_STRATEGY } from '../../GraphQL/Strategies'
 
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
@@ -21,7 +21,7 @@ import Layout from './Layout';
 
 export class HocStrategies extends React.Component {
   render () {
-    const { listStrategies, createStrategy, saveStrategy} = this.props;
+    const { listStrategies, createStrategy, saveStrategy, setTeamFb} = this.props;
     if(listStrategies.loading || isNull(listStrategies) || !isDefined(listStrategies.teams_TeamsByOwner)) {
       return (
         <Loading text="Strategy Workspace" />
@@ -32,6 +32,8 @@ export class HocStrategies extends React.Component {
           listStrategies={listStrategies}
           createStrategy={createStrategy}
           saveStrategy={saveStrategy}
+          setTeam={this.setTeam}
+          setFb={this.setFb}
         />
       );
     }
@@ -39,13 +41,25 @@ export class HocStrategies extends React.Component {
 }
 
 export default compose(
-  graphql(CREATE_STRATEGY, { name: 'createStrategy' }),
-  graphql(SAVE_STRATEGY, { name: 'saveStrategy' }),
   graphql(LIST_STRATEGIES, {
     name: 'listStrategies',
     options: {
       errorPolicy: 'all',
       fetchPolicy: 'network-only'
     }}
+  ),
+  graphql(SAVE_STRATEGY, {
+    name: 'saveStrategy',
+    options: (props) => ({
+      errorPolicy: 'all',
+      // refetchQueries:[{query: LIST_STRATEGIES}]
+      update: (proxy, { data: { strategizer_EditStrategy } }, ...other) => {
+        console.log('saveStrategy mut1:', props)
+        const data = proxy.readQuery({ query: LIST_STRATEGIES });
+        console.log('saveStrategy mut:', strategizer_EditStrategy, data, props.team, props.fb)
+        data.teams_TeamsByOwner[props.team].fb[props.fb].strategy = strategizer_EditStrategy;
+        proxy.writeQuery({ query: LIST_STRATEGIES, data });
+      },
+    })}
   )
 )(HocStrategies);
