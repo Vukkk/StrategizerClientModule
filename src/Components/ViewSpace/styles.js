@@ -74,6 +74,12 @@ const styles = theme => ({
   },
   teamsList:{
     padding: theme.spacing.unit * 5
+  },
+  strategyDocContainer: {
+    padding: theme.spacing.unit * 3,
+  },
+  formCard: {
+    padding: theme.spacing.unit * 3,
   }
 });
 

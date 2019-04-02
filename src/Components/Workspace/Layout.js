@@ -34,8 +34,10 @@ class Layout extends React.Component {
 
     let defaultTeam = null;
     let defaultFB = null;
+    let defaultId = null;
     let defaultStrategy = null;
     let defaultPoint = null;
+    let defaultStrategyIndex = null;
     let defaultPointIndex = null;
     let defaultPhaseIndex = null;
     let defaultSituationIndex = null;
@@ -57,8 +59,10 @@ class Layout extends React.Component {
 
       defaultTeam = props.listStrategies.teams_TeamsByOwner[0];
       defaultFB = simFbs[0];
+      defaultId = defaultFB.strategy.id;
       defaultStrategy = defaultFB.strategy.subStrategies[0];
       defaultPoint = defaultStrategy.entryPoint;
+      defaultStrategyIndex = '0';
       defaultPointIndex = 'entryPoint';
       defaultPhaseIndex = 0;
       defaultSituationIndex = 0;
@@ -67,9 +71,11 @@ class Layout extends React.Component {
     }
 
     this.state = {
+      id: defaultId,
       team: defaultTeam,
       fb: defaultFB,
       strategy: defaultStrategy,
+      stratIndex: defaultStrategyIndex,
       point: defaultPoint,
       pointIndex: defaultPointIndex,
       phase: defaultPhase,
@@ -98,7 +104,9 @@ class Layout extends React.Component {
 
     let defaultTeam = props.listStrategies.teams_TeamsByOwner[0];
     let defaultFB = simFbs[0];
+    let defaultId = defaultFB.strategy.id;
     let defaultStrategy = defaultFB.strategy.subStrategies[0];
+    let defaultStrategyIndex = 0;
     let defaultPoint = defaultStrategy.entryPoint;
     let defaultPointIndex = 'entryPoint';
     let defaultPhaseIndex= 0;
@@ -108,9 +116,11 @@ class Layout extends React.Component {
     let defaultCondition = defaultSituation.condition[0];
 
     this.setState({
+      id: defaultId,
       team: defaultTeam,
       fb: defaultFB,
       strategy: defaultStrategy,
+      stratIndex: defaultStrategyIndex,
       point: defaultPoint,
       pointIndex: defaultPointIndex,
       phase: defaultPhase,
@@ -201,12 +211,14 @@ class Layout extends React.Component {
           <ViewSpace
             view={this.state.view}
             strategy={this.state.strategy}
+            stratIndex={this.state.stratIndex}
             pointIndex={this.state.pointIndex}
             phase={this.state.phase}
             phaseIndex={this.state.phaseIndex}
             situationIndex={this.state.situationIndex}
             situation={this.state.situation}
             updatePoint={this.updatePoint}
+            saved={this.state.saved}
           />
         </Grid>
       </Grid>
@@ -221,8 +233,8 @@ class Layout extends React.Component {
     this.setState(state => ({ fb: fb }));
   };
 
-  setStrategy (strategy, view) {
-    this.setState(state => ({ strategy: strategy, view: view  }));
+  setStrategy (strategy, view, index) {
+    this.setState(state => ({ strategy: strategy, view: view, stratIndex: index  }));
   };
 
   setPoint (point, view) {
@@ -250,7 +262,7 @@ class Layout extends React.Component {
     let currState = this.state;
     let currStrategy = currState.strategy;
     let currPoint = currStrategy[point];
-    console.log('updatePoint: ', e, point, type, strIndex, phsIndex, sitIndex, conIndex, element, currPoint);
+    console.log('updatePoint: ', e, point, type, strIndex, phsIndex, sitIndex, conIndex, element, currPoint, currStrategy);
 
     switch (type) {
       case 'addPhase':
@@ -299,6 +311,24 @@ class Layout extends React.Component {
           changed: true
         });
         break;
+      case 'addStrategy':
+        const newStrategy = {
+          name: 'New Strategy',
+          active: true,
+          buyPoint:{situations: []},
+          sellPoint:{situations: []},
+          entryPoint:{situations: []},
+          exitPoint:{situations: []},
+          stopLoss:{phases: []},
+          buyOrder:{phases: []},
+          sellOrder:{phases: []}
+        }
+        this.saveStrategyFromUpdate('new', newStrategy);
+        this.setState({
+          strIndex: 0,
+          strategy: newStrategy
+        });
+        break;
       case 'updateStrategy':
         if(isDefined(currStrategy)){
           if(element === 'active'){
@@ -308,10 +338,27 @@ class Layout extends React.Component {
           }
           console.log('updateStrategy: ', currStrategy);
         }
+        this.saveStrategyFromUpdate(point, currStrategy);
         this.setState({
+          strIndex: 0,
           strategy: currStrategy
         });
-        this.saveStrategy(strIndex, );
+        break;
+      case 'deleteStrategy':
+        if(isDefined(strIndex)){
+          if(element === 'active'){
+            currStrategy.active = e;
+          } else {
+            currStrategy.name = e;
+          }
+          console.log('updateStrategy: ', currStrategy);
+        }
+        this.setState({
+          stratIndex: 0,
+          changed: false,
+          saved: true
+        });
+        this.deleteStrategyFromUpdate(strIndex);
         break;
       case 'updatePhase':
         if(isDefined(currPoint.phases)){
@@ -452,6 +499,63 @@ class Layout extends React.Component {
     strategies.subStrategies[strIndex]=strategy;
 
     let saved = await handleSaveStrategy(saveStrategy, strategies.subStrategies, id);
+
+    console.log('saveStrategy saved: ', await saved);
+
+    this.setState({ saved: true, changed: false });
+  }
+
+  async saveStrategyFromUpdate(strIndex, strategy){
+    const { saveStrategy } = this.props;
+    const strategies = this.state.fb.strategy.subStrategies;
+    const id = this.state.id;
+    console.log('saveStrategy: ', strategies, strIndex, strategy, id);
+
+    if(strIndex === 'new'){
+      const newIndex = strategies.length++;
+      strategies[newIndex] = strategy;
+    } else {
+      strategies[strIndex] = strategy;
+    }
+
+    let saved = await saveStrategy({
+      variables: {
+        id,
+        strategy:{
+          subStrategies: strategies
+        }
+      }
+    });
+
+    console.log('saveStrategy saved: ', await saved);
+
+    this.setState({ saved: true, changed: false });
+  }
+
+  async deleteStrategyFromUpdate(strIndex, strategy){
+    const { saveStrategy } = this.props;
+    const strategies = this.state.fb.strategy.subStrategies;
+    const id = this.state.id;
+    console.log('saveStrategy: ', strategies, strIndex, strategy, id);
+
+    let filtered = null;
+    if(!isNull(strIndex)){
+      filtered = strategies.filter((strategy, index, arr) => {
+          if(index !== strIndex){
+            return strategy;
+          }
+          return;
+      });
+    }
+
+    let saved = await saveStrategy({
+      variables: {
+        id,
+        strategy:{
+          subStrategies: filtered
+        }
+      }
+    });
 
     console.log('saveStrategy saved: ', await saved);
 

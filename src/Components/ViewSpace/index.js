@@ -13,7 +13,8 @@ import ViewRoutes from './ViewRoutes';
 
 export class ViewSpace extends React.Component {
   render () {
-    const { classes, view } = this.props;
+    const { classes, view, ...other } = this.props;
+    console.log('ViewSpace:', this.props);
     return (
       <Grid
         container
@@ -21,7 +22,7 @@ export class ViewSpace extends React.Component {
         justify="flex-start"
         alignItems="stretch"
       >
-        <ViewRoutes view={view} />
+        <ViewRoutes view={view} {...other} />
       </Grid>
     )
   }

@@ -4,15 +4,15 @@ import ReactMarkdown from 'react-markdown';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 
-
 import {
   Card,
   Grid
 } from '@material-ui/core';
 
-export class Introduction extends React.Component {
+export class DocOnly extends React.Component {
   render () {
     const { classes, content } = this.props;
+    console.log('DocOnly:', this.props);
     return (
       <Grid
         container
@@ -28,4 +28,4 @@ export class Introduction extends React.Component {
   }
 }
 
-export default withStyles(styles)(Introduction);
+export default withStyles(styles)(DocOnly);

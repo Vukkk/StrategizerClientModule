@@ -13,9 +13,11 @@ import {
   Avatar,
   IconButton,
   Typography,
-  Switch
+  Switch,
+  Button
 } from '@material-ui/core';
 import NavigateNext from '@material-ui/icons/NavigateNext';
+import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
   root: {
@@ -55,6 +57,14 @@ export class Strategies extends React.Component {
             classes={{root: classes.itemTitleRoot, primary: classes.primary}}
             onClick={e => setView(e, 'Strategies')}
           />
+          <ListItemSecondaryAction>
+            <Button
+              aria-label="Add Strategy"
+              onClick={e => updatePoint(null, null,'addStrategy', null, null, null, null, null)}
+            >
+              <AddIcon />
+            </Button>
+          </ListItemSecondaryAction>
         </ListItem>
         {strategies && strategies.map((strategyItem, index) => {
           return (
@@ -63,7 +73,7 @@ export class Strategies extends React.Component {
               className={classes.nested}
               classes={{root: classes.itemFirstTier}}
               key={`strategy-${index}`}
-              onClick={e => setStrategy(strategyItem, 'Substrategies')}
+              onClick={e => setStrategy(strategyItem, 'Substrategies', index)}
               selected={strategy.name === strategyItem.name ? true : false}
             >
               <ListItemText
@@ -71,7 +81,7 @@ export class Strategies extends React.Component {
               />
               <ListItemSecondaryAction>
                 <Switch
-                  onChange={e => updatePoint(!strategyItem.active, index, null, 'updateStrategy', null, null, null, 'active')}
+                  onChange={e => updatePoint(!strategyItem.active, index,'updateStrategy', null, null, null, null, 'active')}
                   checked={strategyItem.active}
                 />
               </ListItemSecondaryAction>

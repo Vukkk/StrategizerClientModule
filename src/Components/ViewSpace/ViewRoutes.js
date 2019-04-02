@@ -9,28 +9,29 @@ import {
   Grid
 } from '@material-ui/core';
 
-import IntroductionView from './Introduction';
+import DocOnly from './DocOnly';
+import StrategyDoc from './StrategyDoc';
 
 import {
   Introduction,
   Strategies,
   SubStrategies
- } from './views'
+} from './docs'
 
 export class ViewRoutes extends React.Component {
   render () {
-    const { classes, view } = this.props;
+    const { classes, view, ...other } = this.props;
     console.log('ViewRoutes:', view);
     switch (view) {
       case 'Strategies':
-        return <IntroductionView content={Strategies} />;
+        return <DocOnly content={Strategies} {...other} />;
         break;
       case 'Substrategies':
-        return <IntroductionView content={SubStrategies} />;
+        return <StrategyDoc content={SubStrategies} {...other} />;
         break;
       case 'Introduction':
       default:
-        return <IntroductionView content={Introduction} />;
+        return <DocOnly content={Introduction} {...other} />;
     }
   }
 }
