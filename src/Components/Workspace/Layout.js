@@ -26,6 +26,7 @@ class Layout extends React.Component {
     this.submitSave = this.submitSave.bind(this);
     this.setTeam = this.setTeam.bind(this);
     this.setFB = this.setFB.bind(this);
+    this.setPoint = this.setPoint.bind(this);
     this.setPhase = this.setPhase.bind(this);
     this.setStrategy = this.setStrategy.bind(this);
     this.setSituation = this.setSituation.bind(this);
@@ -131,6 +132,9 @@ class Layout extends React.Component {
       condition: defaultCondition
     });
   }
+  if (prevProps.listStrategies.networkStatus < 7 && this.props.listStrategies.networkStatus >= 7) {
+    console.log('SUCCESSFUL FETCH');
+  }
 }
 
   render () {
@@ -223,6 +227,7 @@ class Layout extends React.Component {
             situation={this.state.situation}
             updatePoint={this.updatePoint}
             saved={this.state.saved}
+            setView={this.setView}
           />
         </Grid>
       </Grid>
@@ -244,11 +249,11 @@ class Layout extends React.Component {
   };
 
   setPoint (point, view) {
-    this.setState(state => ({ point: point, view: view }));
+    this.setState(state => ({ pointIndex: point, view: view }));
   };
 
   setPhase (phase, index, view) {
-    console.log('setPhase: ', phase, index);
+    console.log('setPhase: ', phase, index, view);
     this.setState(state => ({ phase: phase, phaseIndex: index, view: view }));
   };
 
@@ -277,9 +282,16 @@ class Layout extends React.Component {
           code: 'Code for new phase',
           situations: []
         });
+        let phaseIndex = currPoint.phases.length - 1;
+        currStrategy[point] = currPoint;
+        this.saveStrategyFromUpdate(strIndex, currStrategy)
         this.setState({
           [point]: currPoint,
-          changed: true
+          phaseIndex: phaseIndex,
+          phase: currPoint.phases[phaseIndex],
+          changed: false,
+          saved: true,
+          view: 'Phases'
         });
         break;
       case 'addSituation':
@@ -302,7 +314,10 @@ class Layout extends React.Component {
         this.setState({
           [point]: currPoint,
           situationIndex: sitIndex,
-          changed: true
+          situation: currPoint.phases[phsIndex].situations[sitIndex],
+          changed: false,
+          saved: true,
+          view: 'Situations'
         });
         break;
       case 'addCondition':
@@ -382,9 +397,13 @@ class Layout extends React.Component {
             currPoint.phases[phsIndex].situations[sitIndex].conditions[conIndex].code = e;
           }
         }
+        currStrategy[point] = currPoint;
+        this.saveStrategyFromUpdate(strIndex, currStrategy)
         this.setState({
           [point]: currPoint,
-          changed: true
+          phaseIndex: phsIndex,
+          changed: false,
+          saved: true
         });
         break;
       case 'updateSituation':
@@ -460,16 +479,23 @@ class Layout extends React.Component {
         });
         break;
       case 'deletePhase':
+        let delPhases;
         if(isDefined(currPoint.phases)){
-          let filtered = array.filter((value, index, arr) => {
-              return value !== phsIndex;
+          delPhases = currPoint.phases;
+          let filtered = delPhases.filter((value, index, arr) => {
+              return index !== phsIndex;
           });
-          currPoint.phases = filtered
+          currStrategy[point].phases = filtered;
         }
-        console.log('deletePhase', currPoint.phases);
+        console.log('deletePhase', currStrategy[point].phases);
+        this.saveStrategyFromUpdate(strIndex, currStrategy)
         this.setState({
           [point]: currPoint,
-          changed: true
+          phsIndex: 0,
+          phase: {},
+          changed: false,
+          saved: true,
+          view: 'Points'
         });
         break;
       default:

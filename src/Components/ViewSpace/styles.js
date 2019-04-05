@@ -80,6 +80,10 @@ const styles = theme => ({
   },
   formCard: {
     padding: theme.spacing.unit * 3,
+  },
+  formPhaseCard: {
+    padding: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 5
   }
 });
 

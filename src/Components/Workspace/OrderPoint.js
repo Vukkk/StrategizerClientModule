@@ -49,10 +49,12 @@ export class OrderPoint extends React.Component {
 
     this.handleOpenPoint = this.handleOpenPoint.bind(this);
     this.handleOpenPhase = this.handleOpenPhase.bind(this);
+    this.handleSelectSit = this.handleSelectSit.bind(this);
 
     this.state = {
       openPoint: "entryPoint",
-      openPhase: 0
+      openPhase: 0,
+      selectedSit: null
     }
   }
 
@@ -172,6 +174,8 @@ export class OrderPoint extends React.Component {
               selected={this.state.openPoint === 'stopLoss'}
               setView={setView}
               view={view}
+              selectedSit={this.state.selectedSit}
+              handleSelectSit={this.handleSelectSit}
             />
             <PhasePoints
               entryName="BuyOrder"
@@ -193,6 +197,8 @@ export class OrderPoint extends React.Component {
               selected={this.state.openPoint === 'buyOrder'}
               setView={setView}
               view={view}
+              selectedSit={this.state.selectedSit}
+              handleSelectSit={this.handleSelectSit}
             />
             <PhasePoints
               entryName="SellOrder"
@@ -214,6 +220,8 @@ export class OrderPoint extends React.Component {
               selected={this.state.openPoint === 'sellOrder'}
               setView={setView}
               view={view}
+              selectedSit={this.state.selectedSit}
+              handleSelectSit={this.handleSelectSit}
             />
           </List>
         </Grid>
@@ -221,16 +229,21 @@ export class OrderPoint extends React.Component {
     )
   }
 
-  handleOpenPoint (e, pointIndex) {
+  handleOpenPoint (e, pointIndex, view) {
     e.preventDefault();
+    this.props.setPoint(pointIndex, view);
     this.setState(state => ({ openPoint: pointIndex }));
   };
 
-  handleOpenPhase (e, phaseIndex, phaseItem) {
+  handleOpenPhase (e, phaseIndex, phaseItem, view) {
     e.preventDefault();
     console.log('handleOpenPhase: ', phaseIndex, phaseItem);
-    this.props.setPhase(phaseItem, phaseIndex)
-    this.setState(state => ({ openPhase: phaseIndex }));
+    this.props.setPhase(phaseItem, phaseIndex, view)
+    this.setState(state => ({ openPhase: phaseIndex, selectedSit: null }));
+  };
+
+  handleSelectSit (phaseIndex, sitIndex) {
+    this.setState(state => ({ openPhase: phaseIndex, selectedSit: sitIndex }));
   };
 }
 

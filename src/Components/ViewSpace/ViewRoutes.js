@@ -21,7 +21,8 @@ import {
   Points,
   Phases,
   Situations,
-  Conditions
+  Conditions,
+  StrategyEvents
 } from './docs'
 
 export class ViewRoutes extends React.Component {
@@ -31,14 +32,18 @@ export class ViewRoutes extends React.Component {
       case 'Strategies':
         return <DocOnly content={Strategies} {...other} />;
         break;
+      case 'Strategy Events':
+        return <DocOnly content={StrategyEvents} {...other} />;
+        break;
       case 'Substrategies':
         return <StrategyDoc content={SubStrategies} {...other} />;
         break;
       case 'Points':
         return <DocOnly content={Points} {...other} />;
         break;
+      case 'Phase Code':
       case 'Phases':
-        return <PhaseDoc content={Phases} {...other} />;
+        return <PhaseDoc content={Phases} view={view} {...other} />;
         break;
       case 'Situations':
         return <SituationDoc content={Situations} {...other} />;

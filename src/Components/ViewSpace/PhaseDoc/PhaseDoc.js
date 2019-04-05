@@ -5,12 +5,15 @@ import styles from '../styles';
 import { withStyles } from '@material-ui/core/styles';
 
 import {
+  Card,
   Grid
 } from '@material-ui/core';
 
 import PhaseFormName from './PhaseFormName';
 import PhaseFormCode from './PhaseFormCode';
 import PhaseView from './PhaseView';
+
+import { PhaseCode } from '../docs';
 
 export class PhaseDoc extends React.Component {
   constructor(props){
@@ -23,8 +26,10 @@ export class PhaseDoc extends React.Component {
     }
   }
   render () {
-    const { classes, content, strategy, stratIndex, pointIndex, phaseIndex, phase, situation, situationIndex, updatePoint } = this.props;
+    const { classes, content, strategy, stratIndex, pointIndex, phaseIndex, phase, situation, situationIndex, updatePoint, view } = this.props;
     console.log('DocOnly:', this.props, this.state);
+
+    let phaseContent = (view === 'Phase Code') ? PhaseCode : content;
     return (
       <Grid
         container
@@ -34,26 +39,28 @@ export class PhaseDoc extends React.Component {
         className={classes.strategyDocContainer}
       >
         <Grid item>
-          <Card>
-            {!this.state.edit &&
-              <PhaseView strategy={strategy} stratIndex={stratIndex} pointIndex={pointIndex} phase={phase} phaseIndex={phaseIndex} updatePoint={updatePoint} toggleEdit={this.toggleEdit} />
-            }
-            {this.state.edit === 'name' &&
-              <PhaseFormName strategy={strategy} stratIndex={stratIndex} pointIndex={pointIndex} phase={phase} phaseIndex={phaseIndex} updatePoint={updatePoint} toggleEdit={this.toggleEdit} />
-            }
-            {this.state.edit === 'code' &&
-              <PhaseFormCode strategy={strategy} stratIndex={stratIndex} pointIndex={pointIndex} phase={phase} phaseIndex={phaseIndex} updatePoint={updatePoint} toggleEdit={this.toggleEdit} />
-            }
-          </Card>
+          {!this.state.edit &&
+            <PhaseView strategy={strategy} stratIndex={stratIndex} pointIndex={pointIndex} phase={phase} phaseIndex={phaseIndex} updatePoint={updatePoint} toggleEdit={this.toggleEdit} />
+          }
+          {this.state.edit === 'name' &&
+            <PhaseFormName strategy={strategy} stratIndex={stratIndex} pointIndex={pointIndex} phase={phase} phaseIndex={phaseIndex} updatePoint={updatePoint} toggleEdit={this.toggleEdit} />
+          }
+          {this.state.edit === 'code' &&
+            <PhaseFormCode strategy={strategy} stratIndex={stratIndex} pointIndex={pointIndex} phase={phase} phaseIndex={phaseIndex} updatePoint={updatePoint} toggleEdit={this.toggleEdit} />
+          }
         </Grid>
         <Grid item>
-          <ReactMarkdown source={content} />
+          <ReactMarkdown source={phaseContent} />
         </Grid>
       </Grid>
     )
   }
 
-  toggleEdit (view) {
+  toggleEdit (e, view) {
+    console.log('PhaseDoc toggleEdit', view);
+    if (view === 'code'){
+      this.props.setView(e, 'Phase Code');
+    }
     this.setState(state => ({ edit: view }));
   }
 }

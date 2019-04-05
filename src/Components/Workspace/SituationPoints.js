@@ -87,7 +87,7 @@ export class SituationPoints extends React.Component {
                   divider
                 >
                   <ListItemText
-                    primary={situationItem.name}
+                    primary={`S: ${situationItem.name}`}
                   />
                   {situation.name === situationItem.name ?
                     <ListItemSecondaryAction>

@@ -33,7 +33,7 @@ export class SituationForm extends React.Component {
     }
   }
   render () {
-    const { classes, content, strategy, stratIndex, pointIndex, situation, situationIndex, updatePoint, toggleEdit } = this.props;
+    const { classes, content, strategy, stratIndex, pointIndex, phaseIndex, situation, situationIndex, updatePoint, toggleEdit } = this.props;
     return (
       <Card className={classes.formCard}>
         <Grid
@@ -91,7 +91,7 @@ export class SituationForm extends React.Component {
   }
   handleSaveInput(e) {
     e.preventDefault();
-    this.props.updatePoint(this.state.name, this.props.pointIndex,'updateSituation', this.props.stratIndex, null, this.props.situationIndex, null, 'name')
+    this.props.updatePoint(this.state.name, this.props.pointIndex,'updateSituation', this.props.stratIndex, this.props.phaseIndex, this.props.situationIndex, null, 'name')
     this.setState({changed: false })
     this.props.toggleEdit(e);
   }

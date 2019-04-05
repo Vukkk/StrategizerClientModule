@@ -22,7 +22,7 @@ export class StrategyDoc extends React.Component {
     }
   }
   render () {
-    const { classes, content, strategy, stratIndex, pointIndex, situation, situationIndex, updatePoint } = this.props;
+    const { classes, content, strategy, stratIndex, pointIndex, phaseIndex, situation, situationIndex, updatePoint } = this.props;
     return (
       <Grid
         container
@@ -33,9 +33,9 @@ export class StrategyDoc extends React.Component {
       >
         <Grid item>
           {!this.state.edit ?
-            <SituationView strategy={strategy} stratIndex={stratIndex} pointIndex={pointIndex} situation={situation} situationIndex={situationIndex} updatePoint={updatePoint} toggleEdit={this.toggleEdit} />
+            <SituationView strategy={strategy} stratIndex={stratIndex} pointIndex={pointIndex} phaseIndex={phaseIndex} situation={situation} situationIndex={situationIndex} updatePoint={updatePoint} toggleEdit={this.toggleEdit} />
             :
-            <SituationForm strategy={strategy} stratIndex={stratIndex} pointIndex={pointIndex} situation={situation} situationIndex={situationIndex} updatePoint={updatePoint} toggleEdit={this.toggleEdit} />}
+            <SituationForm strategy={strategy} stratIndex={stratIndex} pointIndex={pointIndex} phaseIndex={phaseIndex} situation={situation} situationIndex={situationIndex} updatePoint={updatePoint} toggleEdit={this.toggleEdit} />}
         </Grid>
         <Grid item>
           <ReactMarkdown source={content} />

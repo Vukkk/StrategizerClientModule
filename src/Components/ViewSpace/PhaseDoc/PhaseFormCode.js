@@ -34,7 +34,7 @@ export class PhaseFormCode extends React.Component {
   }
   render () {
     const { classes, content, strategy, stratIndex, pointIndex, phase, phaseIndex, updatePoint, toggleEdit } = this.props;
-    console.log('PhaseFormName:', this.props);
+    console.log('PhaseFormCode:', this.props);
     return (
       <Card className={classes.formCard}>
         <Grid
@@ -46,7 +46,7 @@ export class PhaseFormCode extends React.Component {
           <Grid item>
             <FormGroup>
               <TextField
-                id='name'
+                id='code'
                 label="Update PhaseCode"
                 value={this.state.code}
                 onChange={this.handleChangeInput}

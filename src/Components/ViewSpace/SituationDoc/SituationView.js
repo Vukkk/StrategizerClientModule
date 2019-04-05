@@ -27,7 +27,7 @@ export class SituationView extends React.Component {
     }
   }
   render () {
-    const { classes, content, situation, stratIndex, pointIndex, situationIndex, updatePoint, toggleEdit } = this.props;
+    const { classes, content, situation, stratIndex, pointIndex, phaseIndex, situationIndex, updatePoint, toggleEdit } = this.props;
     return (
       <Card>
         <List>
@@ -46,7 +46,7 @@ export class SituationView extends React.Component {
                 variant="outlined"
                 size="small"
                 aria-label="Delete Situation"
-                onClick={e => updatePoint(null, pointIndex,'deleteSituation', stratIndex, null, situationIndex, null, null)}
+                onClick={e => updatePoint(null, pointIndex,'deleteSituation', stratIndex, phaseIndex, situationIndex, null, null)}
               >
                 <DeleteIcon /> Delete Situation
               </Button>

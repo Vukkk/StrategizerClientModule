@@ -23,43 +23,47 @@ export class PhaseView extends React.Component {
     super(props);
 
     this.state={
-      name: props.situation.name
+      name: props.phase.name
     }
   }
   render () {
-    const { classes, content, stratIndex, pointIndex, phase, phaseIndex, updatePoint, toggleEdit } = this.props;
-    console.log('DocOnly:', this.props);
+    const { classes, stratIndex, pointIndex, phase, phaseIndex, updatePoint, toggleEdit } = this.props;
+    console.log('PhaseView:', this.props);
     return (
       <List>
-        <ListItem>
-          <ListItemText primary={`Phase Name: ${phase.name}`} />
-          <ListItemSecondaryAction>
-            <IconButton aria-label="Edit Phase Name" onClick={e => toggleEdit('name')}>
-              <EditIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={`Phase Code: ${phase.code}`} />
-          <ListItemSecondaryAction>
-            <IconButton aria-label="Edit Phase Code" onClick={e => toggleEdit('code')}>
-              <EditIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={'Warning: This will delete all nested situations & conditions'} />
-          <ListItemSecondaryAction>
-            <Button
-              variant="outlined"
-              size="small"
-              aria-label="Delete Phase"
-              onClick={e => updatePoint(null, pointIndex,'deletePhase', stratIndex, phaseIndex, null, null, null)}
-            >
-              <DeleteIcon /> Delete Situation
-            </Button>
-          </ListItemSecondaryAction>
-        </ListItem>
+        <Card>
+          <ListItem>
+            <ListItemText primary={`Phase Name: ${phase.name}`} />
+            <ListItemSecondaryAction>
+              <IconButton aria-label="Edit Phase Name" onClick={e => toggleEdit(e, 'name')}>
+                <EditIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+            <ListItemText primary={'Warning: This will delete all nested situations & conditions'} />
+            <ListItemSecondaryAction>
+              <Button
+                variant="outlined"
+                size="small"
+                aria-label="Delete Phase"
+                onClick={e => updatePoint(null, pointIndex,'deletePhase', stratIndex, phaseIndex, null, null, null)}
+              >
+                <DeleteIcon /> Delete Phase
+              </Button>
+            </ListItemSecondaryAction>
+          </ListItem>
+        </Card>
+        <Card className={classes.formPhaseCard}>
+          <ListItem>
+            <ListItemText primary={`Phase Code: ${phase.code}`} />
+            <ListItemSecondaryAction>
+              <IconButton aria-label="Edit Phase Code" onClick={e => toggleEdit(e, 'code')}>
+                <EditIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+        </Card>
       </List>
     )
   }
