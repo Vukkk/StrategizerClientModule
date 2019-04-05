@@ -70,24 +70,27 @@ export class OrderPoint extends React.Component {
       setPhase,
       setSituation,
       updatePoint,
-      strategyName
+      strategyName,
+      setView,
+      view
     } = this.props;
 
     return (
       <React.Fragment>
         <Grid item>
           <List className={classes.strategyList}>
-            <ListItem className={classes.root} dense>
+            <ListItem className={classes.root} dense key="point-Title">
               <ListItemText
                 primary={`Strategy Events: ${strategyName}`}
                 primaryTypographyProps={{variant:'subtitle1'}}
                 classes={{root: classes.itemTitleRoot, primary: classes.primary}}
-                onClick={e => setView(e, 'Strategies')}
+                onClick={e => setView(e, 'Strategy Events')}
               />
             </ListItem>
             <SituationPoints
               entryName="Trigger"
               pointIndex="entryPoint"
+              key="point-entryPoint"
               points={points}
               point={point}
               situation={situation}
@@ -97,10 +100,14 @@ export class OrderPoint extends React.Component {
               openPoint={this.state.openPoint}
               handleOpenPoint={this.handleOpenPoint}
               selected={this.state.openPoint === 'entryPoint'}
+              setSituation={setSituation}
+              setView={setView}
+              view={view}
             />
             <SituationPoints
               entryName="Rejected"
               pointIndex="exitPoint"
+              key="point-exitPoint"
               points={points}
               point={point}
               situation={situation}
@@ -110,10 +117,13 @@ export class OrderPoint extends React.Component {
               openPoint={this.state.openPoint}
               handleOpenPoint={this.handleOpenPoint}
               selected={this.state.openPoint === 'exitPoint'}
+              setView={setView}
+              view={view}
             />
             <SituationPoints
               entryName="EntryPoint"
               pointIndex="sellPoint"
+              key="point-sellPoint"
               points={points}
               point={point}
               situation={situation}
@@ -123,10 +133,13 @@ export class OrderPoint extends React.Component {
               openPoint={this.state.openPoint}
               handleOpenPoint={this.handleOpenPoint}
               selected={this.state.openPoint === 'sellPoint'}
+              setView={setView}
+              view={view}
             />
             <SituationPoints
               entryName="TakeProfit"
               pointIndex="buyPoint"
+              key="point-buyPoint"
               points={points}
               point={point}
               situation={situation}
@@ -136,10 +149,13 @@ export class OrderPoint extends React.Component {
               openPoint={this.state.openPoint}
               handleOpenPoint={this.handleOpenPoint}
               selected={this.state.openPoint === 'buyPoint'}
+              setView={setView}
+              view={view}
             />
             <PhasePoints
               entryName="StopLoss"
               pointIndex="stopLoss"
+              key="point-stopLoss"
               phaseIndex={phaseIndex}
               situationIndex={situationIndex}
               points={points}
@@ -154,10 +170,13 @@ export class OrderPoint extends React.Component {
               handleOpenPoint={this.handleOpenPoint}
               handleOpenPhase={this.handleOpenPhase}
               selected={this.state.openPoint === 'stopLoss'}
+              setView={setView}
+              view={view}
             />
             <PhasePoints
               entryName="BuyOrder"
               pointIndex="buyOrder"
+              key="point-buyOrder"
               phaseIndex={phaseIndex}
               situationIndex={situationIndex}
               points={points}
@@ -172,10 +191,13 @@ export class OrderPoint extends React.Component {
               handleOpenPoint={this.handleOpenPoint}
               handleOpenPhase={this.handleOpenPhase}
               selected={this.state.openPoint === 'buyOrder'}
+              setView={setView}
+              view={view}
             />
             <PhasePoints
               entryName="SellOrder"
               pointIndex="sellOrder"
+              key="point-sellOrder"
               phaseIndex={phaseIndex}
               situationIndex={situationIndex}
               points={points}
@@ -190,6 +212,8 @@ export class OrderPoint extends React.Component {
               handleOpenPoint={this.handleOpenPoint}
               handleOpenPhase={this.handleOpenPhase}
               selected={this.state.openPoint === 'sellOrder'}
+              setView={setView}
+              view={view}
             />
           </List>
         </Grid>

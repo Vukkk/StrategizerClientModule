@@ -11,11 +11,16 @@ import {
 
 import DocOnly from './DocOnly';
 import StrategyDoc from './StrategyDoc';
+import SituationDoc from './SituationDoc';
 
 import {
   Introduction,
   Strategies,
-  SubStrategies
+  SubStrategies,
+  Points,
+  Phases,
+  Situations,
+  Conditions
 } from './docs'
 
 export class ViewRoutes extends React.Component {
@@ -28,6 +33,18 @@ export class ViewRoutes extends React.Component {
         break;
       case 'Substrategies':
         return <StrategyDoc content={SubStrategies} {...other} />;
+        break;
+      case 'Points':
+        return <DocOnly content={Points} {...other} />;
+        break;
+      case 'Phases':
+        return <DocOnly content={Phases} {...other} />;
+        break;
+      case 'Situations':
+        return <SituationDoc content={Situations} {...other} />;
+        break;
+      case 'Conditions':
+        return <DocOnly content={Conditions} {...other} />;
         break;
       case 'Introduction':
       default:

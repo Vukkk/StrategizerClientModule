@@ -104,6 +104,22 @@ const styles = theme => ({
   },
   teamsList:{
     border: '1px solid #CCC',
+  },
+  editNext:{
+    paddingTop: 5,
+    paddingRight: 8,
+    fontSize: 24,
+  },
+  editBttnContainer:{
+    paddingRight: 5,
+  },
+  editBttn:{
+    color: '#666',
+    padding: 0,
+    minWidth: 32,
+  },
+  editBttnLabel:{
+    fontSize: 20,
   }
 });
 

@@ -26,9 +26,13 @@ _Current general flow for how a new user utilizes Strategizer_
 	- Confirmation email sent.
 	- New team profile appears in "Your Teams" list.
 	- Clicking on Manage Profile allows viewing/managing FBs, updating Team profile.
-7. Use should navigate to Strategizer >  Your Strategies
+7. Use should then use Strategizer
+	- User navigates to Strategizer > Your Strategies
 	- View of Strategy Workspace.
-8. ... to be continued once Strategizer is understood.
+		- ... details to be added
+		- User manages stratgies
+			- Add/Delete/Edit Strategies
+8. 
  
 
 ## Strategizer UX

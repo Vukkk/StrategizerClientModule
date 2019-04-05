@@ -18,38 +18,38 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import { slugify } from '../../../utils';
 
-export class StrategyView extends React.Component {
+export class SituationView extends React.Component {
   constructor(props){
     super(props);
 
     this.state={
-      name: props.strategy.name
+      name: props.situation.name
     }
   }
   render () {
-    const { classes, content, strategy, stratIndex, updatePoint, toggleEdit } = this.props;
+    const { classes, content, situation, stratIndex, pointIndex, situationIndex, updatePoint, toggleEdit } = this.props;
     console.log('DocOnly:', this.props);
     return (
       <Card>
         <List>
           <ListItem>
-            <ListItemText primary={`Strategy Name: ${strategy.name}`} />
+            <ListItemText primary={`Situation Name: ${situation.name}`} />
             <ListItemSecondaryAction>
-              <IconButton aria-label="Edit Strategy Name" onClick={e => toggleEdit(e)}>
+              <IconButton aria-label="Edit Situation Name" onClick={e => toggleEdit(e)}>
                 <EditIcon />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
           <ListItem>
-            <ListItemText primary={'Warning: This will delete all nested phases, situations and conditions'} />
+            <ListItemText primary={'Warning: This will delete all nested conditions'} />
             <ListItemSecondaryAction>
               <Button
                 variant="outlined"
                 size="small"
-                aria-label="Delete Strategy"
-                onClick={e => updatePoint(null, null,'deleteStrategy', stratIndex, null, null, null, null)}
+                aria-label="Delete Situation"
+                onClick={e => updatePoint(null, pointIndex,'deleteSituation', stratIndex, null, situationIndex, null, null)}
               >
-                <DeleteIcon /> Delete Strategy
+                <DeleteIcon /> Delete Situation
               </Button>
             </ListItemSecondaryAction>
           </ListItem>
@@ -59,4 +59,4 @@ export class StrategyView extends React.Component {
   }
 }
 
-export default withStyles(styles)(StrategyView);
+export default withStyles(styles)(SituationView);

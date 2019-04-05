@@ -28,6 +28,27 @@ const styles = theme => ({
   title: {
     marginTop: 20,
   },
+  h1: {
+    fontFamily: '"Saira","Saira Condenses", sans-serif',
+  },
+  h2: {
+    fontFamily: '"Saira","Saira Condenses", sans-serif',
+  },
+  h3: {
+    fontFamily: '"Saira","Saira Condenses", sans-serif',
+  },
+  h4: {
+    fontFamily: '"Saira","Saira Condenses", sans-serif',
+  },
+  h5: {
+    fontFamily: '"Saira","Saira Condenses", sans-serif',
+  },
+  h6: {
+    fontFamily: '"Saira","Saira Condenses", sans-serif',
+  },
+  p: {
+    fontFamily: '"Saira","Saira Condenses", sans-serif',
+  }
 });
 
 export default styles;

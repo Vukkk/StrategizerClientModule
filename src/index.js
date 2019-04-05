@@ -1,4 +1,5 @@
 import React from 'react';
+import { hot } from 'react-hot-loader'
 import { Route, Switch } from 'react-router-dom';
 
 import Strategizer from './Components/Strategizer';
@@ -18,4 +19,5 @@ export const App = () => (
   </div>
 )
 
-export default App;
+// export default App;
+export default hot(module)(App)
