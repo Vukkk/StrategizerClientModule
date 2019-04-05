@@ -106,9 +106,9 @@ const styles = theme => ({
     border: '1px solid #CCC',
   },
   editNext:{
-    paddingTop: 5,
-    paddingRight: 8,
-    fontSize: 24,
+    paddingTop: 10,
+    paddingRight: 0,
+    fontSize: 36,
   },
   editBttnContainer:{
     paddingRight: 5,
