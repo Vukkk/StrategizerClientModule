@@ -28,7 +28,6 @@ export class SituationView extends React.Component {
   }
   render () {
     const { classes, content, situation, stratIndex, pointIndex, situationIndex, updatePoint, toggleEdit } = this.props;
-    console.log('DocOnly:', this.props);
     return (
       <Card>
         <List>

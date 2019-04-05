@@ -28,7 +28,6 @@ export class StrategyView extends React.Component {
   }
   render () {
     const { classes, content, strategy, stratIndex, updatePoint, toggleEdit } = this.props;
-    console.log('DocOnly:', this.props);
     return (
       <Card>
         <List>

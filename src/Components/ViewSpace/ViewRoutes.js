@@ -11,6 +11,7 @@ import {
 
 import DocOnly from './DocOnly';
 import StrategyDoc from './StrategyDoc';
+import PhaseDoc from './PhaseDoc';
 import SituationDoc from './SituationDoc';
 
 import {
@@ -26,7 +27,6 @@ import {
 export class ViewRoutes extends React.Component {
   render () {
     const { classes, view, ...other } = this.props;
-    console.log('ViewRoutes:', view);
     switch (view) {
       case 'Strategies':
         return <DocOnly content={Strategies} {...other} />;
@@ -38,7 +38,7 @@ export class ViewRoutes extends React.Component {
         return <DocOnly content={Points} {...other} />;
         break;
       case 'Phases':
-        return <DocOnly content={Phases} {...other} />;
+        return <PhaseDoc content={Phases} {...other} />;
         break;
       case 'Situations':
         return <SituationDoc content={Situations} {...other} />;

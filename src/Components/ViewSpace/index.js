@@ -14,7 +14,6 @@ import ViewRoutes from './ViewRoutes';
 export class ViewSpace extends React.Component {
   render () {
     const { classes, view, ...other } = this.props;
-    console.log('ViewSpace:', this.props);
     return (
       <Grid
         container

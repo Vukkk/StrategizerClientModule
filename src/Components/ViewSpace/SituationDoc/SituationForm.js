@@ -34,7 +34,6 @@ export class SituationForm extends React.Component {
   }
   render () {
     const { classes, content, strategy, stratIndex, pointIndex, situation, situationIndex, updatePoint, toggleEdit } = this.props;
-    console.log('DocOnly:', this.props);
     return (
       <Card className={classes.formCard}>
         <Grid

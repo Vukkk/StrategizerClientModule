@@ -14,7 +14,7 @@ import {
 
 import { slugify } from '../../../utils';
 
-export class StrategyForm extends React.Component {
+export class PhaseFormName extends React.Component {
   constructor(props){
     super(props);
 
@@ -22,7 +22,7 @@ export class StrategyForm extends React.Component {
     this.handleSaveInput = this.handleSaveInput.bind(this);
 
     this.state={
-      name: props.strategy.name,
+      name: props.phase.name,
       changed: false
     }
   }
@@ -33,7 +33,8 @@ export class StrategyForm extends React.Component {
     }
   }
   render () {
-    const { classes, content, strategy, stratIndex, updatePoint, toggleEdit } = this.props;
+    const { classes, content, strategy, stratIndex, pointIndex, phase, phaseIndex, updatePoint, toggleEdit } = this.props;
+    console.log('PhaseFormName:', this.props);
     return (
       <Card className={classes.formCard}>
         <Grid
@@ -45,8 +46,8 @@ export class StrategyForm extends React.Component {
           <Grid item>
             <FormGroup>
               <TextField
-                id={'name'}
-                label="Update Strategy Name"
+                id='name'
+                label="Update Phase Name"
                 value={this.state.name}
                 onChange={this.handleChangeInput}
                 margin="normal"
@@ -63,7 +64,7 @@ export class StrategyForm extends React.Component {
               alignItems="center"
             >
               <Grid item>
-                <Button size="small"  aria-label="Delete Strategy" onClick={e => toggleEdit(e)}>
+                <Button size="small"  aria-label="Cancel Edit Phase" onClick={e => toggleEdit(false)}>
                   Cancel
                 </Button>
               </Grid>
@@ -71,7 +72,7 @@ export class StrategyForm extends React.Component {
                 <Button
                   size="small"
                   variant="outlined"
-                  aria-label="Delete Strategy"
+                  aria-label="Save Phase"
                   color={this.state.changed ? "primary" : "secondary" }
                   onClick={this.handleSaveInput}
                 >
@@ -91,10 +92,10 @@ export class StrategyForm extends React.Component {
   }
   handleSaveInput(e) {
     e.preventDefault();
-    this.props.updatePoint(this.state.name, this.props.stratIndex,'updateStrategy', null, null, null, null, 'name')
+    this.props.updatePoint(this.state.name, this.props.pointIndex,'updatePhase', this.props.stratIndex, this.props.phaseIndex, null, null, 'name')
     this.setState({changed: false })
     this.props.toggleEdit(e);
   }
 }
 
-export default withStyles(styles)(StrategyForm);
+export default withStyles(styles)(PhaseFormName);

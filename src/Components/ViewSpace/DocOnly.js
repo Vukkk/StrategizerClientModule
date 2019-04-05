@@ -12,7 +12,6 @@ import {
 export class DocOnly extends React.Component {
   render () {
     const { classes, content } = this.props;
-    console.log('DocOnly:', this.props);
     return (
       <Grid
         container

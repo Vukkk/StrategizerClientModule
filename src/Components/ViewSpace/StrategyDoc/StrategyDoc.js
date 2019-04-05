@@ -23,7 +23,6 @@ export class StrategyDoc extends React.Component {
   }
   render () {
     const { classes, content, strategy, stratIndex, updatePoint } = this.props;
-    console.log('DocOnly:', this.props, this.state);
     return (
       <Grid
         container
