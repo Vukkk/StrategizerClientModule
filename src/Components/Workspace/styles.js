@@ -118,6 +118,9 @@ const styles = theme => ({
     padding: 0,
     minWidth: 32,
   },
+  addBttn:{
+    minWidth: 48,
+  },
   editBttnLabel:{
     fontSize: 20,
   }

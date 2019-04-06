@@ -188,21 +188,26 @@ export class PhasePoints extends React.Component {
                         )
                       })}
                       {situations.length === 0 &&
-                        <Typography
-                          variant='subtitle1'
-                          align='left'
-                          color='textPrimary'
-                          gutterBottom
-                        >
-                          No situations found.
-                          <Button
-                            type="text"
-                            aria-label="Add Situation"
-                            onClick={e => updatePoint(null, pointIndex,'addSituation', null, pIndex, null, null, null)}
-                          >
-                            <AddIcon /> Situation
-                          </Button>
-                        </Typography>
+                        <Grid container>
+                          <Grid item>
+                            <Typography
+                              variant='subtitle1'
+                              align='left'
+                              color='textPrimary'
+                              gutterBottom
+                            >
+                              No situations found.
+                              <Button
+                                type="text"
+                                aria-label="Add Situation"
+                                onClick={e => updatePoint(null, pointIndex,'addSituation', null, pIndex, null, null, null)}
+                                classes={{root: classes.addBttn }}
+                              >
+                                <AddIcon /> Situation
+                              </Button>
+                            </Typography>
+                          </Grid>
+                        </Grid>
                       }
                     </List>
                   </Collapse>

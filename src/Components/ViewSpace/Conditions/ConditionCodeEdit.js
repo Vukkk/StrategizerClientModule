@@ -44,7 +44,7 @@ export class ConditionCodeEdit extends React.Component {
         alignItems="stretch"
       >
         <Grid item>
-          <FormGroup>
+          <FormGroup className={classes.formCont}>
             <TextField
               id='code'
               label="Update Condition Code"
@@ -53,6 +53,8 @@ export class ConditionCodeEdit extends React.Component {
               margin="normal"
               variant="outlined"
               multiline
+              rows="4"
+              rowsMax="4"
             />
           </FormGroup>
         </Grid>
@@ -63,6 +65,7 @@ export class ConditionCodeEdit extends React.Component {
             direction="row"
             justify="flex-end"
             alignItems="center"
+            className={classes.formBttnGroup}
           >
             <Grid item>
               <Button size="small"  aria-label="Cancel Edit Condition Code" onClick={e => toggleEdit(e, false)}>
@@ -72,9 +75,9 @@ export class ConditionCodeEdit extends React.Component {
             <Grid item>
               <Button
                 size="small"
-                variant="outlined"
+                variant={this.state.changed ? "contained" : "outlined"}
                 aria-label="Save Condition Code"
-                color={this.state.changed ? "primary" : "secondary" }
+                color="secondary"
                 onClick={this.handleSaveInput}
               >
                 Save

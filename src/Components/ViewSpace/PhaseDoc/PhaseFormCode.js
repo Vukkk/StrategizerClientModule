@@ -44,7 +44,7 @@ export class PhaseFormCode extends React.Component {
           alignItems="stretch"
         >
           <Grid item>
-            <FormGroup>
+            <FormGroup className={classes.formCont} >
               <TextField
                 id='code'
                 label="Update PhaseCode"
@@ -52,6 +52,9 @@ export class PhaseFormCode extends React.Component {
                 onChange={this.handleChangeInput}
                 margin="normal"
                 variant="outlined"
+                multiline
+                rows="4"
+                rowsMax="4"
               />
             </FormGroup>
           </Grid>
@@ -62,6 +65,7 @@ export class PhaseFormCode extends React.Component {
               direction="row"
               justify="flex-end"
               alignItems="center"
+              className={classes.formBttnGroup}
             >
               <Grid item>
                 <Button size="small"  aria-label="Cancel Edit Phase Code" onClick={e => toggleEdit(false)}>
@@ -71,9 +75,9 @@ export class PhaseFormCode extends React.Component {
               <Grid item>
                 <Button
                   size="small"
-                  variant="outlined"
+                  variant={this.state.changed ? "contained" : "outlined"}
                   aria-label="Save Phase Code"
-                  color={this.state.changed ? "primary" : "secondary" }
+                  color="secondary"
                   onClick={this.handleSaveInput}
                 >
                   Save

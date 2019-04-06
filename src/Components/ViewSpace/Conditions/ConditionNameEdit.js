@@ -44,7 +44,7 @@ export class ConditionNameEdit extends React.Component {
         alignItems="stretch"
       >
         <Grid item>
-          <FormGroup>
+          <FormGroup className={classes.formCont}>
             <TextField
               id='name'
               label="Update Condition Name"
@@ -62,6 +62,7 @@ export class ConditionNameEdit extends React.Component {
             direction="row"
             justify="flex-end"
             alignItems="center"
+            className={classes.formBttnGroup}
           >
             <Grid item>
               <Button size="small"  aria-label="Cancel Edit Situation" onClick={e => toggleEdit(e, false)}>
@@ -71,9 +72,8 @@ export class ConditionNameEdit extends React.Component {
             <Grid item>
               <Button
                 size="small"
-                variant="outlined"
+                variant={this.state.changed ? "contained" : "outlined"}
                 aria-label="Save Situation"
-                color={this.state.changed ? "primary" : "secondary" }
                 onClick={this.handleSaveInput}
               >
                 Save

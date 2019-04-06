@@ -43,7 +43,8 @@ export class ConditionList extends React.Component {
       updatePoint,
       toggleEdit,
       handleChangeDoc,
-      selected
+      selected,
+      setView
     } = this.props;
     const { name, conditions } = situation;
 
@@ -55,7 +56,7 @@ export class ConditionList extends React.Component {
               primary={`Situation ${name}`}
               primaryTypographyProps={{variant:'subtitle1'}}
               classes={{root: classes.itemTitleRoot, primary: classes.primary}}
-              onClick={e => this.handleOpen(e)}
+              onClick={e => setView(e, 'Situations')}
             />
             {!this.state.edit  &&
               <ListItemSecondaryAction>

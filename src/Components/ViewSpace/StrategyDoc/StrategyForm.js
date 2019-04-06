@@ -43,7 +43,7 @@ export class StrategyForm extends React.Component {
           alignItems="stretch"
         >
           <Grid item>
-            <FormGroup>
+            <FormGroup className={classes.formCont} >
               <TextField
                 id={'name'}
                 label="Update Strategy Name"
@@ -61,6 +61,7 @@ export class StrategyForm extends React.Component {
               direction="row"
               justify="flex-end"
               alignItems="center"
+              className={classes.formBttnGroup}
             >
               <Grid item>
                 <Button size="small"  aria-label="Delete Strategy" onClick={e => toggleEdit(e)}>
@@ -70,9 +71,9 @@ export class StrategyForm extends React.Component {
               <Grid item>
                 <Button
                   size="small"
-                  variant="outlined"
-                  aria-label="Delete Strategy"
-                  color={this.state.changed ? "primary" : "secondary" }
+                  variant={this.state.changed ? "contained" : "outlined"}
+                  aria-label="Save Strategy"
+                  color="secondary"
                   onClick={this.handleSaveInput}
                 >
                   Save

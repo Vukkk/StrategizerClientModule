@@ -65,6 +65,7 @@ export class SituationPoints extends React.Component {
               <Button
                 aria-label="Add Situation"
                 onClick={e => updatePoint(null, pointIndex,'addSituation', null, null, null, null, null)}
+                classes={{root: classes.addBttn }}
               >
                 <AddIcon />
               </Button>
@@ -119,21 +120,25 @@ export class SituationPoints extends React.Component {
               )
             })}
             {situations.length === 0 &&
-              <Typography
-                variant='subtitle1'
-                align='left'
-                color='textPrimary'
-                gutterBottom
-              >
-                No situations have been created for this section.
-                <Button
-                  type="text"
-                  aria-label="Add Situation"
-                  onClick={e => updatePoint(null, pointIndex,'addSituation', null, pIndex, null, null, null)}
-                >
-                  <AddIcon /> Situation
-                </Button>
-              </Typography>
+              <Grid container>
+                <Grid item>
+                  <Typography
+                    variant='subtitle1'
+                    align='left'
+                    color='textPrimary'
+                    gutterBottom
+                  >
+                    No situations have been created for this section.
+                    <Button
+                      type="text"
+                      aria-label="Add Situation"
+                      onClick={e => updatePoint(null, pointIndex,'addSituation', null, pIndex, null, null, null)}
+                    >
+                      <AddIcon /> Situation
+                    </Button>
+                  </Typography>
+                </Grid>
+              </Grid>
             }
           </List>
         </Collapse>

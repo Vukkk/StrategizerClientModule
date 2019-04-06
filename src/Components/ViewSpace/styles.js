@@ -175,6 +175,13 @@ const styles = theme => ({
   strategyList: {
     padding: theme.spacing.unit * 1,
     width: '100%'
+  },
+  formCont:{
+    padding: 20
+  },
+  formBttnGroup:{
+    paddingRight: 20,
+    paddingBottom: 20
   }
 });
 

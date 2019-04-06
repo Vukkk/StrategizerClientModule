@@ -62,6 +62,7 @@ export class PhaseFormName extends React.Component {
               direction="row"
               justify="flex-end"
               alignItems="center"
+              className={classes.formBttnGroup}
             >
               <Grid item>
                 <Button size="small"  aria-label="Cancel Edit Phase" onClick={e => toggleEdit(false)}>
@@ -71,9 +72,9 @@ export class PhaseFormName extends React.Component {
               <Grid item>
                 <Button
                   size="small"
-                  variant="outlined"
+                  variant={this.state.changed ? "contained" : "outlined"}
                   aria-label="Save Phase"
-                  color={this.state.changed ? "primary" : "secondary" }
+                  color="secondary"
                   onClick={this.handleSaveInput}
                 >
                   Save
