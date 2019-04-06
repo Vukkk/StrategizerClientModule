@@ -13,6 +13,7 @@ import DocOnly from './DocOnly';
 import StrategyDoc from './StrategyDoc';
 import PhaseDoc from './PhaseDoc';
 import SituationDoc from './SituationDoc';
+import ConditionDoc from './Conditions';
 
 import {
   Introduction,
@@ -49,7 +50,7 @@ export class ViewRoutes extends React.Component {
         return <SituationDoc content={Situations} {...other} />;
         break;
       case 'Conditions':
-        return <DocOnly content={Conditions} {...other} />;
+        return <ConditionDoc content={Conditions} {...other} view={view} />;
         break;
       case 'Introduction':
       default:

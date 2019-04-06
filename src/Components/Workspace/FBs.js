@@ -56,8 +56,6 @@ export class FBs extends React.Component {
 
   render () {
     const { classes, fbs, fb, setFB } = this.props;
-    console.log('FBs: ', fbs, fb);
-    console.log(this.state);
     return (
       <React.Fragment>
         <ListItem button onClick={this.handleViewFbs} classes={{root: classes.root}}>

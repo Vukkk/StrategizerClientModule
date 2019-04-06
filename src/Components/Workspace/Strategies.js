@@ -76,9 +76,7 @@ export class Strategies extends React.Component {
   render () {
     const { classes, strategies, strategy, setStrategy, updatePoint, setView, selectedStrategies } = this.props;
     let open =  this.state.open;
-    console.log('strategies: ', strategies, strategy, open);
-
-
+    
     return (
       <React.Fragment>
         <ListItem className={classes.root} dense>

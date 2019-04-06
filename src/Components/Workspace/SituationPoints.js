@@ -51,7 +51,7 @@ export class SituationPoints extends React.Component {
       <React.Fragment>
         <ListItem
           button
-          key={`point-${index}`}
+          key={`point-situation-${index}`}
           onClick={e => this.handlePointClick(e)}
           className={classes.strategyItem}
           selected={selected}
@@ -72,7 +72,7 @@ export class SituationPoints extends React.Component {
           }
           {openPoint === pointIndex ? null : <ExpandMore />}
         </ListItem>
-        <Collapse in={openPoint === pointIndex} timeout="auto" unmountOnExit>
+        <Collapse in={openPoint === pointIndex} timeout="auto" unmountOnExit key={`point-collapse-${index}`}>
           <List component="div" disablePadding>
             {situations.length > 0 && situations.map((situationItem, index) => {
               return (
@@ -126,6 +126,13 @@ export class SituationPoints extends React.Component {
                 gutterBottom
               >
                 No situations have been created for this section.
+                <Button
+                  type="text"
+                  aria-label="Add Situation"
+                  onClick={e => updatePoint(null, pointIndex,'addSituation', null, pIndex, null, null, null)}
+                >
+                  <AddIcon /> Situation
+                </Button>
               </Typography>
             }
           </List>

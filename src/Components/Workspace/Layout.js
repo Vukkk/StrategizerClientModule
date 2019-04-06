@@ -322,19 +322,24 @@ class Layout extends React.Component {
         break;
       case 'addCondition':
         if(isDefined(currPoint.phases)){
-          currPoint.phases[phsIndex].situations[sitIndex].conditions.push({
+          currPoint.phases[phsIndex].situations[situationIndex].conditions.push({
             name: 'New Condition',
             code: 'Code for new Condition'
           });
         } else {
-          currPoint.situations[sitIndex].conditions.push({
+          currPoint.situations[situationIndex].conditions.push({
             name: 'New Condition',
             code: 'Code for new Condition'
           });
         }
+        currStrategy[point] = currPoint;
+        this.saveStrategyFromUpdate(strIndex, currStrategy)
         this.setState({
           [point]: currPoint,
-          changed: true
+          conditionIndex: currPoint.situations[situationIndex].conditions.length - 1,
+          changed: false,
+          saved: true,
+          view: 'Conditions'
         });
         break;
       case 'addStrategy':
@@ -445,8 +450,6 @@ class Layout extends React.Component {
           });
           currStrategy[point].situations = updSituations;
         }
-
-        console.log('deleteSituation: ', currStrategy);
         this.saveStrategyFromUpdate(strIndex, currStrategy)
         this.setState({
           [point]: currPoint,
@@ -460,22 +463,62 @@ class Layout extends React.Component {
       case 'updateCondition':
         if(isDefined(currPoint.phases) && currPoint.phases !== null){
           if(element === 'name'){
-            currPoint.phases[phsIndex].situations[sitIndex].conditions[conIndex].name = e
+            currPoint.phases[phsIndex].situations[situationIndex].conditions[conIndex].name = e
           } else {
-            currPoint.phases[phsIndex].situations[sitIndex].conditions[conIndex].code = e;
+            currPoint.phases[phsIndex].situations[situationIndex].conditions[conIndex].code = e;
           }
           console.log('updateCondition w Phase: ', currPoint);
         } else {
+          console.log('updateCondition no phase: ', currPoint);
           if(element === 'name'){
-            currPoint.situations[sitIndex].conditions[conIndex].name = e;
+            currPoint.situations[situationIndex].conditions[conIndex].name = e;
           } else {
-            currPoint.situations[sitIndex].conditions[conIndex].code = e;
+            currPoint.situations[situationIndex].conditions[conIndex].code = e;
           }
-          console.log('updateCondition w Phase: ', currPoint);
+
+          console.log('updateCondition no phase: ', currPoint);
         }
+        currStrategy[point] = currPoint;
+        console.log('updateCondition: ', currStrategy);
+        this.saveStrategyFromUpdate(strIndex, currStrategy)
         this.setState({
           [point]: currPoint,
-          changed: true
+          conditionIndex: conIndex,
+          changed: false,
+          saved: true
+        });
+        break;
+      case 'deleteCondition':
+        let delConditions;
+        let updConditions;
+        if(isDefined(currPoint.phases)){
+          delConditions = currPoint.phases[phsIndex].situations[situationIndex].conditions;
+          updConditions = delConditions.filter((condition, index, arr) => {
+              if(index !== conIndex){
+                return true;
+              }
+              return false;
+          });
+          currStrategy[point].phases[phsIndex].situations[situationIndex].conditions = updConditions;
+        } else {
+          delConditions = currPoint.situations[situationIndex].conditions;
+          updConditions = delConditions.filter((condition, index, arr) => {
+              console.log('deleteConditionFromUpdate filter:', index, conIndex);
+              if(index !== conIndex){
+                return true;
+              }
+              return false;
+          });
+          currStrategy[point].situations[situationIndex].conditions = updConditions;
+        }
+        this.saveStrategyFromUpdate(strIndex, currStrategy)
+        this.setState({
+          [point]: currPoint,
+          conditionIndex: 0,
+          condition: {},
+          changed: false,
+          saved: true,
+          view: 'Conditions'
         });
         break;
       case 'deletePhase':

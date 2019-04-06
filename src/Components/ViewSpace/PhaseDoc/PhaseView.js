@@ -29,6 +29,8 @@ export class PhaseView extends React.Component {
   render () {
     const { classes, stratIndex, pointIndex, phase, phaseIndex, updatePoint, toggleEdit } = this.props;
     console.log('PhaseView:', this.props);
+
+    const codeMkDown = `\`\`\`  ${phase.code}\`\`\``;
     return (
       <List>
         <Card>
@@ -56,7 +58,8 @@ export class PhaseView extends React.Component {
         </Card>
         <Card className={classes.formPhaseCard}>
           <ListItem>
-            <ListItemText primary={`Phase Code: ${phase.code}`} />
+            <ListItemText primary='Phase Code:' />
+            <div className={classes.codeRenderCont}><ReactMarkdown source={codeMkDown} className={classes.codeRender} /></div>
             <ListItemSecondaryAction>
               <IconButton aria-label="Edit Phase Code" onClick={e => toggleEdit(e, 'code')}>
                 <EditIcon />

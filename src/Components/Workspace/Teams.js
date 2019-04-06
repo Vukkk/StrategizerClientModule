@@ -66,8 +66,6 @@ export class Teams extends React.Component {
 
   render () {
     const { classes, teams, team, setTeam } = this.props;
-    console.log(teams, team);
-    console.log(this.state);
     return (
       <React.Fragment>
         <ListItem className={classes.titleItem} classes={{root: classes.root}}>
