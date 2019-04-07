@@ -23,7 +23,14 @@ import {
   Phases,
   Situations,
   Conditions,
-  StrategyEvents
+  StrategyEvents,
+  Trigger,
+  Rejected,
+  EntryPoint,
+  TakeProfit,
+  StopLoss,
+  BuyOrder,
+  SellOrder
 } from './docs'
 
 export class ViewRoutes extends React.Component {
@@ -35,6 +42,27 @@ export class ViewRoutes extends React.Component {
         break;
       case 'Strategy Events':
         return <DocOnly content={StrategyEvents} {...other} />;
+        break;
+      case 'Trigger':
+        return <DocOnly content={Trigger} {...other} />;
+        break;
+      case 'Rejected':
+        return <DocOnly content={Rejected} {...other} />;
+        break;
+      case 'EntryPoint':
+        return <StrategyDoc content={EntryPoint} {...other} />;
+        break;
+      case 'TakeProfit':
+        return <StrategyDoc content={TakeProfit} {...other} />;
+        break;
+      case 'StopLoss':
+        return <DocOnly content={StopLoss} {...other} />;
+        break;
+      case 'BuyOrder':
+        return <DocOnly content={BuyOrder} {...other} />;
+        break;
+      case 'SellOrder':
+        return <DocOnly content={SellOrder} {...other} />;
         break;
       case 'Substrategies':
         return <StrategyDoc content={SubStrategies} {...other} />;

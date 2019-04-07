@@ -6,6 +6,9 @@ const styles = theme => ({
     padding: 0,
     margin: 0,
   },
+  DocOnlyCont: {
+    margin: `${theme.spacing.unit * 1}px ${theme.spacing.unit * 3}px`
+  },
   tabTitle: {
     width: '25%',
     maxWidth: 'none',

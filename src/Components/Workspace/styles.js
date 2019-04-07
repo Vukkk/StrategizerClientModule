@@ -123,6 +123,13 @@ const styles = theme => ({
   },
   editBttnLabel:{
     fontSize: 20,
+  },
+  popover: {
+    pointerEvents: 'none',
+    position: 'absolute'
+  },
+  paper: {
+    padding: theme.spacing.unit,
   }
 });
 

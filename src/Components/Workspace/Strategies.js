@@ -14,7 +14,10 @@ import {
   IconButton,
   Typography,
   Switch,
-  Button
+  Button,
+  Popper,
+  Paper,
+  Fade
 } from '@material-ui/core';
 import NavigateNext from '@material-ui/icons/NavigateNext';
 import AddIcon from '@material-ui/icons/Add';
@@ -60,6 +63,13 @@ const styles = theme => ({
   },
   editBttnLabel:{
     fontSize: 20,
+  },
+  popover: {
+    pointerEvents: 'none',
+    position: 'absolute'
+  },
+  paper: {
+    padding: theme.spacing.unit,
   }
 });
 
@@ -68,15 +78,19 @@ export class Strategies extends React.Component {
     super(props);
 
     this.handleOpen = this.handleOpen.bind(this);
+    this.handlePopoverOpen = this.handlePopoverOpen.bind(this);
+    this.handlePopoverClose = this.handlePopoverClose.bind(this);
 
     this.state = {
       open: false,
+      anchorEl: null,
+      openedPopoverId: null
     }
   }
   render () {
     const { classes, strategies, strategy, setStrategy, updatePoint, setView, selectedStrategies } = this.props;
-    let open =  this.state.open;
-    
+    const { open, openedPopoverId, anchorEl } = this.state;
+
     return (
       <React.Fragment>
         <ListItem className={classes.root} dense>
@@ -85,7 +99,18 @@ export class Strategies extends React.Component {
             primaryTypographyProps={{variant:'subtitle1'}}
             classes={{root: classes.itemTitleRoot, primary: classes.primary}}
             onClick={e => this.handleOpen(e)}
+            onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper1')}
+            onMouseLeave={this.handlePopoverClose}
           />
+          <Popper id={`popper1`} open={openedPopoverId === 'popper1'} anchorEl={anchorEl} transition>
+            {({ TransitionProps }) => (
+              <Fade {...TransitionProps} timeout={350}>
+                <Paper classes={{root: classes.paper}}>
+                  <Typography>View info about Strategies</Typography>
+                </Paper>
+              </Fade>
+            )}
+          </Popper>
           <ListItemSecondaryAction>
             <Grid
               item
@@ -102,9 +127,20 @@ export class Strategies extends React.Component {
                       aria-label="Add Strategy"
                       onClick={e => updatePoint(null, null,'addStrategy', null, null, null, null, null)}
                       classes={{ root: classes.editBttn }}
+                      onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper2')}
+                      onMouseLeave={this.handlePopoverClose}
                     >
                       <AddIcon classes={{ root: classes.editBttnLabel }} />
                     </Button>
+                    <Popper id={`popper2`} open={openedPopoverId === 'popper2'} anchorEl={anchorEl} transition>
+                      {({ TransitionProps }) => (
+                        <Fade {...TransitionProps} timeout={350}>
+                          <Paper classes={{root: classes.paper}}>
+                            <Typography>Add a strategy</Typography>
+                          </Paper>
+                        </Fade>
+                      )}
+                    </Popper>
                   </Grid>
                   <Grid item>
                     <Button
@@ -123,9 +159,20 @@ export class Strategies extends React.Component {
                       aria-label="View Introduction"
                       onClick={e => this.props.setView(e, 'Introduction')}
                       classes={{ root: classes.editBttn }}
+                      onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper3')}
+                      onMouseLeave={this.handlePopoverClose}
                     >
                       <HelpIcon classes={{ root: classes.editBttnLabel }} />
                     </Button>
+                    <Popper id={`popper3`} open={openedPopoverId === 'popper3'} anchorEl={anchorEl} transition>
+                      {({ TransitionProps }) => (
+                        <Fade {...TransitionProps} timeout={350}>
+                          <Paper classes={{root: classes.paper}}>
+                            <Typography>View Introduction</Typography>
+                          </Paper>
+                        </Fade>
+                      )}
+                    </Popper>
                   </Grid>
                   <Grid item>
                     <Button
@@ -173,6 +220,14 @@ export class Strategies extends React.Component {
     this.props.setView(e, 'Strategies')
     this.setState({ open: !this.state.open })
   }
+
+  handlePopoverOpen (e, popoverId) {
+    this.setState({ anchorEl: e.currentTarget, openedPopoverId: popoverId });
+  };
+
+  handlePopoverClose () {
+    this.setState({ anchorEl: null, openedPopoverId: null });
+  };
 }
 
 export default withStyles(styles)(Strategies);

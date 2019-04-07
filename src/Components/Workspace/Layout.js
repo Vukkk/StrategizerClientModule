@@ -295,26 +295,29 @@ class Layout extends React.Component {
         });
         break;
       case 'addSituation':
-        let sitIndex;
+        let newSitIndex;
+        let newSit;
         if(isDefined(currPoint.phases)){
           currPoint.phases[phsIndex].situations.push({
             name: 'New Situation',
             conditions: []
           });
-          sitIndex = currPoint.phases[phsIndex].situations.length - 1;
+          newSitIndex = currPoint.phases[phsIndex].situations.length - 1;
+          newSit = currPoint.phases[phsIndex].situations[newSitIndex]
         } else {
           currPoint.situations.push({
             name: 'New Situation',
             conditions: []
           });
-          sitIndex = currPoint.situations.length - 1;
+          newSitIndex = currPoint.situations.length - 1;
+          newSit = currPoint.situations[newSitIndex]
         }
         currStrategy[point] = currPoint;
         this.saveStrategyFromUpdate(strIndex, currStrategy)
         this.setState({
           [point]: currPoint,
-          situationIndex: sitIndex,
-          situation: currPoint.phases[phsIndex].situations[sitIndex],
+          situationIndex: newSitIndex,
+          situation: newSit,
           changed: false,
           saved: true,
           view: 'Situations'

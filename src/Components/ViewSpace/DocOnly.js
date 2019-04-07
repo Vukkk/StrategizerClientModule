@@ -18,6 +18,7 @@ export class DocOnly extends React.Component {
         direction="column"
         justify="flex-start"
         alignItems="stretch"
+        className={classes.DocOnlyCont}
       >
         <Grid item>
           <ReactMarkdown source={content} />

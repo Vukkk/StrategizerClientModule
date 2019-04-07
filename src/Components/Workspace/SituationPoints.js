@@ -12,7 +12,10 @@ import {
   ListItem,
   ListItemText,
   IconButton,
-  ListItemSecondaryAction
+  ListItemSecondaryAction,
+  Popper,
+  Paper,
+  Fade
 } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -25,7 +28,13 @@ export class SituationPoints extends React.Component {
   constructor (props) {
     super(props);
 
-    this.handlePointClick = this.handlePointClick.bind(this);
+    this.handlePopoverOpen = this.handlePopoverOpen.bind(this);
+    this.handlePopoverClose = this.handlePopoverClose.bind(this);
+
+    this.state = {
+      anchorEl: null,
+      openedPopoverId: null
+    }
   }
 
   render () {
@@ -47,15 +56,18 @@ export class SituationPoints extends React.Component {
       view
     } = this.props;
    const situations = points[pointIndex].situations;
+   const { openedPopoverId, anchorEl } = this.state;
    return (
       <React.Fragment>
         <ListItem
           button
           key={`point-situation-${index}`}
-          onClick={e => this.handlePointClick(e)}
+          onClick={e => handleOpenPoint(e, pointIndex, entryName)}
           className={classes.strategyItem}
           selected={selected}
           classes={{root: classes.itemTopTier, selected: classes.itemTopTierSelected}}
+          onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper-sit-ptdoc')}
+          onMouseLeave={this.handlePopoverClose}
         >
           <ListItemText
             primary={entryName}
@@ -66,13 +78,33 @@ export class SituationPoints extends React.Component {
                 aria-label="Add Situation"
                 onClick={e => updatePoint(null, pointIndex,'addSituation', null, null, null, null, null)}
                 classes={{root: classes.addBttn }}
+                onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper-sit-addsit')}
+                onMouseLeave={this.handlePopoverClose}
               >
                 <AddIcon />
               </Button>
+              <Popper id={`popper-sit-addsit`} open={openedPopoverId === 'popper-sit-addsit'} anchorEl={anchorEl} transition>
+                {({ TransitionProps }) => (
+                  <Fade {...TransitionProps} timeout={350}>
+                    <Paper classes={{root: classes.paper}}>
+                      <Typography>Add a phase</Typography>
+                    </Paper>
+                  </Fade>
+                )}
+              </Popper>
             </ListItemSecondaryAction>
           }
           {openPoint === pointIndex ? null : <ExpandMore />}
         </ListItem>
+        <Popper id={`popper-sit-ptdoc`} open={openedPopoverId === 'popper-sit-ptdoc'} anchorEl={anchorEl} transition>
+          {({ TransitionProps }) => (
+            <Fade {...TransitionProps} timeout={350}>
+              <Paper classes={{root: classes.paper}}>
+                <Typography>{`View info about ${entryName} event`}</Typography>
+              </Paper>
+            </Fade>
+          )}
+        </Popper>
         <Collapse in={openPoint === pointIndex} timeout="auto" unmountOnExit key={`point-collapse-${index}`}>
           <List component="div" disablePadding>
             {situations.length > 0 && situations.map((situationItem, index) => {
@@ -106,9 +138,20 @@ export class SituationPoints extends React.Component {
                             aria-label="Edit Situation"
                             classes={{ root: classes.editBttn }}
                             onClick={e => setSituation(situationItem, index, 'Situations')}
+                            onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper-sit-editsit')}
+                            onMouseLeave={this.handlePopoverClose}
                           >
                             <EditIcon nativeColor={view === "Situations" ? "#f55858" : "#777"} classes={{root: classes.editBttnLabel}}/>
                           </Button>
+                          <Popper id={`popper-sit-editsit`} open={openedPopoverId === 'popper-sit-editsit'} anchorEl={anchorEl} transition>
+                            {({ TransitionProps }) => (
+                              <Fade {...TransitionProps} timeout={350}>
+                                <Paper classes={{root: classes.paper}}>
+                                  <Typography>View info about situations</Typography>
+                                </Paper>
+                              </Fade>
+                            )}
+                          </Popper>
                         </Grid>
                         <Grid item>
                           <NavigateNext nativeColor="#f55858" classes={{ root: classes.editNext }}/>
@@ -132,7 +175,7 @@ export class SituationPoints extends React.Component {
                     <Button
                       type="text"
                       aria-label="Add Situation"
-                      onClick={e => updatePoint(null, pointIndex,'addSituation', null, pIndex, null, null, null)}
+                      onClick={e => updatePoint(null, pointIndex,'addSituation', null, null, null, null, null)}
                     >
                       <AddIcon /> Situation
                     </Button>
@@ -146,11 +189,13 @@ export class SituationPoints extends React.Component {
     )
   }
 
-  handlePointClick (e) {
-    e.preventDefault;
-    this.props.handleOpenPoint(e, this.props.pointIndex)
-    this.props.setView(e, 'Points')
-  }
+  handlePopoverOpen (e, popoverId) {
+    this.setState({ anchorEl: e.currentTarget, openedPopoverId: popoverId });
+  };
+
+  handlePopoverClose () {
+    this.setState({ anchorEl: null, openedPopoverId: null });
+  };
 }
 
 export default withStyles(styles)(SituationPoints);

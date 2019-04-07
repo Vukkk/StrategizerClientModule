@@ -7,5 +7,23 @@ import { Situations } from './situations';
 import { Conditions } from './conditions';
 import { PhaseCode } from './phaseCode';
 import { StrategyEvents } from './StrategyEvents';
+import { Trigger, Rejected, EntryPoint, TakeProfit, StopLoss, BuyOrder, SellOrder } from './events'
 
-export { Introduction, Strategies, SubStrategies, Points, Phases, Situations, Conditions, PhaseCode, StrategyEvents };
+export {
+  Introduction,
+  Strategies,
+  SubStrategies,
+  Points,
+  Phases,
+  Situations,
+  Conditions,
+  PhaseCode,
+  StrategyEvents,
+  Trigger,
+  Rejected,
+  EntryPoint,
+  TakeProfit,
+  StopLoss,
+  BuyOrder,
+  SellOrder
+};

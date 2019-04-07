@@ -10,7 +10,10 @@ import {
   Avatar,
   IconButton,
   Typography,
-  Divider
+  Divider,
+  Popper,
+  Paper,
+  Fade
 } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -40,6 +43,13 @@ const styles = theme => ({
   strategyList: {
     padding: theme.spacing.unit * 1,
     width: '100%'
+  },
+  popover: {
+    pointerEvents: 'none',
+    position: 'absolute'
+  },
+  paper: {
+    padding: theme.spacing.unit,
   }
 });
 
@@ -50,11 +60,15 @@ export class OrderPoint extends React.Component {
     this.handleOpenPoint = this.handleOpenPoint.bind(this);
     this.handleOpenPhase = this.handleOpenPhase.bind(this);
     this.handleSelectSit = this.handleSelectSit.bind(this);
+    this.handlePopoverOpen = this.handlePopoverOpen.bind(this);
+    this.handlePopoverClose = this.handlePopoverClose.bind(this);
 
     this.state = {
       openPoint: "entryPoint",
       openPhase: 0,
-      selectedSit: null
+      selectedSit: null,
+      anchorEl: null,
+      openedPopoverId: null
     }
   }
 
@@ -76,6 +90,7 @@ export class OrderPoint extends React.Component {
       setView,
       view
     } = this.props;
+    const { openedPopoverId, anchorEl } = this.state;
 
     return (
       <React.Fragment>
@@ -87,7 +102,18 @@ export class OrderPoint extends React.Component {
                 primaryTypographyProps={{variant:'subtitle1'}}
                 classes={{root: classes.itemTitleRoot, primary: classes.primary}}
                 onClick={e => setView(e, 'Strategy Events')}
+                onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper-strat-events')}
+                onMouseLeave={this.handlePopoverClose}
               />
+              <Popper id={`popper-strat-events`} open={openedPopoverId === 'popper-strat-events'} anchorEl={anchorEl} transition>
+                {({ TransitionProps }) => (
+                  <Fade {...TransitionProps} timeout={350}>
+                    <Paper classes={{root: classes.paper}}>
+                      <Typography>View info about Strategy Events</Typography>
+                    </Paper>
+                  </Fade>
+                )}
+              </Popper>
             </ListItem>
             <SituationPoints
               entryName="Trigger"
@@ -244,6 +270,14 @@ export class OrderPoint extends React.Component {
 
   handleSelectSit (phaseIndex, sitIndex) {
     this.setState(state => ({ openPhase: phaseIndex, selectedSit: sitIndex }));
+  };
+
+  handlePopoverOpen (e, popoverId) {
+    this.setState({ anchorEl: e.currentTarget, openedPopoverId: popoverId });
+  };
+
+  handlePopoverClose () {
+    this.setState({ anchorEl: null, openedPopoverId: null });
   };
 }
 
