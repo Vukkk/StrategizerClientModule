@@ -189,14 +189,14 @@ export class Strategies extends React.Component {
           </ListItemSecondaryAction>
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          {strategies && strategies.map((strategyItem, index) => {
+          {strategies && strategies.map((strategyItem, strIndex) => {
             return (
               <ListItem
                 button
                 className={classes.nested}
                 classes={{root: classes.itemFirstTier}}
-                key={`strategy-${index}`}
-                onClick={e => setStrategy(strategyItem, 'Substrategies', index)}
+                key={`strategy-${strIndex}`}
+                onClick={e => setStrategy(strategyItem, 'Substrategies', strIndex)}
                 selected={strategy.name === strategyItem.name ? true : false}
               >
                 <ListItemText
@@ -204,7 +204,7 @@ export class Strategies extends React.Component {
                 />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={e => updatePoint(!strategyItem.active, index,'updateStrategy', null, null, null, null, 'active')}
+                    onChange={e => updatePoint(!strategyItem.active, null,'updateStrategy', strIndex, null, null, null, 'active')}
                     checked={strategyItem.active}
                   />
                 </ListItemSecondaryAction>

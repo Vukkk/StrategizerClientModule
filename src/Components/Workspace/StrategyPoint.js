@@ -98,7 +98,7 @@ export class OrderPoint extends React.Component {
           <List className={classes.strategyList}>
             <ListItem className={classes.root} dense key="point-Title">
               <ListItemText
-                primary={`Trade Events: ${strategyName}`}
+                primary={`Strategy Events: ${strategyName}`}
                 primaryTypographyProps={{variant:'subtitle1'}}
                 classes={{root: classes.itemTitleRoot, primary: classes.primary}}
                 onClick={e => setView(e, 'Strategy Events')}
@@ -115,11 +115,10 @@ export class OrderPoint extends React.Component {
                 )}
               </Popper>
             </ListItem>
-            
             <SituationPoints
-              entryName="EntryPoint"
-              pointIndex="sellPoint"
-              key="point-sellPoint"
+              entryName="Trigger On"
+              pointIndex="entryPoint"
+              key="point-entryPoint"
               points={points}
               point={point}
               situation={situation}
@@ -128,55 +127,26 @@ export class OrderPoint extends React.Component {
               updatePoint={updatePoint}
               openPoint={this.state.openPoint}
               handleOpenPoint={this.handleOpenPoint}
-              selected={this.state.openPoint === 'sellPoint'}
+              selected={this.state.openPoint === 'entryPoint'}
+              setSituation={setSituation}
               setView={setView}
               view={view}
             />
-            <PhasePoints
-              entryName="TakeProfit"
-              pointIndex="buyOrder"
-              key="point-buyOrder"
-              phaseIndex={phaseIndex}
-              situationIndex={situationIndex}
+            <SituationPoints
+              entryName="Trigger Off"
+              pointIndex="exitPoint"
+              key="point-exitPoint"
               points={points}
               point={point}
               situation={situation}
               setPoint={setPoint}
-              setPhase={setPhase}
               setSituation={setSituation}
               updatePoint={updatePoint}
               openPoint={this.state.openPoint}
-              openPhase={this.state.openPhase}
               handleOpenPoint={this.handleOpenPoint}
-              handleOpenPhase={this.handleOpenPhase}
-              selected={this.state.openPoint === 'buyOrder'}
+              selected={this.state.openPoint === 'exitPoint'}
               setView={setView}
               view={view}
-              selectedSit={this.state.selectedSit}
-              handleSelectSit={this.handleSelectSit}
-            />
-            <PhasePoints
-              entryName="StopLoss"
-              pointIndex="stopLoss"
-              key="point-stopLoss"
-              phaseIndex={phaseIndex}
-              situationIndex={situationIndex}
-              points={points}
-              point={point}
-              situation={situation}
-              setPoint={setPoint}
-              setPhase={setPhase}
-              setSituation={setSituation}
-              updatePoint={updatePoint}
-              openPoint={this.state.openPoint}
-              openPhase={this.state.openPhase}
-              handleOpenPoint={this.handleOpenPoint}
-              handleOpenPhase={this.handleOpenPhase}
-              selected={this.state.openPoint === 'stopLoss'}
-              setView={setView}
-              view={view}
-              selectedSit={this.state.selectedSit}
-              handleSelectSit={this.handleSelectSit}
             />
           </List>
         </Grid>

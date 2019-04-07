@@ -13,6 +13,7 @@ import {
 import Teams from './Teams';
 import FBs from './FBs';
 import Strategies from './Strategies';
+import StrategyPoint from './StrategyPoint';
 import OrderPoint from './OrderPoint';
 import ViewSpace from '../ViewSpace';
 
@@ -178,6 +179,25 @@ class Layout extends React.Component {
                 />
               </List>
               <List className={classes.pointList}>
+                <StrategyPoint
+                  strategyName={this.state.strategy.name}
+                  points={points}
+                  point={this.state.point}
+                  pointIndex={this.state.pointIndex}
+                  phase={this.state.phase}
+                  phaseIndex={this.state.phaseIndex}
+                  situationIndex={this.state.situationIndex}
+                  situation={this.state.situation}
+                  setPoint={this.setPoint}
+                  setPhase={this.setPhase}
+                  setSituation={this.setSituation}
+                  updatePoint={this.updatePoint}
+                  setSituation={this.setSituation}
+                  setView={this.setView}
+                  view={this.state.view}
+                />
+              </List>
+              <List className={classes.pointList}>
                 <OrderPoint
                   strategyName={this.state.strategy.name}
                   points={points}
@@ -271,7 +291,8 @@ class Layout extends React.Component {
 
   updatePoint (e, point, type, strIndex, phsIndex, sitIndex, conIndex, element) {
     let currState = this.state;
-    let currStrategy = currState.strategy;
+    const strategies = this.state.fb.strategy.subStrategies;
+    let currStrategy = (strIndex !== null) ? this.state.fb.strategy.subStrategies[strIndex] : currState.strategy;
     let currPoint = currStrategy[point];
     console.log('updatePoint: ', e, point, type, strIndex, phsIndex, sitIndex, conIndex, element, currPoint, currStrategy);
     const situationIndex = sitIndex;
@@ -370,11 +391,11 @@ class Layout extends React.Component {
           } else {
             currStrategy.name = e;
           }
-          console.log('updateStrategy: ', currStrategy);
+          console.log('updateStrategy: ', currStrategy, strIndex);
         }
-        this.saveStrategyFromUpdate(point, currStrategy);
+        this.saveStrategyFromUpdate(strIndex, currStrategy);
         this.setState({
-          strIndex: 0,
+          strIndex: strIndex,
           strategy: currStrategy,
           view: 'Substrategies'
         });
@@ -588,41 +609,6 @@ class Layout extends React.Component {
     this.setState({ saved: true, changed: false });
   }
 
-  async saveStrategy(strIndex){
-
-    const { handleSaveStrategy, saveStrategy, id, strategies } = this.props;
-    const {
-      index,
-      name,
-      entryPoint,
-      exitPoint,
-      sellPoint,
-      buyPoint,
-      stopLoss,
-      buyOrder,
-      sellOrder
-    } = this.state;
-
-    const strategy = {
-      name,
-      entryPoint,
-      exitPoint,
-      sellPoint,
-      buyPoint,
-      stopLoss,
-      buyOrder,
-      sellOrder
-    };
-    console.log('saveStrategy: ', id, strategies, strIndex, strategy);
-    strategies.subStrategies[strIndex]=strategy;
-
-    let saved = await handleSaveStrategy(saveStrategy, strategies.subStrategies, id);
-
-    console.log('saveStrategy saved: ', await saved);
-
-    this.setState({ saved: true, changed: false });
-  }
-
   async saveStrategyFromUpdate(strIndex, strategy){
     const { saveStrategy } = this.props;
     const strategies = this.state.fb.strategy.subStrategies;
@@ -633,12 +619,12 @@ class Layout extends React.Component {
     if(strIndex === 'new'){
       const newIndex = strategies.length++;
       strategies[newIndex] = strategy;
-      updateState = { saved: true, changed: false, strategy: strategy, stratIndex: newIndex };
+      updateState = { saved: true, changed: false, stratIndex: newIndex, strategy: strategy };
     } else {
       strategies[strIndex] = strategy;
-      updateState = { saved: true, changed: false, strategy: strategy, };
+      updateState = { saved: true, changed: false, stratIndex: strIndex, strategy: strategy };
     }
-
+    console.log('saveStrategy update: ', strategies);
     let saved = await saveStrategy({
       variables: {
         id,

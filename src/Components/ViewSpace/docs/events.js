@@ -1,13 +1,13 @@
-export const Trigger = `
-# TriggerEvent\n\nAnd this is a paragraph
+export const TriggerOn = `
+# Trigger On Event\n\nSituations to start observing with a given strategy
 `;
 
-export const Rejected = `
-# Rejected Event\n\nAnd this is a paragraph
+export const TriggerOff = `
+# Trigger Off Event\n\nRejection of Trigger event
 `;
 
 export const EntryPoint = `
-# EntryPoint Event\n\nAnd this is a paragraph
+# EntryPoint Event\n\nSituations for
 `;
 
 export const TakeProfit = `
@@ -16,12 +16,4 @@ export const TakeProfit = `
 
 export const StopLoss = `
 # StopLoss Event\n\nAnd this is a paragraph
-`;
-
-export const BuyOrder = `
-# BuyOrder Event\n\nAnd this is a paragraph
-`;
-
-export const SellOrder = `
-# SellOrder Event\n\nAnd this is a paragraph
 `;

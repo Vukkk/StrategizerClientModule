@@ -6,8 +6,8 @@ import { Phases } from './phases';
 import { Situations } from './situations';
 import { Conditions } from './conditions';
 import { PhaseCode } from './phaseCode';
-import { StrategyEvents } from './StrategyEvents';
-import { Trigger, Rejected, EntryPoint, TakeProfit, StopLoss, BuyOrder, SellOrder } from './events'
+import { StrategyEvents } from './strategyEvents';
+import { TriggerOn, TriggerOff, EntryPoint, TakeProfit, StopLoss } from './events'
 
 export {
   Introduction,
@@ -19,11 +19,9 @@ export {
   Conditions,
   PhaseCode,
   StrategyEvents,
-  Trigger,
-  Rejected,
+  TriggerOn,
+  TriggerOff,
   EntryPoint,
   TakeProfit,
-  StopLoss,
-  BuyOrder,
-  SellOrder
+  StopLoss
 };
