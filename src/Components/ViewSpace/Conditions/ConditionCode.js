@@ -22,6 +22,7 @@ import { slugify } from '../../../utils';
 
 export class ConditionCode extends React.Component {
   render () {
+    console.log('ConditionCode: ', this.props);
     const {
       classes,
       content,

@@ -35,7 +35,7 @@ export class ConditionCodeEdit extends React.Component {
   }
   render () {
     const { classes, content, condition, stratIndex, pointIndex, phaseIndex, situationIndex, updatePoint, toggleEdit, edit } = this.props;
-
+    console.log('ConditionCodeEdit: ', this.props)
     return (
       <Grid
         container

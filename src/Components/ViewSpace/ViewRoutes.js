@@ -24,6 +24,7 @@ import {
   Situations,
   Conditions,
   StrategyEvents,
+  TradeEvents,
   TriggerOn,
   TriggerOff,
   EntryPoint,
@@ -40,6 +41,9 @@ export class ViewRoutes extends React.Component {
         break;
       case 'Strategy Events':
         return <DocOnly content={StrategyEvents} {...other} />;
+        break;
+      case 'Trade Events':
+        return <DocOnly content={TradeEvents} {...other} />;
         break;
       case 'TriggerOn':
         return <DocOnly content={TriggerOn} {...other} />;

@@ -42,6 +42,7 @@ export class SituationPoints extends React.Component {
       classes,
       index,
       entryName,
+      stratIndex,
       pointIndex,
       points,
       point,
@@ -76,7 +77,7 @@ export class SituationPoints extends React.Component {
             <ListItemSecondaryAction>
               <Button
                 aria-label="Add Situation"
-                onClick={e => updatePoint(null, pointIndex,'addSituation', null, null, null, null, null)}
+                onClick={e => updatePoint(null, pointIndex,'addSituation', stratIndex, null, null, null, null)}
                 classes={{root: classes.addBttn }}
                 onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper-sit-addsit')}
                 onMouseLeave={this.handlePopoverClose}
@@ -175,7 +176,7 @@ export class SituationPoints extends React.Component {
                     <Button
                       type="text"
                       aria-label="Add Situation"
-                      onClick={e => updatePoint(null, pointIndex,'addSituation', null, null, null, null, null)}
+                      onClick={e => updatePoint(null, pointIndex,'addSituation', stratIndex, null, null, null, null)}
                     >
                       <AddIcon /> Situation
                     </Button>

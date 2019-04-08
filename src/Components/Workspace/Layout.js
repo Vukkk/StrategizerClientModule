@@ -181,6 +181,7 @@ class Layout extends React.Component {
               <List className={classes.pointList}>
                 <StrategyPoint
                   strategyName={this.state.strategy.name}
+                  stratIndex={this.state.stratIndex}
                   points={points}
                   point={this.state.point}
                   pointIndex={this.state.pointIndex}
@@ -200,6 +201,7 @@ class Layout extends React.Component {
               <List className={classes.pointList}>
                 <OrderPoint
                   strategyName={this.state.strategy.name}
+                  stratIndex={this.state.stratIndex}
                   points={points}
                   point={this.state.point}
                   pointIndex={this.state.pointIndex}
@@ -290,11 +292,12 @@ class Layout extends React.Component {
   };
 
   updatePoint (e, point, type, strIndex, phsIndex, sitIndex, conIndex, element) {
+    console.log('updatePoint: ', e, point, type, strIndex, phsIndex, sitIndex, conIndex, element);
     let currState = this.state;
     const strategies = this.state.fb.strategy.subStrategies;
     let currStrategy = (strIndex !== null) ? this.state.fb.strategy.subStrategies[strIndex] : currState.strategy;
     let currPoint = currStrategy[point];
-    console.log('updatePoint: ', e, point, type, strIndex, phsIndex, sitIndex, conIndex, element, currPoint, currStrategy);
+    console.log('updatePoint 2: ', strategies, currPoint, currStrategy);
     const situationIndex = sitIndex;
     switch (type) {
       case 'addPhase':
@@ -380,7 +383,7 @@ class Layout extends React.Component {
         }
         this.saveStrategyFromUpdate('new', newStrategy);
         this.setState({
-          strIndex: 0,
+          stratIndex: 0,
           strategy: newStrategy
         });
         break;
@@ -395,7 +398,7 @@ class Layout extends React.Component {
         }
         this.saveStrategyFromUpdate(strIndex, currStrategy);
         this.setState({
-          strIndex: strIndex,
+          stratIndex: strIndex,
           strategy: currStrategy,
           view: 'Substrategies'
         });
@@ -485,12 +488,14 @@ class Layout extends React.Component {
         });
         break;
       case 'updateCondition':
+        let newSituation;
         if(isDefined(currPoint.phases) && currPoint.phases !== null){
           if(element === 'name'){
-            currPoint.phases[phsIndex].situations[situationIndex].conditions[conIndex].name = e
+            currPoint.phases[phsIndex].situations[situationIndex].conditions[conIndex].name = e;
           } else {
             currPoint.phases[phsIndex].situations[situationIndex].conditions[conIndex].code = e;
           }
+          newSituation= currPoint.phases[phsIndex].situations[situationIndex];
           console.log('updateCondition w Phase: ', currPoint);
         } else {
           console.log('updateCondition no phase: ', currPoint);
@@ -499,7 +504,7 @@ class Layout extends React.Component {
           } else {
             currPoint.situations[situationIndex].conditions[conIndex].code = e;
           }
-
+          newSituation = currPoint.situations[situationIndex];
           console.log('updateCondition no phase: ', currPoint);
         }
         currStrategy[point] = currPoint;
@@ -508,6 +513,7 @@ class Layout extends React.Component {
         this.setState({
           [point]: currPoint,
           conditionIndex: conIndex,
+          situation: newSituation, 
           changed: false,
           saved: true
         });
@@ -558,7 +564,7 @@ class Layout extends React.Component {
         this.saveStrategyFromUpdate(strIndex, currStrategy)
         this.setState({
           [point]: currPoint,
-          phsIndex: 0,
+          phaseIndex: 0,
           phase: {},
           changed: false,
           saved: true,

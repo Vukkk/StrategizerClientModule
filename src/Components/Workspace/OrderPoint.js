@@ -79,6 +79,7 @@ export class OrderPoint extends React.Component {
       point,
       pointIndex,
       phase,
+      stratIndex,
       phaseIndex,
       situationIndex,
       situation,
@@ -101,7 +102,7 @@ export class OrderPoint extends React.Component {
                 primary={`Trade Events: ${strategyName}`}
                 primaryTypographyProps={{variant:'subtitle1'}}
                 classes={{root: classes.itemTitleRoot, primary: classes.primary}}
-                onClick={e => setView(e, 'Strategy Events')}
+                onClick={e => setView(e, 'Trade Events')}
                 onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper-strat-events')}
                 onMouseLeave={this.handlePopoverClose}
               />
@@ -115,11 +116,12 @@ export class OrderPoint extends React.Component {
                 )}
               </Popper>
             </ListItem>
-            
+
             <SituationPoints
               entryName="EntryPoint"
               pointIndex="sellPoint"
               key="point-sellPoint"
+              stratIndex={stratIndex}
               points={points}
               point={point}
               situation={situation}
@@ -136,6 +138,7 @@ export class OrderPoint extends React.Component {
               entryName="TakeProfit"
               pointIndex="buyOrder"
               key="point-buyOrder"
+              stratIndex={stratIndex}
               phaseIndex={phaseIndex}
               situationIndex={situationIndex}
               points={points}
@@ -159,6 +162,7 @@ export class OrderPoint extends React.Component {
               entryName="StopLoss"
               pointIndex="stopLoss"
               key="point-stopLoss"
+              stratIndex={stratIndex}
               phaseIndex={phaseIndex}
               situationIndex={situationIndex}
               points={points}
