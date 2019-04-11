@@ -56,19 +56,19 @@ export class ViewRoutes extends React.Component {
         return <DocOnly content={TradeEvents} {...other} />;
         break;
       case 'Trigger On':
-        return <StrategyDoc content={TriggerOn} {...other} />;
+        return <DocOnly content={TriggerOn} {...other} />;
         break;
       case 'Trigger Off':
-        return <StrategyDoc content={TriggerOff} {...other} />;
+        return <DocOnly content={TriggerOff} {...other} />;
         break;
       case 'EntryPoint':
-        return <StrategyDoc content={EntryPoint} {...other} />;
+        return <DocOnly content={EntryPoint} {...other} />;
         break;
       case 'TakeProfit':
-        return <StrategyDoc content={TakeProfit} {...other} />;
+        return <DocOnly content={TakeProfit} {...other} />;
         break;
       case 'StopLoss':
-        return <StrategyDoc content={StopLoss} {...other} />;
+        return <DocOnly content={StopLoss} {...other} />;
         break;
       case 'Substrategies':
         return <StrategyDoc content={SubStrategies} {...other} />;

@@ -5,8 +5,10 @@ import styles from '../styles';
 import { withStyles } from '@material-ui/core/styles';
 
 import {
-  Grid
+  Grid,
+  Button
 } from '@material-ui/core';
+import TocIcon from '@material-ui/icons/Toc';
 
 import StrategyForm from './StrategyForm';
 import StrategyView from './StrategyView';
@@ -22,7 +24,7 @@ export class StrategyDoc extends React.Component {
     }
   }
   render () {
-    const { classes, content, strategy, stratIndex, updatePoint } = this.props;
+    const { classes, content, strategy, stratIndex, toggleDrawer, updatePoint } = this.props;
     return (
       <Grid
         container
@@ -37,6 +39,7 @@ export class StrategyDoc extends React.Component {
             :
             <StrategyForm strategy={strategy} stratIndex={stratIndex} updatePoint={updatePoint} toggleEdit={this.toggleEdit} />}
         </Grid>
+        <Grid item container justify="flex-end" direction="row"><Grid item className={classes.docMenuBodyCont} ><Button size='small' onClick={e => toggleDrawer(e)} className={classes.docMenuBodyBttn}><TocIcon className={classes.docMenuIcon} />Strategizer Docs</Button></Grid></Grid>
         <Grid item>
           <ReactMarkdown source={content} />
         </Grid>

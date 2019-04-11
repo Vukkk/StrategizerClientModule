@@ -6,12 +6,14 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {
   Card,
-  Grid
+  Grid,
+  Button
 } from '@material-ui/core';
+import TocIcon from '@material-ui/icons/Toc';
 
 export class DocOnly extends React.Component {
   render () {
-    const { classes, content } = this.props;
+    const { classes, content, toggleDrawer } = this.props;
     return (
       <Grid
         container
@@ -20,6 +22,7 @@ export class DocOnly extends React.Component {
         alignItems="stretch"
         className={classes.DocOnlyCont}
       >
+        <Grid item container xs={11} justify="flex-end" direction="row"><Grid item className={classes.docMenuBodyCont} ><Button size='small' onClick={e => toggleDrawer(e)} className={classes.docMenuBodyBttn}><TocIcon className={classes.docMenuIcon} />Strategizer Docs</Button></Grid></Grid>
         <Grid item xs={11}>
           <ReactMarkdown source={content} />
         </Grid>

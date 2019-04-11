@@ -193,10 +193,11 @@ export class Strategies extends React.Component {
             return (
               <ListItem
                 button
+                aria-label="View info about Strategies"
                 className={classes.nested}
                 classes={{root: classes.itemFirstTier}}
                 key={`strategy-${strIndex}`}
-                onClick={e => setStrategy(strategyItem, 'Substrategies', strIndex)}
+                onClick={e => setStrategy(strategyItem, 'Strategies', strIndex)}
                 selected={strategy.name === strategyItem.name ? true : false}
               >
                 <ListItemText
@@ -204,9 +205,21 @@ export class Strategies extends React.Component {
                 />
                 <ListItemSecondaryAction>
                   <Switch
+                    aria-label="Activate/Deactivate Strategy"
                     onChange={e => updatePoint(!strategyItem.active, null,'updateStrategy', strIndex, null, null, null, 'active')}
                     checked={strategyItem.active}
+                    onMouseEnter={(e) => this.handlePopoverOpen(e, 'strategyToggleActivate')}
+                    onMouseLeave={this.handlePopoverClose}
                   />
+                  <Popper id={`strategyToggleActivate`} open={openedPopoverId === 'strategyToggleActivate'} anchorEl={anchorEl} transition>
+                    {({ TransitionProps }) => (
+                      <Fade {...TransitionProps} timeout={350}>
+                        <Paper classes={{root: classes.paper}}>
+                          <Typography>Activate/Deactivate Strategy</Typography>
+                        </Paper>
+                      </Fade>
+                    )}
+                  </Popper>
                 </ListItemSecondaryAction>
               </ListItem>
             )

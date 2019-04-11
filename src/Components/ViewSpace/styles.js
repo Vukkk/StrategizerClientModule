@@ -194,6 +194,11 @@ const styles = theme => ({
     right: '48px',
     top: '-33px',
   },
+  docMenuBodyCont: {
+    float: 'right'
+  },
+  docMenuBodyBttn: {
+  },
   docMenuIcon: {
     height: '18px'
   },

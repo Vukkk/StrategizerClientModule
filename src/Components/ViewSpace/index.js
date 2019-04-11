@@ -90,8 +90,8 @@ export class ViewSpace extends React.Component {
           <ListItem button key='item-phases'>
             <ListItemText primary='Phases' onClick={e => setView(e, 'Phases')} />
           </ListItem>
-          <ListItem button key='item-phase-api'>
-            <ListItemText dense='true' primary='Phase Commands' classes={{ dense: classes.drawerInset }} onClick={e => setView(e, 'Phase Api')} />
+          <ListItem button key='item-phase-api' dense classes={{ dense: classes.drawerInset }}>
+            <ListItemText primary='Phase Commands' onClick={e => setView(e, 'Phase Api')} />
           </ListItem>
           <ListItem button key='item-situations'>
             <ListItemText primary='Situations' onClick={e => setView(e, 'Situations')} />
@@ -99,7 +99,7 @@ export class ViewSpace extends React.Component {
           <ListItem button key='item-conditions'>
             <ListItemText primary='Conditions' onClick={e => setView(e, 'Conditions')} />
           </ListItem>
-          <ListItem button key='item-condition-api'>
+          <ListItem button key='item-condition-api' dense classes={{ dense: classes.drawerInset }}>
             <ListItemText dense='true' primary='Condition Commands' classes={{ dense: classes.drawerInset }} onClick={e => setView(e, 'Condition Api')} />
           </ListItem>
         </List>
@@ -113,7 +113,6 @@ export class ViewSpace extends React.Component {
         justify="flex-start"
         alignItems="stretch"
       >
-        <Grid item className={classes.docMenuCont} ><Button size='small' onClick={e => this.toggleDrawer(e)} className={classes.docMenuBttn}><TocIcon className={classes.docMenuIcon} />Table of Contents</Button></Grid>
         <ViewRoutes view={view} setView={setView} toggleDrawer={this.toggleDrawer} {...other} />
         <Drawer anchor="right" open={this.state.right} onClose={e => this.toggleDrawer(e)}>
           <div
