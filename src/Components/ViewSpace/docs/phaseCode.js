@@ -1,3 +1,3 @@
 export const PhaseCode = `
-# Phase Code\n\nAnd this is a paragraph
+# Phase Commands\n\nAnd this is a paragraph
 `;

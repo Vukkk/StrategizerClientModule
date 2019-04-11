@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 
 import DocOnly from './DocOnly';
+import IntroductionOnly from './Introduction';
 import StrategyDoc from './StrategyDoc';
 import PhaseDoc from './PhaseDoc';
 import SituationDoc from './SituationDoc';
@@ -23,13 +24,16 @@ import {
   Phases,
   Situations,
   Conditions,
+  ConditionApi,
   StrategyEvents,
   TradeEvents,
   TriggerOn,
   TriggerOff,
   EntryPoint,
   TakeProfit,
-  StopLoss
+  StopLoss,
+  TypesOfAlgobots,
+  StrategySources
 } from './docs'
 
 export class ViewRoutes extends React.Component {
@@ -42,14 +46,20 @@ export class ViewRoutes extends React.Component {
       case 'Strategy Events':
         return <DocOnly content={StrategyEvents} {...other} />;
         break;
+      case 'Strategy Sources':
+        return <DocOnly content={StrategySources} {...other} />;
+        break;
+      case 'Types of Algobots':
+        return <DocOnly content={TypesOfAlgobots} {...other} />;
+        break;
       case 'Trade Events':
         return <DocOnly content={TradeEvents} {...other} />;
         break;
-      case 'TriggerOn':
-        return <DocOnly content={TriggerOn} {...other} />;
+      case 'Trigger On':
+        return <StrategyDoc content={TriggerOn} {...other} />;
         break;
-      case 'TriggerOff':
-        return <DocOnly content={TriggerOff} {...other} />;
+      case 'Trigger Off':
+        return <StrategyDoc content={TriggerOff} {...other} />;
         break;
       case 'EntryPoint':
         return <StrategyDoc content={EntryPoint} {...other} />;
@@ -58,7 +68,7 @@ export class ViewRoutes extends React.Component {
         return <StrategyDoc content={TakeProfit} {...other} />;
         break;
       case 'StopLoss':
-        return <DocOnly content={StopLoss} {...other} />;
+        return <StrategyDoc content={StopLoss} {...other} />;
         break;
       case 'Substrategies':
         return <StrategyDoc content={SubStrategies} {...other} />;
@@ -76,9 +86,12 @@ export class ViewRoutes extends React.Component {
       case 'Conditions':
         return <ConditionDoc content={Conditions} {...other} view={view} />;
         break;
+      case 'Conditions Api':
+        return <ConditionDoc content={ConditionApi} {...other} view={view} />;
+        break;
       case 'Introduction':
       default:
-        return <DocOnly content={Introduction} {...other} />;
+        return <IntroductionOnly content={Introduction} {...other} />;
     }
   }
 }

@@ -20,7 +20,7 @@ export class DocOnly extends React.Component {
         alignItems="stretch"
         className={classes.DocOnlyCont}
       >
-        <Grid item>
+        <Grid item xs={11}>
           <ReactMarkdown source={content} />
         </Grid>
       </Grid>

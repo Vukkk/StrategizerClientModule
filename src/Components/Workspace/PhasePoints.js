@@ -271,7 +271,7 @@ export class PhasePoints extends React.Component {
                             {({ TransitionProps }) => (
                               <Fade {...TransitionProps} timeout={350}>
                                 <Paper classes={{root: classes.paper}}>
-                                  <Typography>View info about Phases</Typography>
+                                  <Typography>View info about Situations</Typography>
                                 </Paper>
                               </Fade>
                             )}
@@ -331,7 +331,7 @@ export class PhasePoints extends React.Component {
   handleSitClick (e, pIndex, index, situationItem) {
     e.preventDefault;
     this.props.handleSelectSit(pIndex, index)
-    this.props.setSituation(situationItem, index, 'Conditions')
+    this.props.setSituation(situationItem, index, 'Situations')
   }
 
   handlePopoverOpen (e, popoverId) {
