@@ -1,7 +1,8 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Link } from 'react-router-dom';
+import { graphql, compose } from 'react-apollo';
 
-import { Typography } from '@material-ui/core';
+import { Typography, Paper, Grid, Avatar, List, ListItem, Button} from '@material-ui/core';
 
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
@@ -9,77 +10,123 @@ import styles from './styles';
 import ManageItem from './ManageItem';
 import ManageLoading from './ManageLoading';
 import ManageError from './ManageError';
-import { isDefined } from '../../utils';
+import ManageSubstrategies from './ManageSubstrategies';
+import { isDefined, isNull } from '../../utils';
 
-import { LIST_STRATEGIES } from '../../GraphQL/Strategies'
+import { LIST_STRATEGIES, CREATE_STRATEGY } from '../../GraphQL/Strategies'
 
 class ManageList extends React.Component {
   render() {
-    const { classes } = this.props;
-
-    return (
-      <div className='container'>
-        <Query
-          query={LIST_STRATEGIES}
-          fetchPolicy='network-only'
-          notifyOnNetworkStatusChange
-        >
-          {({ loading, error, data, refetch, networkStatus }) => {
-            if (isDefined(loading) && loading) {
-              console.log('ManageList Loading: ', loading);
-              return <ManageLoading text="Strategies" classes={classes} />
-            }
-            if(isDefined(error)) {
-              console.log('ManageList Error: ', error);
-              return <ManageError text={`${error}`}  classes={classes} />
-            }
-            console.log('ManageList Data: ', data);
-            let team0;
-            let fb0;
-            let strategy0;
-            let strategies;
-            if(data.teams_TeamsByOwner.length > 0){
-              team0 = data.teams_TeamsByOwner[0];
-              if(team0.fb.length > 0){
-                fb0 = team0.fb[0];
-                if(isDefined(fb0.strategy)){
-                  strategy0 = fb0.strategy;
-                  if(strategy0.subStrategies.length > 0){
-                    strategies = strategy0.subStrategies;
-                  } else {
-                    return (<Error text="This strategy has no subStrategies" />)
+    const { classes, mutate, data } = this.props;
+    const { error, loading, teams_TeamsByOwner } = data;
+    console.log('ManageList:', classes, mutate, data, error, loading, teams_TeamsByOwner);
+    if (isDefined(loading) && loading) {
+      return <ManageLoading text="Strategies" classes={classes} />
+    }
+    if(isDefined(error)) {
+      if(data.error.graphQLErrors.length > 0){
+        let gqlError = data.error.graphQLErrors;
+        gqlError.map((error, index) => {
+          console.log('gqlError:', error);
+          return <ManageError key={`gphError-${index}`} text={`${error}`}  classes={classes} />
+        });
+      } else {
+        return <ManageError text={`${error}`}  classes={classes} />
+      }
+    }
+    if(!isDefined(teams_TeamsByOwner) || isNull(teams_TeamsByOwner)){
+      return (
+        <ManageError text={`You don't have any teams.`}  classes={classes} >
+          <Link to='/teams/manage-teams' className={classes.backLink}>Create A Team &rarr;</Link>
+        </ManageError>
+      )
+    }
+    const teams = teams_TeamsByOwner;
+    let fbs;
+    let substrategies;
+    if(teams.length > 0){
+      return teams.map((team, index) => {
+        console.log('ManageList team:', team);
+        fbs = team.fb;
+        return (
+          <Paper className={classes.card} key={`team-${index}`}>
+            <Grid
+              container
+              spacing={16}
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item>
+                <Grid
+                  container
+                  spacing={16}
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Grid item>
+                    <Avatar src={team.profile.avatar} className={classes.teamAvatar} />
+                  </Grid>
+                  <Grid item>
+                    <Typography variant='h4'>{team.name}</Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={12}>
+                <Grid
+                  container
+                  spacing={16}
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
+                >
+                  {fbs.length > 0 && fbs.map((fb, index) => {
+                    const testSim = /simulator-/.test(fb.slug);
+                    console.log(/simulator-/.test(fb.slug));
+                    if(testSim){
+                      return (
+                        <ManageSubstrategies
+                          key={`fb-strategy-${index}`}
+                          classes={classes}
+                          index={index}
+                          team={team}
+                          fb={fb}
+                          substrategies={substrategies}
+                          mutate={mutate}
+                        />
+                      )
+                    } else {
+                      return null;
+                    }
+                  })}
+                  {(!isDefined(fbs) || isNull(fbs) || fbs.length == 0)
+                    && (
+                      <ManageError text={`You don't have any Financial Beings.`}  classes={classes} >
+                        <Link to='/teams/manage-teams' className={classes.backLink}>Create A Financial Being &rarr;</Link>
+                      </ManageError>
+                    )
                   }
-                } else {
-                  return (<Error text="You have no strategies" />)
-                }
-              } else {
-                return (<Error text="You don't have any finanical beings. Please create one!" />)
-              }
-            } else {
-              return (<Error text="You don't have a team or any finanical beings. Please create one!" />)
-            }
-            console.log('strategies: ', strategies);
-            return strategies.map((strategy, index) => {
-              console.log('strategy: ', strategy, index);
-              return (
-                <ManageItem
-                  key={index}
-                  index={index}
-                  strategy={strategy}
-                  teamName={team0.name}
-                  teamSlug={team0.slug}
-                  teamAvatar={team0.profile.avatar}
-                  fbName={fb0.name}
-                  fbAvatar={fb0.avatar}
-                  fbSlug={fb0.slug}
-                />
-              );
-            });
-          }}
-        </Query>
-      </div>
-    );
+                </Grid>
+              </Grid>
+            </Grid>
+          </Paper>
+        )
+      })
+    } else{
+      return (<ManageError text={`You don't have any Teams.`} classes={classes} ><Link to='/teams/manage-teams' className={classes.backLink}>Create A Team &rarr;</Link></ManageError>)
+    }
   }
 }
 
-export default withStyles(styles)(ManageList);
+
+export default compose(
+  graphql(CREATE_STRATEGY, { alias: 'createStrategy' }),
+  graphql(LIST_STRATEGIES, {
+    alias: 'listStrategies',
+    options: {
+      errorPolicy: 'all',
+      fetchPolicy: 'network-only'
+    }}
+  )
+)(withStyles(styles)(ManageList));

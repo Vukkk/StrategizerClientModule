@@ -16,6 +16,12 @@ const styles = theme => ({
     marginTop: 20,
     marginBottom: 20,
   },
+  substrategycard: {
+    flexGrow: 1,
+    padding: 16,
+    marginTop: `${theme.spacing.unit * 1}px`,
+    marginBottom: `${theme.spacing.unit * 1}px`,
+  },
   buttonList: {
     margin: theme.spacing.unit,
     float: 'right',
@@ -47,6 +53,16 @@ const styles = theme => ({
   avatar: {
     margin: 10,
   },
+  teamAvatar: {
+    margin: 10,
+    width: 60,
+    height: 60,
+  },
+  backLink: {
+    textDecoration: 'none',
+    margin: `0 ${theme.spacing.unit * 1}px 0`,
+    color: theme.palette.secondary.main
+  }
 });
 
 export default styles;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import remove from 'lodash/remove';
 
 import {
   Grid, Paper,
@@ -242,7 +243,7 @@ class EditItem extends React.Component {
         if(isDefined(currPoint.phases)){
           currPoint.phases[phsIndex].situations[sitIndex].name = e;
         } else {
-          currPoint.situations[sitIndex].name = e.target.value;
+          currPoint.situations[sitIndex].name = e;
         }
         this.setState({
           [point]: currPoint,
@@ -265,6 +266,19 @@ class EditItem extends React.Component {
           }
           console.log('updateCondition w Phase: ', currPoint);
         }
+        this.setState({
+          [point]: currPoint,
+          changed: true
+        });
+        break;
+      case 'deletePhase':
+        if(isDefined(currPoint.phases)){
+          let filtered = array.filter((value, index, arr) => {
+              return value !== phsIndex;
+          });
+          currPoint.phases = filtered
+        }
+        console.log('deletePhase', currPoint.phases);
         this.setState({
           [point]: currPoint,
           changed: true

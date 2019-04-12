@@ -30,7 +30,8 @@ class View extends React.Component {
             return <ViewWrapper><Loading text="Strategies" /></ViewWrapper>
           }
           if(isDefined(error)) {
-            return <ViewWrapper><Error text={`Error: ${error}`} /></ViewWrapper>
+            console.log(error)
+            // return <ViewWrapper><Error text={`Error: ${error}`} /></ViewWrapper>
           }
 
           let team0;
@@ -42,7 +43,16 @@ class View extends React.Component {
             team0 = data.teams_TeamsByOwner[0];
               console.log('team0 data:', team0);
             if(team0.fb.length > 0){
-              fb0 = team0.fb[0];
+              const fbs = team0.fb;
+              let fbIndex
+              fbs.map((bot, index)=>{
+                if(bot.slug === fbSlug){
+                  fbIndex = index;
+                  return;
+                }
+              })
+              fb0 = team0.fb[fbIndex];
+              console.log(team0, fbIndex, fb0);
               if(isDefined(fb0.strategy)){
                 strategy0 = fb0.strategy;
                 console.log('strategy0 data:', strategy0);

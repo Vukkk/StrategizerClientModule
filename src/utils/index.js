@@ -15,6 +15,10 @@ export function isDefined (d) {
   return d !== null && typeof d !== 'undefined'
 }
 
+export function isNull (d) {
+  return d === null
+}
+
 export const isArray = Array.isArray
 
 export function isObject (d) {

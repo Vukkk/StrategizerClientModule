@@ -11,18 +11,9 @@ class Manage extends React.Component {
     const { classes } = this.props;
 
     return (
-      <React.Fragment>
-        <Typography
-          className={classes.title}
-          variant='h4'
-          align='center'
-          color='textPrimary'
-          gutterBottom
-        >
-        Your Strategies
-        </Typography>
+      <div className='container'>
         <ManageList />
-      </React.Fragment>
+      </div>
     );
   }
 }
