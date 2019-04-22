@@ -331,7 +331,7 @@ export class PhasePoints extends React.Component {
   handleSitClick (e, pIndex, index, situationItem) {
     e.preventDefault;
     this.props.handleSelectSit(pIndex, index)
-    this.props.setSituation(situationItem, index, 'Situations')
+    this.props.setSituation(situationItem, index, 'Conditions')
   }
 
   handlePopoverOpen (e, popoverId) {
