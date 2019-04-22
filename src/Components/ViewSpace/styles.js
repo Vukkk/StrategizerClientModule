@@ -7,7 +7,7 @@ const styles = theme => ({
     margin: 0,
   },
   DocOnlyCont: {
-    margin: `${theme.spacing.unit * 1}px ${theme.spacing.unit * 3}px`
+    margin: `${theme.spacing.unit * 1}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`
   },
   tabTitle: {
     width: '25%',
@@ -185,6 +185,25 @@ const styles = theme => ({
   formBttnGroup:{
     paddingRight: 20,
     paddingBottom: 20
+  },
+  docMenuCont: {
+    position: 'relative'
+  },
+  docMenuBttn: {
+    position: 'absolute',
+    right: '48px',
+    top: '-33px',
+  },
+  docMenuBodyCont: {
+    float: 'right'
+  },
+  docMenuBodyBttn: {
+  },
+  docMenuIcon: {
+    height: '18px'
+  },
+  drawerInset: {
+    paddingLeft: '12px'
   }
 });
 

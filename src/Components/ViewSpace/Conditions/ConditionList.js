@@ -77,6 +77,7 @@ export class ConditionList extends React.Component {
                 condition={condition}
                 pointIndex={pointIndex}
                 index={condIndex}
+                stratIndex={stratIndex}
                 phaseIndex={phaseIndex}
                 situationIndex={situationIndex}
                 conditionIndex={condIndex}

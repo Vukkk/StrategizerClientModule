@@ -39,7 +39,7 @@ export class ConditionName extends React.Component {
     } = this.props;
 
     let open = selected === conditionIndex;
-
+    console.log('ConditionName: ', this.props.condition)
     return (
       <ListItem
         button

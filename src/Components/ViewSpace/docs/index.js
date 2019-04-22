@@ -6,8 +6,11 @@ import { Phases } from './phases';
 import { Situations } from './situations';
 import { Conditions } from './conditions';
 import { PhaseCode } from './phaseCode';
-import { StrategyEvents } from './strategyEvents';
-import { TriggerOn, TriggerOff, EntryPoint, TakeProfit, StopLoss } from './events'
+import { StrategyEvents, TradeEvents } from './strategyEvents';
+import { StrategySources } from './strategySources';
+import { TypesOfAlgobots } from './typesOfAlgobots';
+import { TriggerOn, TriggerOff, EntryPoint, TakeProfit, StopLoss } from './events';
+import { ConditionApi } from './conditionApi';
 
 export {
   Introduction,
@@ -17,11 +20,15 @@ export {
   Phases,
   Situations,
   Conditions,
+  ConditionApi,
   PhaseCode,
   StrategyEvents,
+  TradeEvents,
   TriggerOn,
   TriggerOff,
   EntryPoint,
   TakeProfit,
-  StopLoss
+  StopLoss,
+  StrategySources,
+  TypesOfAlgobots
 };

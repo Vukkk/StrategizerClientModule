@@ -42,6 +42,7 @@ export class PhasePoints extends React.Component {
       classes,
       index,
       entryName,
+      stratIndex,
       pointIndex,
       points,
       point,
@@ -85,7 +86,7 @@ export class PhasePoints extends React.Component {
             <ListItemSecondaryAction>
               <Button
                 aria-label="Add Phase"
-                onClick={e => updatePoint(null, pointIndex,'addPhase', null, null, null, null, null)}
+                onClick={e => updatePoint(null, pointIndex,'addPhase', stratIndex, null, null, null, null)}
                 onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper-phase-addphase')}
                 onMouseLeave={this.handlePopoverClose}
               >
@@ -152,7 +153,7 @@ export class PhasePoints extends React.Component {
                                 <Button
                                   classes={{ root: classes.editBttn }}
                                   aria-label="Add Situation"
-                                  onClick={e => updatePoint(null, pointIndex,'addSituation', null, pIndex, null, null, null)}
+                                  onClick={e => updatePoint(null, pointIndex,'addSituation', stratIndex, pIndex, null, null, null)}
                                   onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper-phase-addsit')}
                                   onMouseLeave={this.handlePopoverClose}
                                 >
@@ -270,7 +271,7 @@ export class PhasePoints extends React.Component {
                             {({ TransitionProps }) => (
                               <Fade {...TransitionProps} timeout={350}>
                                 <Paper classes={{root: classes.paper}}>
-                                  <Typography>View info about Phases</Typography>
+                                  <Typography>View info about Situations</Typography>
                                 </Paper>
                               </Fade>
                             )}
@@ -291,7 +292,7 @@ export class PhasePoints extends React.Component {
                               <Button
                                 type="text"
                                 aria-label="Add Situation"
-                                onClick={e => updatePoint(null, pointIndex,'addSituation', null, pIndex, null, null, null)}
+                                onClick={e => updatePoint(null, pointIndex,'addSituation', stratIndex, pIndex, null, null, null)}
                                 classes={{root: classes.addBttn }}
                               >
                                 <AddIcon /> Situation
@@ -316,7 +317,7 @@ export class PhasePoints extends React.Component {
                 <Button
                   type="text"
                   aria-label="Add Phase"
-                  onClick={e => updatePoint(null, pointIndex,'addPhase', null, 0, null, null, null)}
+                  onClick={e => updatePoint(null, pointIndex,'addPhase', stratIndex, 0, null, null, null)}
                 >
                   <AddIcon /> Phase
                 </Button>
