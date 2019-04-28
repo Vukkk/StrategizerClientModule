@@ -11,6 +11,7 @@ import { StrategySources } from './strategySources';
 import { TypesOfAlgobots } from './typesOfAlgobots';
 import { TriggerOn, TriggerOff, EntryPoint, TakeProfit, StopLoss } from './events';
 import { ConditionApi } from './conditionApi';
+import { PhaseApi } from './phaseApi';
 
 export {
   Introduction,
@@ -21,6 +22,7 @@ export {
   Situations,
   Conditions,
   ConditionApi,
+  PhaseApi,
   PhaseCode,
   StrategyEvents,
   TradeEvents,

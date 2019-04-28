@@ -15,7 +15,7 @@ import PhaseFormName from './PhaseFormName';
 import PhaseFormCode from './PhaseFormCode';
 import PhaseView from './PhaseView';
 
-import { PhaseCode } from '../docs';
+import { PhaseApi } from '../docs';
 
 export class PhaseDoc extends React.Component {
   constructor(props){
@@ -31,7 +31,7 @@ export class PhaseDoc extends React.Component {
     const { classes, content, strategy, stratIndex, pointIndex, phaseIndex, phase, situation, situationIndex, updatePoint, view, toggleDrawer } = this.props;
     console.log('DocOnly:', this.props, this.state);
 
-    let phaseContent = (view === 'Phase Code') ? PhaseCode : content;
+    let phaseContent = (view === 'Phase Code') ? PhaseApi : content;
     return (
       <Grid
         container

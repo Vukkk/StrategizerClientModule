@@ -30,13 +30,17 @@ _Note: Currently orders can be both limit/maker or market/taker orders depending
 export const TakeProfit = `
 # Take Profit Event\n\n
 Take Profit is a trade event that informs the algobot when to release a position (place a sell order) in the market.\n
-
+\n
+Take profit events are defined by phases which are durations within in the market where it is best to capture profit. The activation of a phase occurs when the conditions of the situations within are true and the actual event of placing a sell position is triggered by the phase code. Multiple Take Profit phases can be defined allowing the strategy to shift phases according to market conditions and change sell positions.\n
+\n
 _Note: Currently orders can be both limit/maker or market/taker orders depending on asking price created by the strategy._
 `;
 
 export const StopLoss = `
 # Stop Loss Event\n\n
 Stop Loss is a trade event used for risk-management and to protect a trade from losing too much value. It should be noted that while stop losses increase safety, they are not guranteed to fill. \n
-
+\n
+Stop Loss events are defined by phases which are durations within in the market where it is best to create a stop loss position. The activation of a phase occurs when the conditions of the situations within are true and the actual event of placing a stop-loss position is triggered by the phase code. Multiple Stop Loss phases can be defined allowing the strategy to shift phases according to market conditions and change stop-loss positions.\n
+\n
 _Note: Currently orders can be both limit/maker or market/taker orders depending on asking price created by the strategy._
 `;

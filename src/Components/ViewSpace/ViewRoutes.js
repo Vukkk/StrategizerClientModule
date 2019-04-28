@@ -15,6 +15,7 @@ import StrategyDoc from './StrategyDoc';
 import PhaseDoc from './PhaseDoc';
 import SituationDoc from './SituationDoc';
 import ConditionDoc from './Conditions';
+import APIDocs from './API';
 
 import {
   Introduction,
@@ -25,6 +26,7 @@ import {
   Situations,
   Conditions,
   ConditionApi,
+  PhaseApi,
   StrategyEvents,
   TradeEvents,
   TriggerOn,
@@ -87,7 +89,10 @@ export class ViewRoutes extends React.Component {
         return <ConditionDoc content={Conditions} {...other} view={view} />;
         break;
       case 'Conditions Api':
-        return <ConditionDoc content={ConditionApi} {...other} view={view} />;
+        return <APIDocs content={ConditionApi} {...other} view={view} />;
+        break;
+      case 'Phases Api':
+        return <APIDocs content={PhaseApi} {...other} view={view} />;
         break;
       case 'Introduction':
       default:

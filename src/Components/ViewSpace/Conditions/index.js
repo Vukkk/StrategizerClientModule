@@ -12,6 +12,8 @@ import TocIcon from '@material-ui/icons/Toc';
 
 import ConditionList from './ConditionList';
 
+import { ConditionApi } from '../docs';
+
 export class StrategyDoc extends React.Component {
   constructor(props){
     super(props);
