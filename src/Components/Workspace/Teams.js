@@ -12,7 +12,10 @@ import {
   Avatar,
   IconButton,
   Typography,
-  Divider
+  Divider,
+  Popper,
+  Paper,
+  Fade
 } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -53,28 +56,54 @@ const styles = theme => ({
       backgroundColor: '#FFF'
     }
   },
+  popover: {
+    pointerEvents: 'none',
+    position: 'absolute'
+  },
+  paper: {
+    padding: '1em',
+  },
 });
 
 export class Teams extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
+
+    this.handlePopoverOpen = this.handlePopoverOpen.bind(this);
+    this.handlePopoverClose = this.handlePopoverClose.bind(this);
 
     this.state = {
       openTeams: false,
-    }
+      anchorEl: null,
+      openedPopoverId: null,
+    };
   }
 
-  render () {
+  render() {
     const { classes, teams, team, setTeam } = this.props;
+    const { openedPopoverId, anchorEl } = this.state;
     return (
       <React.Fragment>
-        <ListItem className={classes.titleItem} classes={{root: classes.root}}>
+        <ListItem className={classes.titleItem} classes={{ root: classes.root }}>
           <ListItemText
-            primary={`Strategy Source:`}
-            classes={{primary: classes.teamTitle}}
+            primary={'Strategy Source:'}
+            classes={{ primary: classes.teamTitle }}
+            onMouseEnter={e => this.handlePopoverOpen(e, 'popperStratSrc')}
+            onMouseLeave={this.handlePopoverClose}
           />
+          <Popper id={'popperStratSrc'} open={openedPopoverId === 'popperStratSrc'} anchorEl={anchorEl} transition>
+            {({ TransitionProps }) => (
+              <Fade {...TransitionProps} timeout={350}>
+                <Paper classes={{ root: classes.paper }}>
+                  <Typography><b>Strategy Source</b> is the origin of the strategy</Typography>
+                  <Typography>provided to the Strategizer. In this demo, a default </Typography>
+                  <Typography>strategy is forked when you create a team </Typography>
+                </Paper>
+              </Fade>
+            )}
+          </Popper>
         </ListItem>
-        <ListItem button onClick={this.handleViewTeams} className={classes.strategyItem} classes={{root: classes.root}}>
+        <ListItem button onClick={this.handleViewTeams} className={classes.strategyItem} classes={{ root: classes.root }}>
           <ListItemAvatar>
             <Avatar src={team.profile.avatar} className={classes.strategyAvatar} />
           </ListItemAvatar>
@@ -115,6 +144,14 @@ export class Teams extends React.Component {
   handleViewTeams = () => {
     this.setState(state => ({ openTeams: !state.openTeams }));
   };
+
+  handlePopoverOpen(e, popoverId) {
+    this.setState({ anchorEl: e.currentTarget, openedPopoverId: popoverId });
+  }
+
+  handlePopoverClose() {
+    this.setState({ anchorEl: null, openedPopoverId: null });
+  }
 }
 
 export default withStyles(styles)(Teams);

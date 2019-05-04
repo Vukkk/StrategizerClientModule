@@ -64,7 +64,7 @@ export class SituationPoints extends React.Component {
           button
           key={`point-situation-${index}`}
           onClick={e => handleOpenPoint(e, pointIndex, entryName)}
-          className={classes.strategyItem}
+          className={selected ? `${classes.strategyItem} ${classes.itemTopTierSelected}`: classes.strategyItem}
           selected={selected}
           classes={{root: classes.itemTopTier, selected: classes.itemTopTierSelected}}
           onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper-sit-ptdoc')}
@@ -113,7 +113,7 @@ export class SituationPoints extends React.Component {
                 <ListItem
                   button
                   className={classes.nested}
-                  classes={{root: classes.itemFirstTier, selected: classes.itemFirstTierSelected}}
+                  classes={{ root: classes.itemFirstTier, selected: classes.itemFirstTierSelected }}
                   key={`situation-${index}`}
                   onClick={e => setSituation(situationItem, index, 'Conditions')}
                   dense
@@ -122,7 +122,18 @@ export class SituationPoints extends React.Component {
                 >
                   <ListItemText
                     primary={`S: ${situationItem.name}`}
+                    onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper-sit-viewsit')}
+                    onMouseLeave={this.handlePopoverClose}
                   />
+                  <Popper id={`popper-sit-viewsit`} open={openedPopoverId === 'popper-sit-viewsit'} anchorEl= {anchorEl} transition>
+                    {({ TransitionProps }) => (
+                      <Fade {...TransitionProps} timeout={350}>
+                        <Paper classes={{root: classes.paper}}>
+                          <Typography>Manage Situation Conditions</Typography>
+                        </Paper>
+                      </Fade>
+                    )}
+                  </Popper>
                   {situation.name === situationItem.name ?
                     <ListItemSecondaryAction>
                       <Grid
@@ -148,7 +159,7 @@ export class SituationPoints extends React.Component {
                             {({ TransitionProps }) => (
                               <Fade {...TransitionProps} timeout={350}>
                                 <Paper classes={{root: classes.paper}}>
-                                  <Typography>View info about situations</Typography>
+                                  <Typography>Situation Info, Edit &amp; Delete</Typography>
                                 </Paper>
                               </Fade>
                             )}

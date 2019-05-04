@@ -1,4 +1,4 @@
-export const PhaseApi = `
+export const PhaseCode = `
 # Phase Code Options\n\n
 Phase code options instruct the trading algobot when to make a Take Profit (sell) position or a Stop Loss position.
 

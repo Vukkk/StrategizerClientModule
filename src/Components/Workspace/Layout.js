@@ -19,6 +19,30 @@ import ViewSpace from '../ViewSpace';
 
 import { isDefined, isNull } from '../../utils';
 
+const newStrategy = {
+  name: 'New Strategy',
+  active: true,
+  buyPoint:{situations: []},
+  sellPoint:{situations: []},
+  entryPoint:{situations: []},
+  exitPoint:{situations: []},
+  stopLoss:{phases: []},
+  buyOrder:{phases: []},
+  sellOrder:{phases: []}
+}
+
+const newCondition = {
+  name: 'New Condition',
+  code: 'Code for new Condition',
+};
+
+let currSituation;
+let delSituations;
+let updSituations;
+let conditionPosition;
+let delConditions;
+let updConditions;
+
 class Layout extends React.Component {
   constructor (props) {
     super(props);
@@ -348,39 +372,28 @@ class Layout extends React.Component {
         });
         break;
       case 'addCondition':
-        if(isDefined(currPoint.phases)){
-          currPoint.phases[phsIndex].situations[situationIndex].conditions.push({
-            name: 'New Condition',
-            code: 'Code for new Condition'
-          });
+        if (isDefined(currPoint.phases)) {
+          currPoint.phases[phsIndex].situations[situationIndex].conditions.push(newCondition);
+          currSituation = currPoint.phases[phsIndex].situations[situationIndex];
+          conditionPosition = currPoint.phases[phsIndex].situations[situationIndex].conditions.length - 1;
         } else {
-          currPoint.situations[situationIndex].conditions.push({
-            name: 'New Condition',
-            code: 'Code for new Condition'
-          });
+          currPoint.situations[situationIndex].conditions.push(newCondition);
+          currSituation = currPoint.situations[situationIndex];
+          conditionPosition = currPoint.situations[situationIndex].conditions.length - 1;
         }
         currStrategy[point] = currPoint;
-        this.saveStrategyFromUpdate(strIndex, currStrategy)
+        this.saveStrategyFromUpdate(strIndex, currStrategy);
         this.setState({
           [point]: currPoint,
-          conditionIndex: currPoint.situations[situationIndex].conditions.length - 1,
+          situation: currSituation,
+          condition: newCondition,
+          conditionIndex: conditionPosition,
           changed: false,
           saved: true,
-          view: 'Conditions'
+          view: 'Conditions',
         });
         break;
       case 'addStrategy':
-        const newStrategy = {
-          name: 'New Strategy',
-          active: true,
-          buyPoint:{situations: []},
-          sellPoint:{situations: []},
-          entryPoint:{situations: []},
-          exitPoint:{situations: []},
-          stopLoss:{phases: []},
-          buyOrder:{phases: []},
-          sellOrder:{phases: []}
-        }
         this.saveStrategyFromUpdate('new', newStrategy);
         this.setState({
           stratIndex: 0,
@@ -441,22 +454,23 @@ class Layout extends React.Component {
       case 'updateSituation':
         if(isDefined(currPoint.phases)){
           currPoint.phases[phsIndex].situations[situationIndex].name = e;
+          currSituation = currPoint.phases[phsIndex].situations[situationIndex];
         } else {
           currPoint.situations[situationIndex].name = e;
+          currSituation = currPoint.situations[situationIndex];
         }
         currStrategy[point] = currPoint;
         console.log('updateSituation: ', currStrategy);
         this.saveStrategyFromUpdate(strIndex, currStrategy)
         this.setState({
           [point]: currPoint,
+          situation: currSituation,
           situationIndex: situationIndex,
           changed: false,
           saved: true
         });
         break;
       case 'deleteSituation':
-        let delSituations;
-        let updSituations;
         if(isDefined(currPoint.phases)){
           delSituations = currPoint.phases[phsIndex].situations;
           updSituations = delSituations.filter((situation, index, arr) => {
@@ -488,14 +502,13 @@ class Layout extends React.Component {
         });
         break;
       case 'updateCondition':
-        let newSituation;
         if(isDefined(currPoint.phases) && currPoint.phases !== null){
           if(element === 'name'){
             currPoint.phases[phsIndex].situations[situationIndex].conditions[conIndex].name = e;
           } else {
             currPoint.phases[phsIndex].situations[situationIndex].conditions[conIndex].code = e;
           }
-          newSituation= currPoint.phases[phsIndex].situations[situationIndex];
+          currSituation= currPoint.phases[phsIndex].situations[situationIndex];
           console.log('updateCondition w Phase: ', currPoint);
         } else {
           console.log('updateCondition no phase: ', currPoint);
@@ -504,7 +517,7 @@ class Layout extends React.Component {
           } else {
             currPoint.situations[situationIndex].conditions[conIndex].code = e;
           }
-          newSituation = currPoint.situations[situationIndex];
+          currSituation = currPoint.situations[situationIndex];
           console.log('updateCondition no phase: ', currPoint);
         }
         currStrategy[point] = currPoint;
@@ -513,14 +526,12 @@ class Layout extends React.Component {
         this.setState({
           [point]: currPoint,
           conditionIndex: conIndex,
-          situation: newSituation,
+          situation: currSituation,
           changed: false,
           saved: true
         });
         break;
       case 'deleteCondition':
-        let delConditions;
-        let updConditions;
         if(isDefined(currPoint.phases)){
           delConditions = currPoint.phases[phsIndex].situations[situationIndex].conditions;
           updConditions = delConditions.filter((condition, index, arr) => {
@@ -530,6 +541,7 @@ class Layout extends React.Component {
               return false;
           });
           currStrategy[point].phases[phsIndex].situations[situationIndex].conditions = updConditions;
+          currSituation= currPoint.phases[phsIndex].situations[situationIndex];
         } else {
           delConditions = currPoint.situations[situationIndex].conditions;
           updConditions = delConditions.filter((condition, index, arr) => {
@@ -540,12 +552,14 @@ class Layout extends React.Component {
               return false;
           });
           currStrategy[point].situations[situationIndex].conditions = updConditions;
+          currSituation= currPoint.situations[situationIndex];
         }
         this.saveStrategyFromUpdate(strIndex, currStrategy)
         this.setState({
           [point]: currPoint,
           conditionIndex: 0,
           condition: {},
+          situation: currSituation,
           changed: false,
           saved: true,
           view: 'Conditions'

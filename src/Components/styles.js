@@ -48,7 +48,7 @@ const styles = theme => ({
   },
   p: {
     fontFamily: '"Saira","Saira Condenses", sans-serif',
-  }
+  },
 });
 
 export default styles;

@@ -118,7 +118,7 @@ export class OrderPoint extends React.Component {
             </ListItem>
 
             <SituationPoints
-              entryName="EntryPoint"
+              entryName="Entry Point"
               pointIndex="sellPoint"
               key="point-sellPoint"
               stratIndex={stratIndex}
@@ -135,7 +135,7 @@ export class OrderPoint extends React.Component {
               view={view}
             />
             <PhasePoints
-              entryName="TakeProfit"
+              entryName="Take Profit"
               pointIndex="buyOrder"
               key="point-buyOrder"
               stratIndex={stratIndex}
@@ -159,7 +159,7 @@ export class OrderPoint extends React.Component {
               handleSelectSit={this.handleSelectSit}
             />
             <PhasePoints
-              entryName="StopLoss"
+              entryName="Stop Loss"
               pointIndex="stopLoss"
               key="point-stopLoss"
               stratIndex={stratIndex}

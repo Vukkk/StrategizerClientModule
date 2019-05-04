@@ -31,7 +31,9 @@ export const TakeProfit = `
 # Take Profit Event\n\n
 Take Profit is a trade event that informs the algobot when to release a position (place a sell order) in the market.\n
 \n
-Take profit events are defined by phases which are durations within in the market where it is best to capture profit. The activation of a phase occurs when the conditions of the situations within are true and the actual event of placing a sell position is triggered by the phase code. Multiple Take Profit phases can be defined allowing the strategy to shift phases according to market conditions and change sell positions.\n
+Take profit events are managed by phases which are durations within in the market where it is best to capture profit. The _phase code_ provided by the Take Profit setting is the formula passed to the Trader and tells it when to make/update a Take Profit (Sell) Order.\n
+\n
+If there is more than one phase, the phases are executed sequentially and the first phase activates when the strategy Triggers On. When the situations of the phase resolve true, based on their conditions, the strategy moves on to the next phase of that Trade Event. \n
 \n
 _Note: Currently orders can be both limit/maker or market/taker orders depending on asking price created by the strategy._
 `;
@@ -40,7 +42,9 @@ export const StopLoss = `
 # Stop Loss Event\n\n
 Stop Loss is a trade event used for risk-management and to protect a trade from losing too much value. It should be noted that while stop losses increase safety, they are not guranteed to fill. \n
 \n
-Stop Loss events are defined by phases which are durations within in the market where it is best to create a stop loss position. The activation of a phase occurs when the conditions of the situations within are true and the actual event of placing a stop-loss position is triggered by the phase code. Multiple Stop Loss phases can be defined allowing the strategy to shift phases according to market conditions and change stop-loss positions.\n
+Stop Loss events are managed by phases which are durations within in the market where it is best to capture profit. The _phase code_ provided by the Stop Loss setting is the formula passed to the Trader and tells it when to make/update a Stop Loss Position. \n
+\n
+If there is more than one phase, the phases are executed sequentially and the first phase activates when the strategy Triggers On. When the situations of the phase resolve true, based on their conditions, the strategy moves on to the next phase of that Trade Event. \n
 \n
 _Note: Currently orders can be both limit/maker or market/taker orders depending on asking price created by the strategy._
 `;

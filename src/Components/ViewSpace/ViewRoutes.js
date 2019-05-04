@@ -63,13 +63,13 @@ export class ViewRoutes extends React.Component {
       case 'Trigger Off':
         return <DocOnly content={TriggerOff} {...other} />;
         break;
-      case 'EntryPoint':
+      case 'Entry Point':
         return <DocOnly content={EntryPoint} {...other} />;
         break;
-      case 'TakeProfit':
+      case 'Take Profit':
         return <DocOnly content={TakeProfit} {...other} />;
         break;
-      case 'StopLoss':
+      case 'Stop Loss':
         return <DocOnly content={StopLoss} {...other} />;
         break;
       case 'Substrategies':
@@ -87,6 +87,9 @@ export class ViewRoutes extends React.Component {
         break;
       case 'Conditions':
         return <ConditionDoc content={Conditions} {...other} view={view} />;
+        break;
+      case 'Conditions Code':
+        return <ConditionDoc content={ConditionApi} {...other} view={view} />;
         break;
       case 'Conditions Api':
         return <APIDocs content={ConditionApi} {...other} view={view} />;

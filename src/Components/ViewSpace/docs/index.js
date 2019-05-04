@@ -32,5 +32,5 @@ export {
   TakeProfit,
   StopLoss,
   StrategySources,
-  TypesOfAlgobots
+  TypesOfAlgobots,
 };

@@ -148,7 +148,7 @@ export class Strategies extends React.Component {
                       onClick={e => this.handleOpen(e)}
                       classes={{ root: classes.editBttn }}
                     >
-                      <ExpandMore classes={{ root: classes.editBttnLabel }} />
+                      <ExpandLess classes={{ root: classes.editBttnLabel }} />
                     </Button>
                   </Grid>
                 </React.Fragment>
@@ -180,7 +180,7 @@ export class Strategies extends React.Component {
                       onClick={e => this.handleOpen(e)}
                       classes={{ root: classes.editBttn }}
                     >
-                      <ExpandLess classes={{ root: classes.editBttnLabel }} />
+                      <ExpandMore classes={{ root: classes.editBttnLabel }} />
                     </Button>
                   </Grid>
                 </React.Fragment>

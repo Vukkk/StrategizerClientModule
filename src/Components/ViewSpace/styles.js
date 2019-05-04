@@ -69,15 +69,6 @@ const styles = theme => ({
     margin: `0 ${theme.spacing.unit * 1}px 0`,
     color: theme.palette.secondary.main
   },
-  nested: {
-    paddingLeft: theme.spacing.unit * 3,
-  },
-  strategyItem: {
-    width: '100%'
-  },
-  strategyList: {
-    padding: theme.spacing.unit * 1
-  },
   teamsList:{
     padding: theme.spacing.unit * 5
   },
@@ -154,27 +145,6 @@ const styles = theme => ({
     fontWeight: '700',
     textTransform: 'uppercase'
   },
-  itemTopTier:{
-    backgroundColor: '#F1F1F1',
-    "&$itemTopTierSelected": {
-      backgroundColor: '#DDD'
-    }
-  },
-  itemTopTierSelected:{},
-  itemFirstTier:{
-    backgroundColor: '#F9F9F9',
-    "&$itemFirstTierSelected": {
-      backgroundColor: '#E1E1E1'
-    }
-  },
-  itemFirstTierSelected:{},
-  itemSecondTier:{
-    backgroundColor: '#FCFCFC',
-    "&$itemSecondTierSelected": {
-      backgroundColor: '#FFF'
-    }
-  },
-  itemSecondTierSelected:{},
   strategyList: {
     padding: theme.spacing.unit * 1,
     width: '100%'
@@ -204,7 +174,11 @@ const styles = theme => ({
   },
   drawerInset: {
     paddingLeft: '12px'
-  }
+  },
+  rMdLink: {
+    color: '#f55858',
+    textDecoration: 'none',
+  },
 });
 
 export default styles;

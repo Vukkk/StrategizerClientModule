@@ -110,6 +110,7 @@ export class ConditionList extends React.Component {
   }
 
   toggleEdit (e, type) {
+    if (type === 'code') this.props.setView(e, 'Conditions Code');
     this.setState(state => ({ edit: type }));
   }
 }
