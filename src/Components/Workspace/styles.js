@@ -80,7 +80,7 @@ const styles = theme => ({
       backgroundColor: '#DDD'
     },
     "&$itemTopTierSelected:hover": {
-      backgroundColor: '#666'
+      backgroundColor: '#aaa'
     }
   },
   itemTopTierSelected:{},
@@ -90,7 +90,7 @@ const styles = theme => ({
       backgroundColor: '#fba8a8'
     },
     "&$itemFirstTierSelected:hover": {
-      backgroundColor: '#666'
+      backgroundColor: '#aaa'
     }
   },
   itemFirstTierSelected:{},
@@ -103,7 +103,7 @@ const styles = theme => ({
       backgroundColor: '#fba8a8'
     },
     "&$itemSecondTierSelected:hover": {
-      backgroundColor: '#666'
+      backgroundColor: '#aaa'
     }
   },
   itemSecondTierSelected:{},

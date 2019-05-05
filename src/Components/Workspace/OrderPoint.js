@@ -95,9 +95,9 @@ export class OrderPoint extends React.Component {
 
     return (
       <React.Fragment>
-        <Grid item>
+        <Grid item key='order-point-list-item-group'>
           <List className={classes.strategyList}>
-            <ListItem className={classes.root} dense key="point-Title">
+            <ListItem className={classes.root} dense key="order-point-title">
               <ListItemText
                 primary={`Trade Events: ${strategyName}`}
                 primaryTypographyProps={{variant:'subtitle1'}}

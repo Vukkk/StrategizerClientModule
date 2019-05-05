@@ -204,6 +204,7 @@ class Layout extends React.Component {
               </List>
               <List className={classes.pointList}>
                 <StrategyPoint
+                  key='strategy-point-list'
                   strategyName={this.state.strategy.name}
                   stratIndex={this.state.stratIndex}
                   points={points}
@@ -224,6 +225,7 @@ class Layout extends React.Component {
               </List>
               <List className={classes.pointList}>
                 <OrderPoint
+                  key='order-point-list'
                   strategyName={this.state.strategy.name}
                   stratIndex={this.state.stratIndex}
                   points={points}
@@ -245,12 +247,14 @@ class Layout extends React.Component {
               <div className={classes.teamsListWrapper}>
                 <List className={classes.teamsList} disablePadding >
                   <Teams
+                    key='strategy-source-team-list'
                     teams={listStrategies.teams_TeamsByOwner}
                     team={this.state.team}
                     setTeam={this.setTeam}
                     setView={this.setView}
                   />
                   <FBs
+                    key='strategy-source-fb-list'
                     fbs={simFbs}
                     fb={this.state.fb}
                     setFB={this.setFB}

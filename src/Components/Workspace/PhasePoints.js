@@ -1,7 +1,5 @@
+/* eslint-disable react/jsx-key */
 import React from 'react';
-
-import styles from './styles';
-import { withStyles } from '@material-ui/core/styles';
 
 import {
   Button,
@@ -11,21 +9,21 @@ import {
   List,
   ListItem,
   ListItemText,
-  IconButton,
   ListItemSecondaryAction,
   Popper,
   Paper,
-  Fade
+  Fade,
 } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import Selected from '@material-ui/icons/Check';
 import NavigateNext from '@material-ui/icons/NavigateNext';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
+import { withStyles } from '@material-ui/core/styles';
+import styles from './styles';
 
 export class PhasePoints extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.handleSitClick = this.handleSitClick.bind(this);
     this.handlePopoverOpen = this.handlePopoverOpen.bind(this);
@@ -33,11 +31,11 @@ export class PhasePoints extends React.Component {
 
     this.state = {
       anchorEl: null,
-      openedPopoverId: null
-    }
+      openedPopoverId: null,
+    };
   }
 
-  render () {
+  render() {
     const {
       classes,
       index,
@@ -45,12 +43,7 @@ export class PhasePoints extends React.Component {
       stratIndex,
       pointIndex,
       points,
-      point,
-      phase,
       phaseIndex,
-      situationIndex,
-      situation,
-      setPoint,
       setPhase,
       setSituation,
       updatePoint,
@@ -62,21 +55,20 @@ export class PhasePoints extends React.Component {
       setView,
       view,
       selectedSit,
-      handleSelectSit
     } = this.props;
-   const phases = points[pointIndex].phases;
-   const { openedPopoverId, anchorEl } = this.state;
+    const phases = points[pointIndex].phases;
+    const { openedPopoverId, anchorEl } = this.state;
 
-   return (
+    return (
       <React.Fragment>
         <ListItem
           button
           key={`point-phase-${pointIndex}`}
           onClick={e => this.props.handleOpenPoint(e, this.props.pointIndex, entryName)}
           className={classes.strategyItem}
-          classes={{root: classes.itemTopTier, selected: classes.itemTopTierSelected}}
+          classes={{ root: classes.itemTopTier, selected: classes.itemTopTierSelected }}
           selected={selected}
-          onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper-phase-ptdoc')}
+          onMouseEnter={e => this.handlePopoverOpen(e, 'popper-phase-ptdoc')}
           onMouseLeave={this.handlePopoverClose}
         >
           <ListItemText
@@ -117,9 +109,9 @@ export class PhasePoints extends React.Component {
         <Collapse in={openPoint === pointIndex} key={`point-phase-collapse-${pointIndex}`} timeout="auto" unmountOnExit>
           <List component="div" disablePadding key={`point-phase-collapse-item-${pointIndex}`}>
             {phases.length > 0 && phases.map((phaseItem, pIndex) => {
-              let situations = phaseItem.situations;
+              const { situations } = phaseItem;
               return (
-                <React.Fragment>
+                <React.Fragment> 
                   <ListItem
                     button
                     className={classes.nested}
@@ -203,7 +195,7 @@ export class PhasePoints extends React.Component {
                     {({ TransitionProps }) => (
                       <Fade {...TransitionProps} timeout={350}>
                         <Paper classes={{root: classes.paper}}>
-                          <Typography>View info about Phases</Typography>
+                          <Typography>Manage Phase &amp; Phase Code</Typography>
                         </Paper>
                       </Fade>
                     )}
@@ -253,7 +245,7 @@ export class PhasePoints extends React.Component {
                                       {({ TransitionProps }) => (
                                         <Fade {...TransitionProps} timeout={350}>
                                           <Paper classes={{root: classes.paper}}>
-                                            <Typography>Edit Situation</Typography>
+                                            <Typography>Situation Info, Edit &amp; Delete</Typography>
                                           </Paper>
                                         </Fade>
                                       )}
@@ -271,7 +263,7 @@ export class PhasePoints extends React.Component {
                             {({ TransitionProps }) => (
                               <Fade {...TransitionProps} timeout={350}>
                                 <Paper classes={{root: classes.paper}}>
-                                  <Typography>View info about Situations</Typography>
+                                  <Typography>Manage Situation Conditions</Typography>
                                 </Paper>
                               </Fade>
                             )}
@@ -326,21 +318,22 @@ export class PhasePoints extends React.Component {
           </List>
         </Collapse>
       </React.Fragment>
-    )
-  }
-  handleSitClick (e, pIndex, index, situationItem) {
-    e.preventDefault;
-    this.props.handleSelectSit(pIndex, index)
-    this.props.setSituation(situationItem, index, 'Conditions')
+    );
   }
 
-  handlePopoverOpen (e, popoverId) {
+  handleSitClick(e, pIndex, index, situationItem) {
+    e.preventDefault();
+    this.props.handleSelectSit(pIndex, index);
+    this.props.setSituation(situationItem, index, 'Conditions');
+  }
+
+  handlePopoverOpen(e, popoverId) {
     this.setState({ anchorEl: e.currentTarget, openedPopoverId: popoverId });
-  };
+  }
 
-  handlePopoverClose () {
+  handlePopoverClose() {
     this.setState({ anchorEl: null, openedPopoverId: null });
-  };
+  }
 }
 
 export default withStyles(styles)(PhasePoints);

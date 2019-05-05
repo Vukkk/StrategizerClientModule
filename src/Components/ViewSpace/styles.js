@@ -179,6 +179,13 @@ const styles = theme => ({
     color: '#f55858',
     textDecoration: 'none',
   },
+  popover: {
+    pointerEvents: 'none',
+    position: 'absolute',
+  },
+  paper: {
+    padding: theme.spacing.unit,
+  },
 });
 
 export default styles;

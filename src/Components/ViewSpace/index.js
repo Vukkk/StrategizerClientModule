@@ -20,7 +20,7 @@ import TocIcon from '@material-ui/icons/Toc';
 import ViewRoutes from './ViewRoutes';
 
 export class ViewSpace extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
@@ -29,7 +29,8 @@ export class ViewSpace extends React.Component {
       right: false
     }
   }
-  render () {
+
+  render() {
     const { classes, setView, view, ...other } = this.props;
 
     const sideList =  (
