@@ -30,8 +30,10 @@ There are common arithmetic and conditional operators used for building conditio
 #### Candlesticks\n
 Candlesticks describe the the visual representation of the high, low, open and close values of an asset within a given period of time. \n
 - \`candle\`
-    - \`high\`, \`low\`, \`open\`, \`close\`
-    - example: \`candle.low > candle.previous.low\`\n
+    - \`open\`, \`close\`, \`min\`, \`max\`, \`begin\`, \`end\`
+        - example: \`candle.close > candle.previous.close\`\n
+    - \`direction\` compared to  \`down\`, \`up\`, \`side\`
+        - example: \`candle.direction === 'down'\`\n
 \n
 #### Bollinger Bands\n
 Bollinger Bands are an indicator that plots a set a of lines two standard deviations above and below a simple moving average. They are usually used to indicate when a market is oversold or overbought as standard deviation is measure of standard variance or volatility.\n 
