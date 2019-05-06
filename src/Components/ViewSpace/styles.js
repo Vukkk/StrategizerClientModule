@@ -179,6 +179,16 @@ const styles = theme => ({
     color: '#f55858',
     textDecoration: 'none',
   },
+  rMdCode: {
+    backgroundColor: '#ddd',
+    padding: '1em',
+    margin: '0.5em 3em',
+  },
+  rMdInlineCode: {
+    backgroundColor: '#ddd',
+    padding: '0.25em',
+    margin: '0.25em',
+  },
   popover: {
     pointerEvents: 'none',
     position: 'absolute',
