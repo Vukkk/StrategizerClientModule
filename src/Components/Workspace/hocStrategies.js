@@ -19,7 +19,7 @@ export class HocStrategies extends React.Component {
     const {
       listStrategies, createStrategy, saveStrategy, setTeam, setFb, classes,
     } = this.props;
-    console.log('HocStrategies: ', listStrategies, this.props);
+
     if (!listStrategies.loading && isDefined(listStrategies.error.graphQLErrors) && listStrategies.error.graphQLErrors[0] === 'Not Authenticated - you have to be authenticated to perform this action') {
       return (
         <Grid container spacing={0} direction='column' justify='stretch' alignItems='center' className={classes.loadContainer}>

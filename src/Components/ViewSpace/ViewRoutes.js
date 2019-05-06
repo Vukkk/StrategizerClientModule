@@ -78,6 +78,9 @@ export class ViewRoutes extends React.Component {
       case 'Points':
         return <DocOnly content={Points} {...other} />;
         break;
+      case 'PhasesDrawer':
+        return <APIDocs content={Phases} {...other} view={view} />;
+        break;
       case 'Phase Code':
       case 'Phases':
         return <PhaseDoc content={Phases} view={view} {...other} />;
@@ -87,6 +90,9 @@ export class ViewRoutes extends React.Component {
         break;
       case 'Conditions':
         return <ConditionDoc content={Conditions} {...other} view={view} />;
+        break;
+      case 'ConditionsDrawer':
+        return <APIDocs content={Conditions} {...other} view={view} />;
         break;
       case 'Conditions Code':
         return <ConditionDoc content={ConditionApi} {...other} view={view} />;

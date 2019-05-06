@@ -1,6 +1,7 @@
 export const ConditionApi = `
 # Condition Methods\n\n
-Condition methods are used for conditionally defining situations. The available indicator methods are based on a simulator's dependencies.
+Condition methods are used for conditionally defining situations. The available indicator methods are based on a simulator's dependencies.\n\n
+**All conditions must resolve to the boolean values of _true_ or _false_.** This means that the condition should not return a number or any other non-boolean values. E.g. \`bollingerBand.direction === 'down'\` will resolve to true or false, but just \`bollingerBand.direction\` will possibly return _up_, _down_ or _side_ and will cause the strategy to fail. \n\n
 
 ## General 
 There are common arithmetic and conditional operators used for building conditions as well as the generally available \`previous\` method.
@@ -26,6 +27,12 @@ There are common arithmetic and conditional operators used for building conditio
 - \`<=\`: _greater than or equal_. If logic value on left side is _greater   than_ or _equal to_ logic value on right, then condition resolves to true.\n 
 \n 
 ## Indicators\n
+#### Candlesticks\n
+Candlesticks describe the the visual representation of the high, low, open and close values of an asset within a given period of time. \n
+- \`candle\`
+    - \`high\`, \`low\`, \`open\`, \`close\`
+    - example: \`candle.low > candle.previous.low\`\n
+\n
 #### Bollinger Bands\n
 Bollinger Bands are an indicator that plots a set a of lines two standard deviations above and below a simple moving average. They are usually used to indicate when a market is oversold or overbought as standard deviation is measure of standard variance or volatility.\n 
 - \`bollingerBand\`
@@ -52,10 +59,10 @@ A bollinger channel starts when the moving average of bollinger bands turn from 
         - example: \`bollingerChannel.direction === 'down'\`\n
 \n
 #### Bollinger SubChannel\n
-A bollinger subchannel starts when the moving average of bollinger bands turn from one direction to another, and it ends whenever the direction turn again.\n
+A bollinger subchannel is a segment of bollinger channel with its own slope indicator. \n
 - \`bollingerSubChannel\`
     - \`begin\`, \`end\`, \`direction\`, \`period\`, \`firstMovingAverage\`, \`lastMovingAverage\`, \`firstDeviation\`, \`lastDeviation\`
-        - example: \`bollingerSubChannel.firstMovingAverage > bollingerSubChannel.previous.firstMovingAverage\`
+        - example: \`bollingerSubChannel.firstMovingAverage < bollingerSubChannel.previous.firstMovingAverage\`
     - \`slope\` compared to  \`Steep\`, \`Medium\`, \`Gentle\`, \`Side\`
         - example: \`bollingerSubChannel.slope === 'Gentle'\`\n
 

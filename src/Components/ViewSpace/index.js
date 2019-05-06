@@ -89,19 +89,19 @@ export class ViewSpace extends React.Component {
           className={classes.root}
         >
           <ListItem button key='item-phases'>
-            <ListItemText primary='Phases' onClick={e => setView(e, 'Phases')} />
+            <ListItemText primary='Phases' onClick={e => setView(e, 'PhasesDrawer')} />
           </ListItem>
-          <ListItem button key='item-phase-api' dense classes={{ dense: classes.drawerInset }}>
-            <ListItemText primary='Phase Commands' onClick={e => setView(e, 'Phase Api')} />
+          <ListItem button key='item-phase-api' dense>
+            <ListItemText primary='Phase Methods' classes={{ root: classes.drawerInset, primary: classes.drawerInset, textDense: classes.drawerInset }} onClick={e => setView(e, 'Phases Api')} />
           </ListItem>
           <ListItem button key='item-situations'>
             <ListItemText primary='Situations' onClick={e => setView(e, 'Situations')} />
           </ListItem>
           <ListItem button key='item-conditions'>
-            <ListItemText primary='Conditions' onClick={e => setView(e, 'Conditions')} />
+            <ListItemText primary='Conditions' onClick={e => setView(e, 'ConditionsDrawer')} />
           </ListItem>
-          <ListItem button key='item-condition-api' dense classes={{ dense: classes.drawerInset }}>
-            <ListItemText dense='true' primary='Condition Commands' classes={{ dense: classes.drawerInset }} onClick={e => setView(e, 'Condition Api')} />
+          <ListItem button key='item-condition-api' dense>
+            <ListItemText dense='true' primary='Condition Methods' classes={{ root: classes.drawerInset, primary: classes.drawerInset, textDense: classes.drawerInset }} onClick={e => setView(e, 'Conditions Api')} />
           </ListItem>
         </List>
       </div>

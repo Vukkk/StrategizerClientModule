@@ -173,7 +173,8 @@ const styles = theme => ({
     height: '18px'
   },
   drawerInset: {
-    paddingLeft: '12px'
+    paddingLeft: '12px',
+    fontSize: '1rem'
   },
   rMdLink: {
     color: '#f55858',

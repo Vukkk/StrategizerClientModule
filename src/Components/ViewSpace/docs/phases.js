@@ -1,10 +1,10 @@
 export const Phases = `
 # Phases\n\n
-Phases are unique to Take Profit and Stop Loss trade events. Phases will create Take Profit or Stop Loss positions when their phase code resolves to true. When the situations within a phase resolve true, the strategy will move out of that phase and release the position if it hasn't been already filled.
+Phases are unique to Take Profit and Stop Loss trade events and manage what Take Profit or Stop Loss formula is passed to the Trader.\n
+Take Profit and Stop Loss trade events sequentially start with the first phase. When the situations of the phase resolve true, the trade event moves to the next phase. The sequence is reset when the strategy event Trigger Off is fired and the strategy restarted with Trigger On. 
+Phases have their own code element used to define formulas that are passed to Traders to create Take Profit (sell) positions or a Stop Loss positions.\n
 \n
 There can be multiple phases defined within a Take Profit/Stop Loss trade event, and each phase may contain multiple situations — each defined by a single or multiple conditions.\n
 \n
-Currently only one conditional code defines when a phase creates .\n
-\n
-**To view phase code command options, click on the phase code edit button.**
+**Phase code method options are viewable when editing the phase code.**
 `;

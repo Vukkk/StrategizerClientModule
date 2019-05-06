@@ -117,7 +117,6 @@ class Layout extends React.Component {
 
   componentDidUpdate(prevProps) {
   // Typical usage (don't forget to compare props):
-  console.log('componentDidUpdate', prevProps, this.props);
   if (prevProps.listStrategies.loading && !this.props.listStrategies.loading) {
     const teams = props.listStrategies.teams_TeamsByOwner;
     const fbs = teams[0].fb;
@@ -164,7 +163,6 @@ class Layout extends React.Component {
 
   render () {
     const { classes, listStrategies, saveStrategy, createStrategy } = this.props;
-    console.log('Layout state: ', this.state);
     const teams = listStrategies.teams_TeamsByOwner;
     const fbs = teams[0].fb;
 
