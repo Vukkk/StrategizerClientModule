@@ -22,7 +22,7 @@ The Strategizer enables you to create complex trading strategies by using condit
 \n\n
 ### What's Next?\n
 Though the purpose of the Strategizer is to lower the barriers-of-entry to automated trading, it is still a complex tool and use is easier with technical/quantitative trading knowledge.\n\n
-Since a default strategy was forked, continue with the demo and run this strategy by going up to Clones, choosing [_Create Clone_](/clones/add) and running a Simulator for both the Market and Daily Periods. Then view the results in [Charts](/charts). 
+As a default strategy was forked when you created a team, continue with the demo and run this strategy by going up to Clones, choosing [_Create Clone_](/clones/add) and running a Simulator for both the Market and Daily Periods. Then view the results in [Charts](/charts). 
 \n
 \n
 ### Diving Deeper\n
