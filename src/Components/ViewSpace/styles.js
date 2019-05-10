@@ -7,7 +7,7 @@ const styles = theme => ({
     margin: 0,
   },
   DocOnlyCont: {
-    margin: `${theme.spacing.unit * 1}px ${theme.spacing.unit * 3}px`
+    margin: `${theme.spacing.unit * 1}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`
   },
   tabTitle: {
     width: '25%',
@@ -68,15 +68,6 @@ const styles = theme => ({
     textDecoration: 'none',
     margin: `0 ${theme.spacing.unit * 1}px 0`,
     color: theme.palette.secondary.main
-  },
-  nested: {
-    paddingLeft: theme.spacing.unit * 3,
-  },
-  strategyItem: {
-    width: '100%'
-  },
-  strategyList: {
-    padding: theme.spacing.unit * 1
   },
   teamsList:{
     padding: theme.spacing.unit * 5
@@ -154,27 +145,6 @@ const styles = theme => ({
     fontWeight: '700',
     textTransform: 'uppercase'
   },
-  itemTopTier:{
-    backgroundColor: '#F1F1F1',
-    "&$itemTopTierSelected": {
-      backgroundColor: '#DDD'
-    }
-  },
-  itemTopTierSelected:{},
-  itemFirstTier:{
-    backgroundColor: '#F9F9F9',
-    "&$itemFirstTierSelected": {
-      backgroundColor: '#E1E1E1'
-    }
-  },
-  itemFirstTierSelected:{},
-  itemSecondTier:{
-    backgroundColor: '#FCFCFC',
-    "&$itemSecondTierSelected": {
-      backgroundColor: '#FFF'
-    }
-  },
-  itemSecondTierSelected:{},
   strategyList: {
     padding: theme.spacing.unit * 1,
     width: '100%'
@@ -185,7 +155,48 @@ const styles = theme => ({
   formBttnGroup:{
     paddingRight: 20,
     paddingBottom: 20
-  }
+  },
+  docMenuCont: {
+    position: 'relative'
+  },
+  docMenuBttn: {
+    position: 'absolute',
+    right: '48px',
+    top: '-33px',
+  },
+  docMenuBodyCont: {
+    float: 'right'
+  },
+  docMenuBodyBttn: {
+  },
+  docMenuIcon: {
+    height: '18px'
+  },
+  drawerInset: {
+    paddingLeft: '12px',
+    fontSize: '1rem'
+  },
+  rMdLink: {
+    color: '#f55858',
+    textDecoration: 'none',
+  },
+  rMdCode: {
+    backgroundColor: '#ddd',
+    padding: '1em',
+    margin: '0.5em 3em',
+  },
+  rMdInlineCode: {
+    backgroundColor: '#ddd',
+    padding: '0.25em',
+    margin: '0.25em',
+  },
+  popover: {
+    pointerEvents: 'none',
+    position: 'absolute',
+  },
+  paper: {
+    padding: theme.spacing.unit,
+  },
 });
 
 export default styles;

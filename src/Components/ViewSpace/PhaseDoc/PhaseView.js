@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-import styles from '../styles';
-import { withStyles } from '@material-ui/core/styles';
-
 import {
   Card,
   List,
@@ -11,22 +8,30 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
-  Button
+  Button,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import { slugify } from '../../../utils';
+import { withStyles } from '@material-ui/core/styles';
+import styles from '../styles';
 
-export class PhaseView extends React.Component {
-  constructor(props){
+const DefaultCodeRenderer = ReactMarkdown.renderers.code;
+
+export class PhaseViewComp extends React.Component {
+  constructor(props) {
     super(props);
 
-    this.state={
-      name: props.phase.name
-    }
+    this.state = {
+      name: props.phase.name,
+    };
   }
-  render () {
+
+  mdCode = props => <div className={this.props.classes.rMdCode}><DefaultCodeRenderer {...props} /></div>
+
+  mdInlineCode = props => <code className={this.props.classes.rMdInlineCode}>{props.children}</code>
+
+  render() {
     const { classes, stratIndex, pointIndex, phase, phaseIndex, updatePoint, toggleEdit } = this.props;
     console.log('PhaseView:', this.props);
 
@@ -49,7 +54,7 @@ export class PhaseView extends React.Component {
                 variant="outlined"
                 size="small"
                 aria-label="Delete Phase"
-                onClick={e => updatePoint(null, pointIndex,'deletePhase', stratIndex, phaseIndex, null, null, null)}
+                onClick={() => updatePoint(null, pointIndex,'deletePhase', stratIndex, phaseIndex, null, null, null)}
               >
                 <DeleteIcon /> Delete Phase
               </Button>
@@ -59,7 +64,16 @@ export class PhaseView extends React.Component {
         <Card className={classes.formPhaseCard}>
           <ListItem>
             <ListItemText primary='Phase Code:' />
-            <div className={classes.codeRenderCont}><ReactMarkdown source={codeMkDown} className={classes.codeRender} /></div>
+            <div className={classes.codeRenderCont}>
+              <ReactMarkdown
+                source={codeMkDown}
+                className={classes.codeRender}
+                renderers={{
+                  code: this.mdCode,
+                  inlineCode: this.mdInlineCode,
+                }}
+              />
+            </div>
             <ListItemSecondaryAction>
               <IconButton aria-label="Edit Phase Code" onClick={e => toggleEdit(e, 'code')}>
                 <EditIcon />
@@ -68,8 +82,8 @@ export class PhaseView extends React.Component {
           </ListItem>
         </Card>
       </List>
-    )
+    );
   }
 }
 
-export default withStyles(styles)(PhaseView);
+export default withStyles(styles)(PhaseViewComp);

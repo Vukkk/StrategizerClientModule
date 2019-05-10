@@ -1,40 +1,27 @@
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
-
-import styles from '../styles';
-import { withStyles } from '@material-ui/core/styles';
 
 import {
-  Card,
   Grid,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
   Button,
   FormGroup,
-  TextField
+  TextField,
 } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-
-import { slugify } from '../../../utils';
 
 export class ConditionNameEdit extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleSaveInput = this.handleSaveInput.bind(this);
 
-    this.state={
+    this.state = {
       name: props.condition.name,
-      changed: false
-    }
+      changed: false,
+    };
   }
-  render () {
-    const { classes, content, condition, stratIndex, pointIndex, phaseIndex, situationIndex, conditionIndex, updatePoint, toggleEdit, edit } = this.props;
+
+  render() {
+    const { classes, toggleEdit } = this.props;
 
     return (
       <Grid
@@ -65,14 +52,14 @@ export class ConditionNameEdit extends React.Component {
             className={classes.formBttnGroup}
           >
             <Grid item>
-              <Button size="small"  aria-label="Cancel Edit Situation" onClick={e => toggleEdit(e, false)}>
+              <Button size="small" aria-label="Cancel Edit Situation" onClick={e => toggleEdit(e, false)}>
                 Cancel
               </Button>
             </Grid>
             <Grid item>
               <Button
                 size="small"
-                variant={this.state.changed ? "contained" : "outlined"}
+                variant={this.state.changed ? 'contained' : 'outlined'}
                 aria-label="Save Situation"
                 onClick={this.handleSaveInput}
               >
@@ -82,17 +69,19 @@ export class ConditionNameEdit extends React.Component {
           </Grid>
         </Grid>
       </Grid>
-    )
+    );
   }
+
   handleChangeInput(e) {
     e.preventDefault();
     e.persist();
     this.setState({[e.target.id]: e.target.value, changed: true })
   }
+
   handleSaveInput(e) {
     e.preventDefault();
-    this.props.updatePoint(this.state.name, this.props.pointIndex,'updateCondition', this.props.stratIndex, this.props.phaseIndex, this.props.situationIndex, this.props.conditionIndex, 'name')
-    this.setState({changed: false })
+    this.props.updatePoint(this.state.name, this.props.pointIndex, 'updateCondition', this.props.stratIndex, this.props.phaseIndex, this.props.situationIndex, this.props.conditionIndex, 'name');
+    this.setState({ changed: false });
     this.props.toggleEdit(e);
   }
 }

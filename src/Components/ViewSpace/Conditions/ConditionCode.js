@@ -1,40 +1,32 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-import styles from '../styles';
-import { withStyles } from '@material-ui/core/styles';
-
 import {
-  Card,
   Grid,
-  List,
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
   Collapse,
-  IconButton,
-  Button
+  Button,
+  Typography,
+  Popper,
+  Paper,
+  Fade,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-
-import { slugify } from '../../../utils';
 
 export class ConditionCode extends React.Component {
-  render () {
+  render() {
     const {
       classes,
-      content,
       condition,
-      stratIndex,
-      pointIndex,
-      phaseIndex,
-      situationIndex,
       conditionIndex,
-      updatePoint,
       toggleEdit,
-      handleChangeDoc,
-      selected
+      selected,
+      handlePopoverOpen,
+      handlePopoverClose,
+      anchorEl,
+      openedPopoverId,
     } = this.props;
 
     const codeMkDown = `\`\`\`  ${condition.code}\`\`\``;
@@ -60,15 +52,26 @@ export class ConditionCode extends React.Component {
                   aria-label="Edit Condition"
                   classes={{ root: classes.editBttn }}
                   onClick={e => toggleEdit(e, 'code')}
+                  onMouseEnter={e => handlePopoverOpen(e, 'popper-condition-edit-code')}
+                  onMouseLeave={handlePopoverClose}
                 >
-                  <EditIcon classes={{root: classes.editBttnLabel}} />
+                  <EditIcon classes={{ root: classes.editBttnLabel }} />
                 </Button>
+                <Popper id={'popper-condition-edit-code'} open={openedPopoverId === 'popper-condition-edit-code'} anchorEl={anchorEl} transition>
+                  {({ TransitionProps }) => (
+                    <Fade {...TransitionProps} timeout={350}>
+                      <Paper classes={{ root: classes.paper }}>
+                        <Typography>Edit condition code</Typography>
+                      </Paper>
+                    </Fade>
+                  )}
+                </Popper>
               </Grid>
             </Grid>
           </ListItemSecondaryAction>
         </ListItem>
       </Collapse>
-    )
+    );
   }
 }
 

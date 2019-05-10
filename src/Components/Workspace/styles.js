@@ -78,20 +78,32 @@ const styles = theme => ({
     backgroundColor: '#F1F1F1',
     "&$itemTopTierSelected": {
       backgroundColor: '#DDD'
+    },
+    "&$itemTopTierSelected:hover": {
+      backgroundColor: '#aaa'
     }
   },
   itemTopTierSelected:{},
   itemFirstTier:{
     backgroundColor: '#F9F9F9',
     "&$itemFirstTierSelected": {
-      backgroundColor: '#E1E1E1'
+      backgroundColor: '#fba8a8'
+    },
+    "&$itemFirstTierSelected:hover": {
+      backgroundColor: '#aaa'
     }
   },
   itemFirstTierSelected:{},
   itemSecondTier:{
     backgroundColor: '#FCFCFC',
-    "&$itemSecondTierSelected": {
+    "&selected": {
       backgroundColor: '#FFF'
+    },
+    "&$itemSecondTierSelected": {
+      backgroundColor: '#fba8a8'
+    },
+    "&$itemSecondTierSelected:hover": {
+      backgroundColor: '#aaa'
     }
   },
   itemSecondTierSelected:{},
@@ -130,7 +142,10 @@ const styles = theme => ({
   },
   paper: {
     padding: theme.spacing.unit,
-  }
+  },
+  loadContainer: {
+    padding: theme.spacing.unit * 5,
+  },
 });
 
 export default styles;

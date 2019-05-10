@@ -76,6 +76,7 @@ export class OrderPoint extends React.Component {
     const {
       classes,
       points,
+      stratIndex,
       point,
       pointIndex,
       phase,
@@ -94,9 +95,9 @@ export class OrderPoint extends React.Component {
 
     return (
       <React.Fragment>
-        <Grid item>
+        <Grid item key='strategy-point-list-group-item'>
           <List className={classes.strategyList}>
-            <ListItem className={classes.root} dense key="point-Title">
+            <ListItem className={classes.root} dense key="strategy-point-Title">
               <ListItemText
                 primary={`Strategy Events: ${strategyName}`}
                 primaryTypographyProps={{variant:'subtitle1'}}
@@ -117,6 +118,7 @@ export class OrderPoint extends React.Component {
             </ListItem>
             <SituationPoints
               entryName="Trigger On"
+              stratIndex={stratIndex}
               pointIndex="entryPoint"
               key="point-entryPoint"
               points={points}
@@ -134,6 +136,7 @@ export class OrderPoint extends React.Component {
             />
             <SituationPoints
               entryName="Trigger Off"
+              stratIndex={stratIndex}
               pointIndex="exitPoint"
               key="point-exitPoint"
               points={points}

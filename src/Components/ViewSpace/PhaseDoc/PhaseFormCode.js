@@ -14,7 +14,7 @@ import {
 
 import { slugify } from '../../../utils';
 
-export class PhaseFormCode extends React.Component {
+export class PhaseFormCodeComp extends React.Component {
   constructor(props){
     super(props);
 
@@ -102,4 +102,4 @@ export class PhaseFormCode extends React.Component {
   }
 }
 
-export default withStyles(styles)(PhaseFormCode);
+export default withStyles(styles)(PhaseFormCodeComp);

@@ -58,7 +58,7 @@ export class FBs extends React.Component {
     const { classes, fbs, fb, setFB } = this.props;
     return (
       <React.Fragment>
-        <ListItem button onClick={this.handleViewFbs} classes={{root: classes.root}}>
+        <ListItem button onClick={this.handleViewFbs} classes={{root: classes.root}} key='strategy-source-fb-list-item-group'>
           <ListItemAvatar>
             <Avatar src={fb.avatar} className={classes.strategyAvatar} />
           </ListItemAvatar>

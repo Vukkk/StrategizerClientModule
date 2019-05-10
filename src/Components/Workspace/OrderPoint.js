@@ -79,6 +79,7 @@ export class OrderPoint extends React.Component {
       point,
       pointIndex,
       phase,
+      stratIndex,
       phaseIndex,
       situationIndex,
       situation,
@@ -94,14 +95,14 @@ export class OrderPoint extends React.Component {
 
     return (
       <React.Fragment>
-        <Grid item>
+        <Grid item key='order-point-list-item-group'>
           <List className={classes.strategyList}>
-            <ListItem className={classes.root} dense key="point-Title">
+            <ListItem className={classes.root} dense key="order-point-title">
               <ListItemText
                 primary={`Trade Events: ${strategyName}`}
                 primaryTypographyProps={{variant:'subtitle1'}}
                 classes={{root: classes.itemTitleRoot, primary: classes.primary}}
-                onClick={e => setView(e, 'Strategy Events')}
+                onClick={e => setView(e, 'Trade Events')}
                 onMouseEnter={(e) => this.handlePopoverOpen(e, 'popper-strat-events')}
                 onMouseLeave={this.handlePopoverClose}
               />
@@ -115,11 +116,12 @@ export class OrderPoint extends React.Component {
                 )}
               </Popper>
             </ListItem>
-            
+
             <SituationPoints
-              entryName="EntryPoint"
+              entryName="Entry Point"
               pointIndex="sellPoint"
               key="point-sellPoint"
+              stratIndex={stratIndex}
               points={points}
               point={point}
               situation={situation}
@@ -133,9 +135,10 @@ export class OrderPoint extends React.Component {
               view={view}
             />
             <PhasePoints
-              entryName="TakeProfit"
+              entryName="Take Profit"
               pointIndex="buyOrder"
               key="point-buyOrder"
+              stratIndex={stratIndex}
               phaseIndex={phaseIndex}
               situationIndex={situationIndex}
               points={points}
@@ -156,9 +159,10 @@ export class OrderPoint extends React.Component {
               handleSelectSit={this.handleSelectSit}
             />
             <PhasePoints
-              entryName="StopLoss"
+              entryName="Stop Loss"
               pointIndex="stopLoss"
               key="point-stopLoss"
+              stratIndex={stratIndex}
               phaseIndex={phaseIndex}
               situationIndex={situationIndex}
               points={points}

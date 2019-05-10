@@ -1,8 +1,4 @@
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
-
-import styles from '../styles';
-import { withStyles } from '@material-ui/core/styles';
 
 import {
   Card,
@@ -10,106 +6,136 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  IconButton,
-  Button
+  Typography,
+  Button,
+  Popper,
+  Paper,
+  Fade,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { withStyles } from '@material-ui/core/styles';
+import styles from '../styles';
 
-import { slugify } from '../../../utils';
-
-import ConditionView from './ConditionView'
+import { ConditionView } from './ConditionView';
 
 export class ConditionList extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
-    this.toggleEdit = this.toggleEdit.bind(this)
+    this.toggleEdit = this.toggleEdit.bind(this);
+    this.handlePopoverOpen = this.handlePopoverOpen.bind(this);
+    this.handlePopoverClose = this.handlePopoverClose.bind(this);
 
-    this.state={
-      edit: false
-    }
+    this.state = {
+      edit: false,
+      anchorEl: null,
+      openedPopoverId: null,
+    };
   }
-  render () {
+
+  render() {
     const {
       classes,
-      content,
       situation,
       stratIndex,
       pointIndex,
       phaseIndex,
       situationIndex,
       updatePoint,
-      toggleEdit,
       handleChangeDoc,
       selected,
-      setView
+      setView,
     } = this.props;
     const { name, conditions } = situation;
+    const { openedPopoverId, anchorEl } = this.state;
 
     return (
       <Card>
         <List disablePadding>
-          <ListItem key={`condition-title`} classes={{ root:classes.condRoot }} >
+          <ListItem key={'view-situation-title'} classes={{ root: classes.condRoot }} >
             <ListItemText
               primary={`Situation ${name}`}
-              primaryTypographyProps={{variant:'subtitle1'}}
-              classes={{root: classes.itemTitleRoot, primary: classes.primary}}
+              primaryTypographyProps={{ variant: 'subtitle1' }}
+              classes={{ root: classes.itemTitleRoot, primary: classes.primary }}
               onClick={e => setView(e, 'Situations')}
             />
-            {!this.state.edit  &&
-              <ListItemSecondaryAction>
-                <Button
-                  type="text"
-                  aria-label="Add Condition"
-                  onClick={e => updatePoint(null, pointIndex,'addCondition', stratIndex, phaseIndex, situationIndex, null, null)}
-                >
-                  <AddIcon />
-                </Button>
-              </ListItemSecondaryAction>
+            {!this.state.edit
+            && <ListItemSecondaryAction>
+              <Button
+                type="text"
+                aria-label="Add Condition"
+                onClick={() => updatePoint(null, pointIndex, 'addCondition', stratIndex, phaseIndex, situationIndex, null, null)}
+                onMouseEnter={e => this.handlePopoverOpen(e, 'popper-condition-add')}
+                onMouseLeave={this.handlePopoverClose}
+              >
+                <AddIcon />
+              </Button>
+              <Popper id={'popper-condition-add'} open={openedPopoverId === 'popper-condition-add'} anchorEl={anchorEl} transition>
+                {({ TransitionProps }) => (
+                  <Fade {...TransitionProps} timeout={350}>
+                    <Paper classes={{ root: classes.paper }}>
+                      <Typography>Add a condition</Typography>
+                    </Paper>
+                  </Fade>
+                )}
+              </Popper>
+            </ListItemSecondaryAction>
             }
           </ListItem>
-          {conditions.length > 0 &&
-            conditions.map((condition, condIndex) => (
-              <ConditionView
-                key={`condition-${condIndex}`}
-                condition={condition}
-                pointIndex={pointIndex}
-                index={condIndex}
-                phaseIndex={phaseIndex}
-                situationIndex={situationIndex}
-                conditionIndex={condIndex}
-                updatePoint={updatePoint}
-                classes={classes}
-                edit={this.state.edit}
-                toggleEdit={this.toggleEdit}
-                handleChangeDoc={handleChangeDoc}
-                selected={selected}
-              />
-            ))
+          {conditions.length > 0
+          && conditions.map((condition, condIndex) => (
+            <ConditionView
+              key={`condition-${condIndex}`}
+              condition={condition}
+              pointIndex={pointIndex}
+              index={condIndex}
+              stratIndex={stratIndex}
+              phaseIndex={phaseIndex}
+              situationIndex={situationIndex}
+              conditionIndex={condIndex}
+              updatePoint={updatePoint}
+              classes={classes}
+              edit={this.state.edit}
+              toggleEdit={this.toggleEdit}
+              handleChangeDoc={handleChangeDoc}
+              selected={selected}
+              handlePopoverOpen={this.handlePopoverOpen}
+              handlePopoverClose={this.handlePopoverClose}
+              anchorEl={this.state.anchorEl}
+              openedPopoverId={this.state.openedPopoverId}
+            />
+          ))
           }
-          {conditions.length === 0 &&
-            <ListItem key={`condition-no-conditions`} >
-              <ListItemText inset >
-                No conditions for this situation.
-                <Button
-                  type="text"
-                  aria-label="Add Condition"
-                  onClick={e => updatePoint(null, pointIndex,'addCondition', stratIndex, phaseIndex, situationIndex, null, null)}
-                >
-                  <AddIcon /> Condition
-                </Button>
-              </ListItemText>
-            </ListItem>
+          {conditions.length === 0
+          && <ListItem key={'condition-no-conditions'} >
+            <ListItemText inset >
+              No conditions for this situation.
+              <Button
+                type="text"
+                aria-label="Add Condition"
+                onClick={() => updatePoint(null, pointIndex, 'addCondition', stratIndex, phaseIndex, situationIndex, null, null)}
+              >
+                <AddIcon /> Condition
+              </Button>
+            </ListItemText>
+          </ListItem>
           }
         </List>
       </Card>
-    )
+    );
   }
 
-  toggleEdit (e, type) {
+  toggleEdit(e, type) {
+    if (type === 'code') this.props.setView(e, 'Conditions Code');
     this.setState(state => ({ edit: type }));
+  }
+
+  handlePopoverOpen(e, popoverId) {
+    this.setState({ anchorEl: e.currentTarget, openedPopoverId: popoverId });
+  }
+
+  handlePopoverClose() {
+    this.setState({ anchorEl: null, openedPopoverId: null });
   }
 }
 

@@ -10,10 +10,12 @@ import {
 } from '@material-ui/core';
 
 import DocOnly from './DocOnly';
+import IntroductionOnly from './Introduction';
 import StrategyDoc from './StrategyDoc';
 import PhaseDoc from './PhaseDoc';
 import SituationDoc from './SituationDoc';
 import ConditionDoc from './Conditions';
+import APIDocs from './API';
 
 import {
   Introduction,
@@ -23,12 +25,17 @@ import {
   Phases,
   Situations,
   Conditions,
+  ConditionApi,
+  PhaseApi,
   StrategyEvents,
+  TradeEvents,
   TriggerOn,
   TriggerOff,
   EntryPoint,
   TakeProfit,
-  StopLoss
+  StopLoss,
+  TypesOfAlgobots,
+  StrategySources
 } from './docs'
 
 export class ViewRoutes extends React.Component {
@@ -41,19 +48,28 @@ export class ViewRoutes extends React.Component {
       case 'Strategy Events':
         return <DocOnly content={StrategyEvents} {...other} />;
         break;
-      case 'TriggerOn':
+      case 'Strategy Sources':
+        return <DocOnly content={StrategySources} {...other} />;
+        break;
+      case 'Types of Algobots':
+        return <DocOnly content={TypesOfAlgobots} {...other} />;
+        break;
+      case 'Trade Events':
+        return <DocOnly content={TradeEvents} {...other} />;
+        break;
+      case 'Trigger On':
         return <DocOnly content={TriggerOn} {...other} />;
         break;
-      case 'TriggerOff':
+      case 'Trigger Off':
         return <DocOnly content={TriggerOff} {...other} />;
         break;
-      case 'EntryPoint':
-        return <StrategyDoc content={EntryPoint} {...other} />;
+      case 'Entry Point':
+        return <DocOnly content={EntryPoint} {...other} />;
         break;
-      case 'TakeProfit':
-        return <StrategyDoc content={TakeProfit} {...other} />;
+      case 'Take Profit':
+        return <DocOnly content={TakeProfit} {...other} />;
         break;
-      case 'StopLoss':
+      case 'Stop Loss':
         return <DocOnly content={StopLoss} {...other} />;
         break;
       case 'Substrategies':
@@ -61,6 +77,9 @@ export class ViewRoutes extends React.Component {
         break;
       case 'Points':
         return <DocOnly content={Points} {...other} />;
+        break;
+      case 'PhasesDrawer':
+        return <APIDocs content={Phases} {...other} view={view} />;
         break;
       case 'Phase Code':
       case 'Phases':
@@ -72,9 +91,21 @@ export class ViewRoutes extends React.Component {
       case 'Conditions':
         return <ConditionDoc content={Conditions} {...other} view={view} />;
         break;
+      case 'ConditionsDrawer':
+        return <APIDocs content={Conditions} {...other} view={view} />;
+        break;
+      case 'Conditions Code':
+        return <ConditionDoc content={ConditionApi} {...other} view={view} />;
+        break;
+      case 'Conditions Api':
+        return <APIDocs content={ConditionApi} {...other} view={view} />;
+        break;
+      case 'Phases Api':
+        return <APIDocs content={PhaseApi} {...other} view={view} />;
+        break;
       case 'Introduction':
       default:
-        return <DocOnly content={Introduction} {...other} />;
+        return <IntroductionOnly content={Introduction} {...other} />;
     }
   }
 }
