@@ -15,24 +15,26 @@ import {
 import { slugify } from '../../../utils';
 
 export class StrategyForm extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleSaveInput = this.handleSaveInput.bind(this);
 
-    this.state={
+    this.state = {
       name: props.strategy.name,
-      changed: false
-    }
+      changed: false,
+    };
   }
+
   componentDidUpdate(prevProps) {
   // Typical usage (don't forget to compare props):
     if (!prevProps.saved && this.props.saved) {
       this.setState = { changed: false }
     }
   }
-  render () {
+
+  render() {
     const { classes, content, strategy, stratIndex, updatePoint, toggleEdit } = this.props;
     return (
       <Card className={classes.formCard}>
@@ -64,7 +66,7 @@ export class StrategyForm extends React.Component {
               className={classes.formBttnGroup}
             >
               <Grid item>
-                <Button size="small"  aria-label="Delete Strategy" onClick={e => toggleEdit(e)}>
+                <Button size="small"  aria-label="Cancel Edit Strategy" onClick={e => toggleEdit(e)}>
                   Cancel
                 </Button>
               </Grid>
