@@ -17,6 +17,7 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import HelpIcon from '@material-ui/icons/Help';
+import CodeIcon from '@material-ui/icons/Code';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
@@ -203,6 +204,24 @@ export class Strategies extends React.Component {
                 primary={strategyItem.name}
               />
               <ListItemSecondaryAction>
+                <Button
+                  aria-label="View Introduction"
+                  onClick={() => setStrategy(strategyItem, 'Strategy Code', strIndex)}
+                  classes={{ root: classes.editBttn }}
+                  onMouseEnter={e => this.handlePopoverOpen(e, 'popperCodeEditor')}
+                  onMouseLeave={this.handlePopoverClose}
+                >
+                  <CodeIcon classes={{ root: classes.editBttnLabel }} />
+                </Button>
+                <Popper id={'popperCodeEditor'} open={openedPopoverId === 'popperCodeEditor'} anchorEl={anchorEl} transition>
+                  {({ TransitionProps }) => (
+                    <Fade {...TransitionProps} timeout={350}>
+                      <Paper classes={{ root: classes.paper }}>
+                        <Typography>Edit Strategy in Code Editor</Typography>
+                      </Paper>
+                    </Fade>
+                  )}
+                </Popper>
                 <Switch
                   aria-label="Activate/Deactivate Strategy"
                   onChange={() => updatePoint(!strategyItem.active, null, 'updateStrategy', strIndex, null, null, null, 'active')}

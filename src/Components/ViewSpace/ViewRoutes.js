@@ -11,7 +11,7 @@ import {
 
 import DocOnly from './DocOnly';
 import IntroductionOnly from './Introduction';
-import StrategyDoc from './StrategyDoc';
+import { StrategyDoc, StrategyCode } from './StrategyDoc';
 import PhaseDoc from './PhaseDoc';
 import SituationDoc from './SituationDoc';
 import ConditionDoc from './Conditions';
@@ -50,6 +50,9 @@ export class ViewRoutes extends React.Component {
         break;
       case 'Strategy Sources':
         return <DocOnly content={StrategySources} {...other} />;
+        break;
+      case 'Strategy Code':
+        return <StrategyCode content={Strategies} {...other} />;
         break;
       case 'Types of Algobots':
         return <DocOnly content={TypesOfAlgobots} {...other} />;
