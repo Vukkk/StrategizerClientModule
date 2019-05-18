@@ -42,6 +42,7 @@ let updSituations;
 let conditionPosition;
 let delConditions;
 let updConditions;
+let gotoView;
 
 class Layout extends React.Component {
   constructor (props) {
@@ -403,11 +404,16 @@ class Layout extends React.Component {
         });
         break;
       case 'updateStrategy':
-        if(isDefined(currStrategy)){
-          if(element === 'active'){
+        gotoView = 'Substrategies';
+        if (isDefined(currStrategy)) {
+          if (element === 'active') {
             currStrategy.active = e;
-          } else {
+          }
+          if (element === 'name') {
             currStrategy.name = e;
+          } else {
+            currStrategy = e;
+            gotoView = 'Strategy Code';
           }
           console.log('updateStrategy: ', currStrategy, strIndex);
         }
@@ -415,7 +421,7 @@ class Layout extends React.Component {
         this.setState({
           stratIndex: strIndex,
           strategy: currStrategy,
-          view: 'Substrategies'
+          view: 'Substrategies',
         });
         break;
       case 'deleteStrategy':

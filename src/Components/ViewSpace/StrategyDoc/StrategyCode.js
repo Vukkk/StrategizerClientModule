@@ -4,7 +4,7 @@ import brace from 'brace';
 import AceEditor from 'react-ace';
 
 import 'brace/mode/javascript';
-import 'brace/theme/solarized_dark';
+import 'brace/theme/xcode';
 
 import {
   Card,
@@ -22,7 +22,6 @@ export class StrategyCodeComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleSaveInput = this.handleSaveInput.bind(this);
     this.onLoad = this.onLoad.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -63,21 +62,19 @@ export class StrategyCodeComponent extends React.Component {
                 <AceEditor
                   placeholder="Placeholder Text"
                   mode="javascript"
-                  theme="solarized_dark"
-                  name="strategy editor"
+                  theme="xcode"
+                  name="strategy_editor"
                   onLoad={this.onLoad}
                   onChange={this.onChange}
                   fontSize={14}
+                  width='100%'
                   showPrintMargin={true}
                   showGutter={true}
                   highlightActiveLine={true}
-                  value={`function onLoad(editor) {
-                  console.log("i've loaded");
-                }`}
+                  value={`${JSON.stringify(this.state.value, null, 2)}`}
+                  cursorStart={1}
+                  editorProps={{ $blockScrolling: Infinity }}
                   setOptions={{
-                    enableBasicAutocompletion: false,
-                    enableLiveAutocompletion: false,
-                    enableSnippets: true,
                     showLineNumbers: true,
                     tabSize: 2,
                   }}
@@ -116,27 +113,19 @@ export class StrategyCodeComponent extends React.Component {
     )
   }
 
-  handleChangeInput(e) {
-    e.preventDefault();
-    e.persist();
-    this.setState({[e.target.id]: e.target.value, changed: true })
+  handleSaveInput() {
+    this.props.updatePoint(this.state.value, this.props.stratIndex, 'updateStrategy', null, null, null, null, null);
+    this.setState({ changed: false });
   }
 
-  handleSaveInput(e) {
-    e.preventDefault();
-    this.props.updatePoint(this.state.name, this.props.stratIndex,'updateStrategy', null, null, null, null, 'name')
-    this.setState({changed: false })
-    this.props.toggleEdit(e);
-  }
-
-  onLoad() {
-    console.log("i've loaded");
+  onLoad(editor) {
+    editor.gotoLine(1);
   }
 
   onChange(newValue) {
-    console.log('change', newValue);
     this.setState({
-      value: newValue
+      value: JSON.parse(newValue),
+      changed: true,
     });
   }
 }
