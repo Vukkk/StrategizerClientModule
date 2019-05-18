@@ -114,7 +114,7 @@ export class StrategyCodeComponent extends React.Component {
   }
 
   handleSaveInput() {
-    this.props.updatePoint(this.state.value, this.props.stratIndex, 'updateStrategy', null, null, null, null, null);
+    this.props.updatePoint(this.state.value, null, 'updateStrategy', this.props.stratIndex, null, null, null, null);
     this.setState({ changed: false });
   }
 

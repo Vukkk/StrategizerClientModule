@@ -163,7 +163,7 @@ class Layout extends React.Component {
     const { classes, listStrategies, saveStrategy, createStrategy } = this.props;
     const teams = listStrategies.teams_TeamsByOwner;
     const fbs = teams[0].fb;
-
+    // console.log('Layout:', this.state);
     const simFbs = fbs.filter((fb, index) => {
       const testSim = /simulator-/.test(fb.slug);
       if(testSim){
@@ -418,7 +418,7 @@ class Layout extends React.Component {
         this.setState({
           stratIndex: strIndex,
           strategy: currStrategy,
-          view: 'Substrategies',
+          view: gotoView,
         });
         break;
       case 'deleteStrategy':
@@ -673,7 +673,7 @@ class Layout extends React.Component {
     let filtered = null;
     if(!isNull(strIndex)){
       filtered = strategies.filter((strategy, index, arr) => {
-          console.log('deleteStrategyFromUpdate filter:', index, strIndex);
+          // console.log('deleteStrategyFromUpdate filter:', index, strIndex);
           if(index !== strIndex){
             return true;
           }

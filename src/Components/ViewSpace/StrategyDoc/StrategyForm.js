@@ -94,7 +94,7 @@ export class StrategyForm extends React.Component {
   }
   handleSaveInput(e) {
     e.preventDefault();
-    this.props.updatePoint(this.state.name, this.props.stratIndex,'updateStrategy', null, null, null, null, 'name')
+    this.props.updatePoint(this.state.name, null,'updateStrategy', this.props.stratIndex, null, null, null, 'name')
     this.setState({changed: false })
     this.props.toggleEdit(e);
   }
