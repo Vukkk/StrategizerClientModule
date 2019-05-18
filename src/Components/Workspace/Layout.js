@@ -42,6 +42,7 @@ let updSituations;
 let conditionPosition;
 let delConditions;
 let updConditions;
+let gotoView;
 
 class Layout extends React.Component {
   constructor (props) {
@@ -156,16 +157,13 @@ class Layout extends React.Component {
       condition: defaultCondition
     });
   }
-  if (prevProps.listStrategies.networkStatus < 7 && this.props.listStrategies.networkStatus >= 7) {
-    console.log('SUCCESSFUL FETCH');
-  }
 }
 
   render () {
     const { classes, listStrategies, saveStrategy, createStrategy } = this.props;
     const teams = listStrategies.teams_TeamsByOwner;
     const fbs = teams[0].fb;
-
+    // console.log('Layout:', this.state);
     const simFbs = fbs.filter((fb, index) => {
       const testSim = /simulator-/.test(fb.slug);
       if(testSim){
@@ -301,7 +299,7 @@ class Layout extends React.Component {
   };
 
   setPhase (phase, index, view) {
-    console.log('setPhase: ', phase, index, view);
+    // console.log('setPhase: ', phase, index, view);
     this.setState(state => ({ phase: phase, phaseIndex: index, view: view }));
   };
 
@@ -318,12 +316,12 @@ class Layout extends React.Component {
   };
 
   updatePoint (e, point, type, strIndex, phsIndex, sitIndex, conIndex, element) {
-    console.log('updatePoint: ', e, point, type, strIndex, phsIndex, sitIndex, conIndex, element);
+    // console.log('updatePoint: ', e, point, type, strIndex, phsIndex, sitIndex, conIndex, element);
     let currState = this.state;
     const strategies = this.state.fb.strategy.subStrategies;
     let currStrategy = (strIndex !== null) ? this.state.fb.strategy.subStrategies[strIndex] : currState.strategy;
     let currPoint = currStrategy[point];
-    console.log('updatePoint 2: ', strategies, currPoint, currStrategy);
+    // console.log('updatePoint 2: ', strategies, currPoint, currStrategy);
     const situationIndex = sitIndex;
     switch (type) {
       case 'addPhase':
@@ -403,24 +401,29 @@ class Layout extends React.Component {
         });
         break;
       case 'updateStrategy':
-        if(isDefined(currStrategy)){
-          if(element === 'active'){
+        gotoView = 'Substrategies';
+        if (isDefined(currStrategy)) {
+          if (element === 'active') {
             currStrategy.active = e;
-          } else {
-            currStrategy.name = e;
           }
-          console.log('updateStrategy: ', currStrategy, strIndex);
+          if (element === 'name') {
+            currStrategy.name = e;
+          } else {
+            currStrategy = e;
+            gotoView = 'Strategy Code';
+          }
+          // console.log('updateStrategy: ', currStrategy, strIndex);
         }
         this.saveStrategyFromUpdate(strIndex, currStrategy);
         this.setState({
           stratIndex: strIndex,
           strategy: currStrategy,
-          view: 'Substrategies'
+          view: gotoView,
         });
         break;
       case 'deleteStrategy':
         if(isDefined(strIndex)){
-          console.log('updateStrategy: ', strIndex);
+          // console.log('updateStrategy: ', strIndex);
           this.setState({
             stratIndex: 0,
             changed: false,
@@ -462,7 +465,7 @@ class Layout extends React.Component {
           currSituation = currPoint.situations[situationIndex];
         }
         currStrategy[point] = currPoint;
-        console.log('updateSituation: ', currStrategy);
+        // console.log('updateSituation: ', currStrategy);
         this.saveStrategyFromUpdate(strIndex, currStrategy)
         this.setState({
           [point]: currPoint,
@@ -485,7 +488,7 @@ class Layout extends React.Component {
         } else {
           delSituations = currPoint.situations;
           updSituations = delSituations.filter((situation, index, arr) => {
-              console.log('deleteStrategyFromUpdate filter:', index, situationIndex);
+              // console.log('deleteStrategyFromUpdate filter:', index, situationIndex);
               if(index !== situationIndex){
                 return true;
               }
@@ -511,19 +514,19 @@ class Layout extends React.Component {
             currPoint.phases[phsIndex].situations[situationIndex].conditions[conIndex].code = e;
           }
           currSituation= currPoint.phases[phsIndex].situations[situationIndex];
-          console.log('updateCondition w Phase: ', currPoint);
+          // console.log('updateCondition w Phase: ', currPoint);
         } else {
-          console.log('updateCondition no phase: ', currPoint);
+          // console.log('updateCondition no phase: ', currPoint);
           if(element === 'name'){
             currPoint.situations[situationIndex].conditions[conIndex].name = e;
           } else {
             currPoint.situations[situationIndex].conditions[conIndex].code = e;
           }
           currSituation = currPoint.situations[situationIndex];
-          console.log('updateCondition no phase: ', currPoint);
+          // console.log('updateCondition no phase: ', currPoint);
         }
         currStrategy[point] = currPoint;
-        console.log('updateCondition: ', currStrategy);
+        // console.log('updateCondition: ', currStrategy);
         this.saveStrategyFromUpdate(strIndex, currStrategy)
         this.setState({
           [point]: currPoint,
@@ -547,7 +550,7 @@ class Layout extends React.Component {
         } else {
           delConditions = currPoint.situations[situationIndex].conditions;
           updConditions = delConditions.filter((condition, index, arr) => {
-              console.log('deleteConditionFromUpdate filter:', index, conIndex);
+              // console.log('deleteConditionFromUpdate filter:', index, conIndex);
               if(index !== conIndex){
                 return true;
               }
@@ -576,7 +579,7 @@ class Layout extends React.Component {
           });
           currStrategy[point].phases = filtered;
         }
-        console.log('deletePhase', currStrategy[point].phases);
+        // console.log('deletePhase', currStrategy[point].phases);
         this.saveStrategyFromUpdate(strIndex, currStrategy)
         this.setState({
           [point]: currPoint,
@@ -590,7 +593,7 @@ class Layout extends React.Component {
       default:
         throw new Error();
     }
-    console.log('Post updatePoint: ', e, point, type, phsIndex, sitIndex, conIndex, this.state);
+    // console.log('Post updatePoint: ', e, point, type, phsIndex, sitIndex, conIndex, this.state);
   }
 
   async submitSave(e){
@@ -621,12 +624,12 @@ class Layout extends React.Component {
       buyOrder,
       sellOrder
     };
-    console.log('submitSave: ', id, strategies, stratIndex, strategy);
+    // console.log('submitSave: ', id, strategies, stratIndex, strategy);
     strategies.subStrategies[stratIndex]=strategy;
 
     let saved = await handleSaveStrategy(saveStrategy, strategies.subStrategies, id);
 
-    console.log('submitSave: ', await saved);
+    // console.log('submitSave: ', await saved);
 
     this.setState({ saved: true, changed: false });
   }
@@ -635,7 +638,7 @@ class Layout extends React.Component {
     const { saveStrategy } = this.props;
     const strategies = this.state.fb.strategy.subStrategies;
     const id = this.state.id;
-    console.log('saveStrategy: ', strategies, strIndex, strategy, id);
+    // console.log('saveStrategy: ', strategies, strIndex, strategy, id);
 
     let updateState = { saved: true, changed: false };
     if(strIndex === 'new'){
@@ -646,7 +649,7 @@ class Layout extends React.Component {
       strategies[strIndex] = strategy;
       updateState = { saved: true, changed: false, stratIndex: strIndex, strategy: strategy };
     }
-    console.log('saveStrategy update: ', strategies);
+    // console.log('saveStrategy update: ', strategies);
     let saved = await saveStrategy({
       variables: {
         id,
@@ -656,7 +659,7 @@ class Layout extends React.Component {
       }
     });
 
-    console.log('saveStrategy saved: ', await saved);
+    // console.log('saveStrategy saved: ', await saved);
 
     this.setState(updateState);
   }
@@ -665,19 +668,19 @@ class Layout extends React.Component {
     const { saveStrategy } = this.props;
     const strategies = this.state.fb.strategy.subStrategies;
     const id = this.state.id;
-    console.log('deleteStrategy: ', strategies, strIndex, id);
+    // console.log('deleteStrategy: ', strategies, strIndex, id);
 
     let filtered = null;
     if(!isNull(strIndex)){
       filtered = strategies.filter((strategy, index, arr) => {
-          console.log('deleteStrategyFromUpdate filter:', index, strIndex);
+          // console.log('deleteStrategyFromUpdate filter:', index, strIndex);
           if(index !== strIndex){
             return true;
           }
           return false;
       });
     }
-    console.log('deleteStrategy filtered: ', filtered);
+    // console.log('deleteStrategy filtered: ', filtered);
 
     let saved = await saveStrategy({
       variables: {
@@ -688,7 +691,7 @@ class Layout extends React.Component {
       }
     });
 
-    console.log('deleteStrategy saved: ', await saved);
+    // console.log('deleteStrategy saved: ', await saved);
 
     this.setState({ saved: true, changed: false, strategy: filtered[0], view: 'Strategies' });
   }

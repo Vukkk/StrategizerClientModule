@@ -13,7 +13,7 @@ import TocIcon from '@material-ui/icons/Toc';
 import StrategyForm from './StrategyForm';
 import StrategyView from './StrategyView';
 
-export class StrategyDoc extends React.Component {
+export class StrategyDocComponent extends React.Component {
   constructor(props){
     super(props);
 
@@ -52,4 +52,4 @@ export class StrategyDoc extends React.Component {
   }
 }
 
-export default withStyles(styles)(StrategyDoc);
+export default withStyles(styles)(StrategyDocComponent);

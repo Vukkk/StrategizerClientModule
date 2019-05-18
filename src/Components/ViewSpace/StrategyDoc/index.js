@@ -1,4 +1,5 @@
 import StrategyDoc from './StrategyDoc';
+import StrategyCode from './StrategyCode';
 
-export { StrategyDoc };
+export { StrategyDoc, StrategyCode };
 export default StrategyDoc;

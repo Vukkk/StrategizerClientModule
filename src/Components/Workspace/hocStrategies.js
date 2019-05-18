@@ -82,9 +82,9 @@ export default compose(
       errorPolicy: 'all',
       // refetchQueries:[{query: LIST_STRATEGIES}]
       update: (proxy, { data: { strategizer_EditStrategy } }, ...other) => {
-        console.log('saveStrategy mut1:', props);
+        // console.log('saveStrategy mut1:', props);
         const data = proxy.readQuery({ query: LIST_STRATEGIES });
-        console.log('saveStrategy mut:', strategizer_EditStrategy, data, props.team, props.fb);
+        // console.log('saveStrategy mut:', strategizer_EditStrategy, data, props.team, props.fb);
         data.teams_TeamsByOwner[props.team].fb[props.fb].strategy = strategizer_EditStrategy;
         proxy.writeQuery({ query: LIST_STRATEGIES, data });
       },
